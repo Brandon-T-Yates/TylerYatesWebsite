@@ -72,94 +72,172 @@
   </div>
 
   <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
-    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
-      <nav aria-label="Page navigation" class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
-        <a href="index.html" class="flex flex-col items-start leading-none">
-          <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Portfolio</span>
-        </a>
-        <span class="text-slate-400">|</span>
-        <a href="resume.html" aria-current="page" class="flex flex-col items-start leading-none">
-          <span class="text-[10px] font-bold uppercase tracking-wide text-makerViolet">Resume</span>
-        </a>
-      </nav>
+    <div class="inline-flex items-center gap-2">
+      <a
+        href="assets/Tyler_Yates_Resume.pdf"
+        download
+        class="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-glowSky backdrop-blur-xl transition hover:bg-white"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v12m0 0l4-4m-4 4l-4-4m-5 8h18" />
+        </svg>
+        <span class="bg-clip-text text-[10px] font-bold uppercase tracking-wide text-transparent animate-orbital">Download Briefing</span>
+      </a>
+      <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+        <nav aria-label="Page navigation" class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+          <a href="index.html" class="flex flex-col items-start leading-none">
+            <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Portfolio</span>
+          </a>
+          <span class="text-slate-400">|</span>
+          <a href="resume.html" aria-current="page" class="flex flex-col items-start leading-none">
+            <span class="text-[10px] font-bold uppercase tracking-wide text-makerViolet">Resume</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </div>
 
-  <main class="relative z-10 mx-auto max-w-5xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
-    <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
+  <main class="relative z-10 mx-auto max-w-5xl px-5 pb-12 pt-12 md:px-10 md:pt-16">
+    <article class="level-up rounded-3xl border border-white/80 bg-white/85 p-6 shadow-xl backdrop-blur-xl md:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/70 pb-5">
+        <div class="min-w-[230px]">
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-makerViolet">Mission Briefing</p>
-          <h1 class="mt-2 font-heading text-3xl font-extrabold text-slate-900 md:text-4xl">Tyler Yates - Professional Resume</h1>
+          <div class="mt-2 flex flex-wrap items-center gap-2">
+            <h1 class="bg-clip-text font-heading text-3xl font-extrabold text-transparent animate-orbital md:text-4xl">Tyler Yates</h1>
+            <span class="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-makerSky">Veteran</span>
+          </div>
           <p class="mt-2 text-sm text-slate-600">Engineering Planner | Software Systems | Delivery Operations</p>
         </div>
+        <div class="text-right text-xs font-medium text-slate-500">
+          <p>United States</p>
+          <p>Director of Technology Trajectory</p>
+        </div>
       </div>
+
+      <section class="mt-6 border-t border-slate-200/70 pt-5">
+        <h2 class="bg-clip-text font-heading text-xl font-bold text-transparent animate-orbital md:text-2xl">Skills</h2>
+        <div class="mt-4 grid gap-4 md:grid-cols-3">
+          <article class="rounded-2xl border border-sky-100 bg-sky-50/70 p-4 shadow-sm">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Product &amp; Delivery</p>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-700">
+              <li>Backlog ownership</li>
+              <li>User stories / Acceptance criteria</li>
+              <li>Sprint rituals</li>
+              <li>Release management</li>
+              <li>GTM readiness</li>
+              <li>Incident / Rollback playbooks</li>
+            </ul>
+          </article>
+      
+          <article class="rounded-2xl border border-violet-100 bg-violet-50/70 p-4 shadow-sm">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Data &amp; Experimentation</p>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-700">
+              <li>Funnels &amp; KPIs</li>
+              <li>A/B testing</li>
+              <li>Dashboards &amp; Alerts</li>
+            </ul>
+          </article>
+      
+          <article class="rounded-2xl border border-amber-100 bg-amber-50/70 p-4 shadow-sm">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Technical &amp; Tools</p>
+            <ul class="mt-2 space-y-1.5 text-sm text-slate-700">
+              <li>Jira / Confluence</li>
+              <li>Figma</li>
+              <li>APIs / JSON</li>
+              <li>SQL</li>
+              <li>Content publishing (CMS)</li>
+              <li>Accessibility (WCAG)</li>
+              <li>Performance &amp; Error monitoring</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      
+      <section class="mt-5">
+        <h2 class="bg-clip-text font-heading text-xl font-bold text-transparent animate-orbital md:text-2xl">Experience</h2>
+        <div class="mt-3 space-y-4 text-sm leading-relaxed text-slate-700">
+          <div class="border-l-2 border-sky-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Engineering Planner @ Lockheed Martin <span class="text-slate-500">(January 2026 - Current)</span></p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Implement process changes utilizing project management tools like Jira and Confluence to
+                enhance team tracking and documentation across multiple teams.</li>
+              <li>Develop project health reports and visualizations for management, providing clear data on
+                team performance and progress across multiple workstreams.</li>
+              <li>Lead core Agile ceremonies, including daily stand-ups, sprint planning, and retrospectives,
+                to keep teams on schedule and resolve blockers quickly.</li>
+              <li>Manage resource planning by identifying staffing needs and securing additional personnel
+                to ensure all project deadlines are met.</li>
+            </ul>
+          </div>
+          <div class="border-l-2 border-violet-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Software Engineer @ CAE <span class="text-slate-500">(September 2024 - January 2026)</span></p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Partnered with hardware teams to deliver high-fidelity digital training products, aligning
+                features with FAA and stakeholder standards.</li>
+              <li>Proactively identified and resolved integration blockers, reducing simulator incidents by
+                94.3%.</li>
+              <li>Partner with stakeholders to align enhancements with user experience and training
+                requirements while preparing status updates and management presentations, and maintain
+                document control.</li>
+              <li>Created and presented status updates and stakeholder decks to communicate roadmap
+                alignment and release readiness.</li>
+            </ul>
+          </div>
+          <div class="border-l-2 border-sky-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Software Engineer Intern @ Universal Studios <span class="text-slate-500">(January 2024 - April 2024)</span></p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Worked in Agile ceremonies and contributed to cross-team alignment.</li>
+              <li>Wrote user stories with acceptance criteria while partnering with Design/QA, and drove it
+                from grooming to demo to release.</li>
+              <li>Documented workflows and tracked progress in JIRA to support transparency and efficient
+                development.</li>
+              <li>Provided Guest-focused feature demos to stakeholders, gathering feedback that informed
+                roadmap prioritization.</li>
+              <li>Published time-sensitive content updates while validating rendering across mobile/web and
+                ensuring accessibility checks (WCAG) were met.</li>
+            </ul>
+          </div>
+          <div class="border-l-2 border-violet-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Project Manager @ Astrion <span class="text-slate-500">(November 2019 - May 2021)</span></p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Led a cross-disciplinary team of Engineers, running daily stand-ups, creating roadmaps,
+                and managing dependencies to ensure on-track delivery.</li>
+              <li>Introduced process improvements that cut delivery time by 12% while communicating
+                scope and budget guardrails to leadership.</li>
+              <li>Aligned acceptance criteria with external stakeholders and resolved conflicts to ensure
+                smooth product handoffs.</li>
+            </ul>
+          </div>
+          <div class="border-l-2 border-amber-300/80 pl-4">
+            <p class="font-semibold text-slate-900">IT Specialist @ U.S. Army <span class="text-slate-500">(September 2018 - June 2019)</span></p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Maintained network infrastructure, including routers, servers, and firewalls, to support
+                secure military communications.</li>
+              <li>Resolved hardware and software issues under time-critical conditions in live operational
+                environments.</li>
+              <li>Prioritized and delegated tasks to team members to ensure all technical objectives were
+                met ahead of schedule.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-6 border-t border-slate-200/70 pt-5">
+        <h2 class="bg-clip-text font-heading text-xl font-bold text-transparent animate-orbital md:text-2xl">Education</h2>
+        <div class="mt-3 grid gap-3 md:grid-cols-2">
+          <div class="rounded-2xl border border-violet-100 bg-violet-50/70 p-4">
+            <p class="font-semibold text-slate-900">MS in Computer Information Systems</p>
+            <p class="text-sm text-makerViolet">Florida Institute of Technology (Florida Tech)</p>
+          </div>
+          <div class="rounded-2xl border border-sky-100 bg-sky-50/70 p-4">
+            <p class="font-semibold text-slate-900">BS in Computer Science</p>
+            <p class="text-sm text-makerSky">Full Sail University - Valedictorian / Dean's List</p>
+          </div>
+        </div>
+      </section>
     </article>
-
-    <article class="level-up mt-6 rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
-      <h2 class="font-heading text-2xl font-bold text-slate-900">Professional History</h2>
-      <div class="mt-4 space-y-4 text-sm leading-relaxed text-slate-700">
-        <div class="border-l-2 border-sky-300/80 pl-4">
-          <p class="font-semibold text-slate-900">Engineering Planner @ Lockheed Martin <span class="text-slate-500">(Jan 2026 - Current)</span></p>
-          <p>Focus on Agile ceremonies, project health reports, and resource planning.</p>
-        </div>
-        <div class="border-l-2 border-violet-300/80 pl-4">
-          <p class="font-semibold text-slate-900">Software Engineer @ CAE <span class="text-slate-500">(Sept 2024 - Jan 2026)</span></p>
-          <p>Reduced simulator incidents by 94.3% and aligned software features to FAA standards.</p>
-        </div>
-        <div class="border-l-2 border-sky-300/80 pl-4">
-          <p class="font-semibold text-slate-900">Software Engineer Intern @ Universal Studios <span class="text-slate-500">(Jan 2024 - April 2024)</span></p>
-          <p>Drove user stories from grooming to release while ensuring WCAG compliance.</p>
-        </div>
-        <div class="border-l-2 border-violet-300/80 pl-4">
-          <p class="font-semibold text-slate-900">Project Manager @ Astrion <span class="text-slate-500">(Nov 2019 - May 2021)</span></p>
-          <p>Led cross-disciplinary teams and cut delivery time by 12%.</p>
-        </div>
-        <div class="border-l-2 border-amber-300/80 pl-4">
-          <p class="font-semibold text-slate-900">IT Specialist @ U.S. Army</p>
-          <p>Maintained network infrastructure and resolved hardware/software blockers in live operational environments.</p>
-        </div>
-      </div>
-    </article>
-
-    <div class="mt-6 grid gap-6 md:grid-cols-3">
-      <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Product &amp; Delivery</p>
-        <ul class="mt-3 space-y-2 text-sm text-slate-700">
-          <li>Backlog Management</li>
-          <li>Go-to-Market Planning</li>
-        </ul>
-      </article>
-      <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Data &amp; Experimentation</p>
-        <ul class="mt-3 space-y-2 text-sm text-slate-700">
-          <li>KPI Frameworks</li>
-          <li>A/B Testing</li>
-        </ul>
-      </article>
-      <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Technical Tools</p>
-        <ul class="mt-3 space-y-2 text-sm text-slate-700">
-          <li>Jira</li>
-          <li>Figma</li>
-          <li>SQL</li>
-          <li>APIs</li>
-        </ul>
-      </article>
-    </div>
-
-    <article class="level-up mt-6 rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
-      <h2 class="font-heading text-2xl font-bold text-slate-900">Education</h2>
-      <div class="mt-4 grid gap-4 md:grid-cols-2">
-        <div class="rounded-2xl border border-violet-100 bg-violet-50/70 p-4">
-          <p class="font-semibold text-slate-900">MS in Computer Information Systems</p>
-          <p class="text-sm text-makerViolet">Florida Institute of Technology</p>
-        </div>
-        <div class="rounded-2xl border border-sky-100 bg-sky-50/70 p-4">
-          <p class="font-semibold text-slate-900">BS in Computer Science</p>
-          <p class="text-sm text-makerSky">Full Sail University (Valedictorian / Dean's List)</p>
-        </div>
-      </div>
+    <article class="level-up mt-4 rounded-2xl border border-white/80 bg-white/85 p-4 text-center shadow-lg backdrop-blur-xl">
+      <p class="text-[11px] font-semibold text-slate-600">Single-page mission briefing optimized for readability and quick decision-making.</p>
     </article>
   </main>
 
