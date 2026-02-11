@@ -51,6 +51,18 @@
       }
     };
   </script>
+  <style>
+    @keyframes orbital-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .animate-orbital {
+      background: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+  </style>
 </head>
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body text-slate-900 antialiased">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
@@ -87,10 +99,12 @@
       </div>
 
       <form id="quiz-form" class="mt-8 space-y-6" aria-label="The Best Friend Synergy Check">
-        <div id="question-card" class="rounded-2xl border border-white/70 bg-white/75 p-6 shadow-glowSky backdrop-blur-md">
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Maker Prompt</p>
-          <h2 id="question-text" class="mt-3 font-heading text-2xl font-bold text-slate-900"></h2>
-          <div id="answers" class="mt-5 space-y-3"></div>
+        <div class="rounded-2xl p-[1.5px] animate-orbital shadow-glowSky">
+          <div id="question-card" class="rounded-2xl border border-white/70 bg-white/75 p-6 shadow-glowSky backdrop-blur-md transition-all duration-300 ease-out">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Maker Prompt</p>
+            <h2 id="question-text" class="mt-3 font-heading text-2xl font-bold text-slate-900"></h2>
+            <div id="answers" class="mt-5 space-y-3"></div>
+          </div>
         </div>
 
         <div class="flex items-center justify-between gap-3">
@@ -110,8 +124,11 @@
           </button>
         </div>
       </form>
+      <div id="sync-status" class="mt-4 hidden rounded-xl border border-violet-200 bg-white/85 px-4 py-3 text-center text-xs font-bold uppercase tracking-[0.15em] text-makerViolet opacity-0 transition-opacity duration-300">
+        Syncing Operating Modes...
+      </div>
 
-      <section id="results" class="mt-8 hidden rounded-2xl border border-white/70 bg-white/75 p-6 shadow-xl backdrop-blur-md">
+      <section id="results" class="mt-8 hidden rounded-2xl border border-white/70 bg-white/75 p-6 shadow-xl backdrop-blur-md transition-all duration-500 ease-out">
         <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Result Screen</p>
         <h2 class="mt-2 font-heading text-3xl font-bold text-slate-900">Synergy Report</h2>
 
@@ -151,93 +168,93 @@
   <script>
     const questions = [
       {
-        prompt: "A 3D print fails at 93%. What's your first move?",
+        prompt: "A 3D print fails at 90%. Your first move?",
         options: [
-          { text: "Re-slice immediately with a stronger support plan and restart now.", trait: "D" },
-          { text: "Post the fail, laugh it off, and crowdsource fixes from your maker crew.", trait: "I" },
-          { text: "Pause, inspect the setup, and carefully stabilize for the next run.", trait: "S" },
-          { text: "Run a root-cause check on temp, speed, and adhesion before touching anything.", trait: "C" }
+          { text: "Restart immediately with a better plan.", trait: "D" },
+          { text: "Laugh, post the fail, and ask for tips.", trait: "I" },
+          { text: "Try to save it and keep the build steady.", trait: "S" },
+          { text: "Analyze the G-code to find the error.", trait: "C" }
         ]
       },
       {
-        prompt: "In a D&D party, your default role is:",
+        prompt: "You just arrived at Universal. Which ride first?",
         options: [
-          { text: "Shot-caller who sets direction and tempo in combat.", trait: "D" },
-          { text: "Face of the party who keeps morale and momentum high.", trait: "I" },
-          { text: "Reliable support who protects team cohesion.", trait: "S" },
-          { text: "Planner who tracks resources, risks, and contingencies.", trait: "C" }
+          { text: "VelociCoaster—straight to the thrills.", trait: "D" },
+          { text: "Hagrid's—fun vibes with the group.", trait: "I" },
+          { text: "E.T. Adventure—keep it classic and steady.", trait: "S" },
+          { text: "Bourne Stuntacular—checking the tech.", trait: "C" }
         ]
       },
       {
-        prompt: "A project timeline gets compressed by two weeks. You:",
+        prompt: "Your D&D party hits a locked door. You:",
         options: [
-          { text: "Cut low-impact scope and drive execution hard.", trait: "D" },
-          { text: "Rally everyone with a hype reset and fast standups.", trait: "I" },
-          { text: "Negotiate a sustainable pace and protect team bandwidth.", trait: "S" },
-          { text: "Rebuild the schedule with dependencies and critical path math.", trait: "C" }
+          { text: "Kick it down and lead the charge.", trait: "D" },
+          { text: "Try to talk the guard into opening it.", trait: "I" },
+          { text: "Wait for the group to decide together.", trait: "S" },
+          { text: "Search for a hidden mechanism or key.", trait: "C" }
         ]
       },
       {
-        prompt: "When testing a new workflow, your style is:",
+        prompt: "A project deadline is tomorrow. You:",
         options: [
-          { text: "Pilot quickly and iterate under pressure.", trait: "D" },
-          { text: "Test with others and build energy around the process.", trait: "I" },
-          { text: "Adopt only when it feels stable and team-friendly.", trait: "S" },
-          { text: "Define clear criteria and validate against objective metrics.", trait: "C" }
+          { text: "Cut the noise and drive to the finish.", trait: "D" },
+          { text: "Get the team hyped for a final push.", trait: "I" },
+          { text: "Check in to see who needs help.", trait: "S" },
+          { text: "Double-check the data for any gaps.", trait: "C" }
         ]
       },
       {
-        prompt: "Your desk/setup is usually:",
+        prompt: "Designing a new Disney attraction. Focus on:",
         options: [
-          { text: "Mission-ready and built for speed.", trait: "D" },
-          { text: "Creative chaos with inspiration everywhere.", trait: "I" },
-          { text: "Comfortable and consistent every day.", trait: "S" },
-          { text: "Organized, labeled, and optimized for precision.", trait: "C" }
+          { text: "High-speed thrills and impact.", trait: "D" },
+          { text: "Immersive story and guest joy.", trait: "I" },
+          { text: "Reliable systems and safety.", trait: "S" },
+          { text: "Complex engineering and precision.", trait: "C" }
         ]
       },
       {
-        prompt: "A teammate misses a handoff. You:",
+        prompt: "Surprise holiday! Work is officially off. You:",
         options: [
-          { text: "Reset ownership and get back on track immediately.", trait: "D" },
-          { text: "Talk it through and keep the tone positive.", trait: "I" },
-          { text: "Check in on constraints and offer support.", trait: "S" },
-          { text: "Document the gap and harden the process to prevent repeats.", trait: "C" }
+          { text: "Head out for an intense hike.", trait: "D" },
+          { text: "Hit the beach with a group of friends.", trait: "I" },
+          { text: "Catch a movie and actually relax.", trait: "S" },
+          { text: "Grind some games or optimize your PC.", trait: "C" }
         ]
       },
       {
-        prompt: "For a weekend maker project, you prefer:",
+        prompt: "A teammate misses a deadline. Your style:",
         options: [
-          { text: "A hard challenge with a clear finish line.", trait: "D" },
-          { text: "Something social, expressive, and fun to share.", trait: "I" },
-          { text: "A relaxing build with predictable progress.", trait: "S" },
-          { text: "A technical experiment with measurable outputs.", trait: "C" }
+          { text: "Assign a new owner and move on.", trait: "D" },
+          { text: "Talk it out and keep things positive.", trait: "I" },
+          { text: "Offer support to help them catch up.", trait: "S" },
+          { text: "Update the process to prevent it next time.", trait: "C" }
         ]
       },
       {
-        prompt: "In a strategy discussion, you value:",
+        prompt: "Your home workspace vibe is:",
         options: [
-          { text: "Decisive calls and momentum.", trait: "D" },
-          { text: "Buy-in and enthusiasm.", trait: "I" },
-          { text: "Consistency and team trust.", trait: "S" },
-          { text: "Evidence and logical structure.", trait: "C" }
+          { text: "Mission-ready and efficient.", trait: "D" },
+          { text: "Creative and full of inspiration.", trait: "I" },
+          { text: "Comfortable and very consistent.", trait: "S" },
+          { text: "Organized and perfectly optimized.", trait: "C" }
         ]
       },
       {
-        prompt: "When mentoring someone new, you lead with:",
+        prompt: "When combat starts in D&D, you are the:",
         options: [
-          { text: "Clear goals, high standards, and direct feedback.", trait: "D" },
-          { text: "Encouragement, storytelling, and confidence building.", trait: "I" },
-          { text: "Patience, repetition, and calm support.", trait: "S" },
-          { text: "Frameworks, documentation, and repeatable checklists.", trait: "C" }
+          { text: "Front-line Fighter calling the shots.", trait: "D" },
+          { text: "Bard keeping the energy high.", trait: "I" },
+          { text: "Cleric making sure everyone is safe.", trait: "S" },
+          { text: "Wizard tracking every spell and slot.", trait: "C" }
         ]
       },
       {
-        prompt: "Success feels best when:",
+        prompt: "Success is best when:",
         options: [
-          { text: "The mission is complete and impact is obvious.", trait: "D" },
-          { text: "Everyone is energized and wants to do it again.", trait: "I" },
-          { text: "The team is steady and conflict-free.", trait: "S" },
-          { text: "The system works cleanly and scales reliably.", trait: "C" }
+          { text: "The mission is 100% complete.", trait: "D" },
+          { text: "The whole team is celebrating.", trait: "I" },
+          { text: "The progress was smooth and steady.", trait: "S" },
+          { text: "The system worked perfectly.", trait: "C" }
         ]
       }
     ];
@@ -252,17 +269,23 @@
     const progressLabel = document.getElementById("progress-label");
     const progressValue = document.getElementById("progress-value");
     const progressBar = document.getElementById("progress-bar");
+    const questionCard = document.getElementById("question-card");
     const questionText = document.getElementById("question-text");
     const answersWrap = document.getElementById("answers");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const quizForm = document.getElementById("quiz-form");
+    const syncStatus = document.getElementById("sync-status");
+    const scanLine = document.getElementById("scan-line");
     const results = document.getElementById("results");
     const compatibilityEl = document.getElementById("compatibility");
     const roleEl = document.getElementById("party-role");
     const roleDetailEl = document.getElementById("role-detail");
     const discBars = document.getElementById("disc-bars");
     const retakeBtn = document.getElementById("retake-btn");
+    const SCAN_DURATION_MS = 600;
+    const RESULT_SYNC_MS = 1500;
+    let transitionBusy = false;
 
     function renderQuestion() {
       const q = questions[current];
@@ -287,10 +310,11 @@
       });
 
       prevBtn.disabled = current === 0;
+      nextBtn.disabled = false;
       nextBtn.textContent = current === questions.length - 1 ? "Calculate Synergy" : "Next Prompt";
     }
 
-    function calculateResults() {
+    function calculateResults(holdReveal = false) {
       const counts = { D: 0, I: 0, S: 0, C: 0 };
       answers.forEach((choice, idx) => {
         const trait = questions[idx].options[choice].trait;
@@ -357,6 +381,10 @@
         discBars.appendChild(row);
       });
 
+      if (holdReveal) {
+        return;
+      }
+
       quizForm.classList.add("hidden");
       results.classList.remove("hidden");
       progressLabel.textContent = "Assessment Complete";
@@ -364,7 +392,66 @@
       progressBar.style.width = "100%";
     }
 
+
+    function runQuestionTransition(nextIndex) {
+      transitionBusy = true;
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+
+      questionCard.classList.add("opacity-0", "scale-95");
+
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          current = nextIndex;
+          renderQuestion();
+        });
+      }, SCAN_DURATION_MS / 2);
+
+      setTimeout(() => {
+        questionCard.classList.remove("opacity-0", "scale-95");
+        transitionBusy = false;
+      }, SCAN_DURATION_MS + 40);
+    }
+
+    function runResultsTransition() {
+      transitionBusy = true;
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+
+      questionCard.classList.add("opacity-0", "scale-95");
+
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          calculateResults(true);
+          syncStatus.classList.remove("hidden");
+          requestAnimationFrame(() => {
+            syncStatus.classList.add("opacity-100");
+          });
+        });
+      }, SCAN_DURATION_MS / 2);
+
+      setTimeout(() => {
+        syncStatus.classList.remove("opacity-100");
+        quizForm.classList.add("hidden");
+        syncStatus.classList.add("hidden");
+        results.classList.remove("hidden");
+        results.classList.add("opacity-0", "translate-y-2");
+        requestAnimationFrame(() => {
+          results.classList.remove("opacity-0", "translate-y-2");
+          results.classList.add("opacity-100", "translate-y-0");
+        });
+        progressLabel.textContent = "Assessment Complete";
+        progressValue.textContent = "100%";
+        progressBar.style.width = "100%";
+        transitionBusy = false;
+      }, SCAN_DURATION_MS + RESULT_SYNC_MS);
+    }
+
     nextBtn.addEventListener("click", () => {
+      if (transitionBusy) {
+        return;
+      }
+
       const checked = document.querySelector(`input[name="q-${current}"]:checked`);
       if (!checked) {
         return;
@@ -372,15 +459,18 @@
 
       answers[current] = Number(checked.value);
       if (current === questions.length - 1) {
-        calculateResults();
+        runResultsTransition();
         return;
       }
 
-      current += 1;
-      renderQuestion();
+      runQuestionTransition(current + 1);
     });
 
     prevBtn.addEventListener("click", () => {
+      if (transitionBusy) {
+        return;
+      }
+
       if (current === 0) {
         return;
       }
@@ -392,7 +482,12 @@
       current = 0;
       answers = new Array(questions.length).fill(null);
       results.classList.add("hidden");
+      results.classList.remove("opacity-100", "translate-y-0", "opacity-0", "translate-y-2");
+      questionCard.classList.remove("opacity-0", "scale-95");
+      syncStatus.classList.add("hidden");
+      syncStatus.classList.remove("opacity-100");
       quizForm.classList.remove("hidden");
+      transitionBusy = false;
       renderQuestion();
     });
 
