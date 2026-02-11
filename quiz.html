@@ -377,6 +377,8 @@
     const tylerProfile = { D: 0.36, I: 0.2, S: 0.08, C: 0.36 };
     const traitLabels = { D: "Dominance", I: "Influence", S: "Steadiness", C: "Conscientiousness" };
     const traitColors = { D: "bg-makerAmber", I: "bg-makerViolet", S: "bg-sky-400", C: "bg-makerSky" };
+    const TELEMETRY_ENDPOINT = "https://formspree.io/f/xnjbjrey";
+    const QUIZ_ATTEMPT_KEY = "synergy_quiz_attempt_count";
 
     let current = 0;
     let answers = new Array(questions.length).fill(null);
@@ -422,6 +424,46 @@
       }
     }
 
+    function incrementQuizAttemptCount() {
+      try {
+        const rawCount = localStorage.getItem(QUIZ_ATTEMPT_KEY);
+        const currentCount = Number.parseInt(rawCount || "0", 10);
+        const nextCount = Number.isNaN(currentCount) ? 1 : currentCount + 1;
+        localStorage.setItem(QUIZ_ATTEMPT_KEY, String(nextCount));
+        return nextCount;
+      } catch (error) {
+        return 1;
+      }
+    }
+
+    async function transmitQuizTelemetry(resultSummary, attemptCount) {
+      const payload = {
+        timestamp: new Date().toISOString(),
+        attemptCount,
+        compatibilityPercentage: resultSummary.compatibility,
+        partyRole: resultSummary.role
+      };
+
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 2500);
+
+      try {
+        await fetch(TELEMETRY_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+      } catch (error) {
+        // Silent telemetry: ignore client-side transmission failures.
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
+    }
+
     function runSystemBoot() {
       progressBar.style.width = "0%";
       quizContainer.removeAttribute("inert");
@@ -461,7 +503,6 @@
 
       setTimeout(() => {
         questionCard.classList.remove("lift-pop");
-        focusCurrentQuestionOption();
       }, 860);
     }
 
@@ -541,6 +582,7 @@
       compatibilityEl.textContent = `${compatibility}%`;
       roleEl.textContent = role;
       roleDetailEl.textContent = roleDetail;
+      const resultSummary = { compatibility, role };
 
       discBars.innerHTML = "";
       ["D", "I", "S", "C"].forEach((trait) => {
@@ -560,7 +602,7 @@
       });
 
       if (holdReveal) {
-        return;
+        return resultSummary;
       }
 
       quizForm.classList.add("hidden");
@@ -568,6 +610,7 @@
       progressLabel.textContent = "Assessment Complete";
       progressValue.textContent = "100%";
       progressBar.style.width = "100%";
+      return resultSummary;
     }
 
 
@@ -608,34 +651,16 @@
       prevBtn.disabled = true;
       nextBtn.disabled = true;
       quizForm.setAttribute("inert", "");
+      const attemptCount = incrementQuizAttemptCount();
+      let telemetryComplete = false;
+      let syncDelayComplete = false;
+      let finalized = false;
 
-      if (prefersReducedMotion) {
-        calculateResults(true);
-        quizForm.classList.add("hidden");
-        syncStatus.classList.add("hidden");
-        syncStatus.classList.remove("opacity-100");
-        results.classList.remove("hidden");
-        progressLabel.textContent = "Assessment Complete";
-        progressValue.textContent = "100%";
-        progressBar.style.width = "100%";
-        transitionBusy = false;
-        focusResultsSummary();
-        return;
-      }
-
-      questionCard.classList.add("opacity-0", "scale-95");
-
-      setTimeout(() => {
-        requestAnimationFrame(() => {
-          calculateResults(true);
-          syncStatus.classList.remove("hidden");
-          requestAnimationFrame(() => {
-            syncStatus.classList.add("opacity-100");
-          });
-        });
-      }, SCAN_DURATION_MS / 2);
-
-      setTimeout(() => {
+      function finalizeResultsTransition() {
+        if (finalized || !telemetryComplete || !syncDelayComplete) {
+          return;
+        }
+        finalized = true;
         syncStatus.classList.remove("opacity-100");
         quizForm.classList.add("hidden");
         syncStatus.classList.add("hidden");
@@ -650,7 +675,37 @@
         progressBar.style.width = "100%";
         transitionBusy = false;
         focusResultsSummary();
+      }
+
+      function startSyncAndTelemetry() {
+        requestAnimationFrame(() => {
+          const resultSummary = calculateResults(true);
+          syncStatus.classList.remove("hidden");
+          requestAnimationFrame(() => {
+            syncStatus.classList.add("opacity-100");
+          });
+          transmitQuizTelemetry(resultSummary, attemptCount).finally(() => {
+            telemetryComplete = true;
+            finalizeResultsTransition();
+          });
+        });
+      }
+
+      window.setTimeout(() => {
+        syncDelayComplete = true;
+        finalizeResultsTransition();
       }, SCAN_DURATION_MS + RESULT_SYNC_MS);
+
+      if (prefersReducedMotion) {
+        startSyncAndTelemetry();
+        return;
+      }
+
+      questionCard.classList.add("opacity-0", "scale-95");
+
+      setTimeout(() => {
+        startSyncAndTelemetry();
+      }, SCAN_DURATION_MS / 2);
     }
 
     nextBtn.addEventListener("click", () => {
