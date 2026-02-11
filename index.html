@@ -51,6 +51,89 @@
       }
     };
   </script>
+  <style>
+    @keyframes orbital-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* Unified brand gradient animation */
+    .animate-orbital {
+      background: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    @keyframes scroll-titles {
+      0%, 14% { transform: translateY(0); }
+      16%, 30% { transform: translateY(-26px); }    /* Dungeon Master */
+      32%, 46% { transform: translateY(-52px); }    /* Home Cook */
+      48%, 62% { transform: translateY(-78px); }    /* Gamer */
+      64%, 78% { transform: translateY(-104px); }   /* Tech Collector */
+      80%, 94% { transform: translateY(-130px); }   /* Optimizer */
+      96%, 100% { transform: translateY(-156px); }  /* Father (Loop) */
+    }
+
+    .animate-title-scroll {
+      display: flex;
+      flex-direction: column;
+      animation: scroll-titles 18s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+    }
+
+    @keyframes chromatic-border {
+      0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+      50% { background-position: 100% 50%; filter: hue-rotate(18deg); }
+      100% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    }
+
+    .animate-chromatic-border {
+      animation: chromatic-border 8s linear infinite;
+      background-size: 200% 200%;
+    }
+
+    .mode-panel {
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    .mode-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mode-enter {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .mode-exit {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+
+    @keyframes system-sweep {
+      0% { transform: translateX(-15vw); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateX(115vw); opacity: 0; }
+    }
+
+    #system-overlay .overlay-wash {
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    #system-overlay .overlay-scan {
+      opacity: 0;
+    }
+
+    #system-overlay.is-active .overlay-wash {
+      opacity: 1;
+    }
+
+    #system-overlay.is-active .overlay-scan {
+      animation: system-sweep 700ms ease-out both;
+    }
+  </style>
 </head>
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body text-slate-900 antialiased">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
@@ -70,13 +153,53 @@
     <div id="scroll-line" class="h-0 w-full bg-gradient-to-b from-cyan-400 via-sky-500 to-violet-500 transition-[height] duration-150"></div>
   </div>
 
+  <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
+    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+      <button
+        id="mode-toggle"
+        type="button"
+        aria-label="Toggle between portfolio and resume mode"
+        class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl"
+      >
+        <span id="label-portfolio" class="flex flex-col items-start leading-none">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-makerSky">Portfolio</span>
+        </span>
+        <span class="text-slate-400">|</span>
+        <span id="label-resume" class="flex flex-col items-start leading-none">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Resume</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div id="system-overlay" class="pointer-events-none fixed inset-0 z-[60] hidden">
+    <div class="overlay-wash absolute inset-0 bg-white/35"></div>
+    <div class="overlay-scan absolute left-0 top-1/2 h-[3px] w-44 -translate-y-1/2 rounded-full bg-gradient-to-r from-violet-500 via-sky-400 to-cyan-300 shadow-[0_0_14px_rgba(14,165,233,0.65)]"></div>
+  </div>
+
+  <div id="portfolio-view" class="mode-panel mode-active">
   <main class="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
     <section class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-8 shadow-xl backdrop-blur-xl md:p-12">
       <div class="grid items-center gap-8 md:grid-cols-[1fr_auto]">
         <div>
-          <p class="mb-5 inline-flex rounded-full border border-sky-200 bg-sky-50 px-4 py-1 text-xs font-semibold tracking-wide text-makerSky">
-            THE CREATIVE MAKER
-          </p>
+          <div class="mb-6 flex flex-wrap items-center gap-3">
+            <p class="inline-flex h-[26px] items-center justify-center rounded-full border border-sky-200 bg-sky-50 px-4 text-[10px] font-bold uppercase tracking-widest text-makerSky">
+              THE CREATIVE MAKER
+            </p> 
+            <div class="level-up inline-flex p-[1.5px] rounded-full animate-orbital shadow-sm">
+              <div class="relative h-[26px] w-[155px] overflow-hidden rounded-full bg-white">
+                <div class="animate-title-scroll w-full">
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Father</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Dungeon Master</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Home Cook</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Gamer</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Tech Collector</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Optimizer</span>
+                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]" aria-hidden="true">Father</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <h1 class="font-heading text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl">
             Engineering the Plan. Building the Result.
           </h1>
@@ -103,12 +226,14 @@
             />
             </div>
           </div>
-          <a href="quiz.html" class="group level-up relative mt-5 inline-flex animate-quizWiggle items-center gap-2 self-center rounded-xl border border-slate-200/60 bg-white/30 px-5 py-2.5 text-sm font-bold text-slate-700 shadow-glowSky backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:scale-105">
-            <span class="absolute -inset-1 rounded-xl bg-makerSky/20 opacity-0 blur-md transition-all duration-500 group-hover:opacity-100"></span>
-            <span class="relative z-10 bg-gradient-to-r from-slate-700 to-slate-700 bg-clip-text text-transparent transition-all duration-500 group-hover:from-makerSky group-hover:to-makerViolet">See if we might be best friends here!</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-4 w-4 transition-all duration-500 group-hover:text-makerSky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+          <a href="quiz.html" class="group level-up relative mt-5 inline-flex animate-quizWiggle self-center rounded-xl p-[2px] shadow-glowSky transition-all duration-500 hover:-translate-y-1">
+            <span class="animate-chromatic-border absolute inset-0 rounded-xl bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber"></span>
+            <span class="relative z-10 inline-flex items-center gap-2 rounded-[10px] bg-white px-5 py-2.5 text-sm font-bold">
+              <span class="bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber bg-clip-text text-transparent">See if we might be best friends here!</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-600 transition-all duration-500 group-hover:text-makerSky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
           </a>
         </div>
       </div>
@@ -121,13 +246,13 @@
           <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">The Blueprint</p>
           <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">Software Engineer Roots</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Software-first foundations let me translate Lockheed planning constraints into executable systems, while maker projects keep the designs practical and testable.
+            Software-first foundations let me translate high-stakes aerospace planning constraints into executable systems, while maker projects keep the designs practical and testable.
           </p>
         </article>
 
         <article class="level-up rounded-3xl border border-white/60 border-b-4 border-b-violet-300 bg-white/70 p-6 shadow-glowViolet backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-violet-400 hover:shadow-2xl md:rotate-[1.3deg]" data-stagger-item>
           <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">The Grind</p>
-          <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">MS Candidate, Florida Tech</h3>
+          <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">MS in Computer Information Systems</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Graduate work sharpens how I structure aerospace delivery plans and how I model decision trees for campaign strategy and tabletop systems.
           </p>
@@ -173,8 +298,9 @@
           <h3 class="font-heading text-xl font-semibold text-slate-900">Tools</h3>
           <ul class="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
             <li>Jira &amp; Confluence</li>
-            <li>MS Project / Primavera P6</li>
-            <li>Git &amp; CI/CD Pipelines</li>
+            <li>Gemini &amp; OpenAI (Advanced Prompting)</li>
+            <li>Claude (Technical Logic)</li>
+            <li>AI-Assisted Development</li>
           </ul>
         </article>
       </div>
@@ -201,6 +327,30 @@
             Built operational depth in simulation environments where precision, repeatability, and readiness drive outcomes.
           </p>
         </article>
+
+        <article class="border-l-2 border-sky-300/80 pl-5">
+          <h3 class="font-heading text-2xl font-semibold text-slate-900">Agile Product Lifecycle</h3>
+          <p class="mt-1 text-sm font-medium text-makerSky">Universal Studios Orlando</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            Bridged guest experience with technical execution by driving features from user story creation to global release. Managed cross-team alignment to ensure high-visibility content reached production with accessibility (WCAG) and performance at the forefront.
+          </p>
+        </article>
+
+        <article class="border-l-2 border-violet-300/80 pl-5">
+          <h3 class="font-heading text-2xl font-semibold text-slate-900">Technical Project Management</h3>
+          <p class="mt-1 text-sm font-medium text-makerViolet">Astrion</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            Led cross-disciplinary engineering squads to optimize delivery pipelines and manage complex dependencies. Implemented process improvements that accelerated delivery by 12% while maintaining rigid scope and budget guardrails for external stakeholders.
+          </p>
+        </article>
+
+        <article class="border-l-2 border-amber-300/80 pl-5">
+          <h3 class="font-heading text-2xl font-semibold text-slate-900">Mission-Critical Communications</h3>
+          <p class="mt-1 text-sm font-medium text-makerAmber">United States Army</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            Engineered and maintained secure network infrastructure in high-pressure operational environments. Led technical teams to resolve hardware and software blockers under time-critical constraints to ensure 100% mission readiness.
+          </p>
+        </article>
       </div>
     </section>
 
@@ -219,6 +369,10 @@
               <p class="font-semibold text-slate-900">PMI-ACP</p>
               <p class="mt-1 text-sm text-slate-600">Agile Certified Practitioner</p>
             </article>
+            <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p class="font-semibold text-slate-900">Google Project Management</p>
+              <p class="mt-1 text-sm text-slate-600">Professional Certificate</p>
+            </article>
           </div>
         </div>
 
@@ -230,11 +384,15 @@
           <div class="space-y-3">
             <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
               <p class="font-semibold text-slate-900">Master of Science</p>
-              <p class="mt-1 text-sm text-slate-600">Florida Institute of Technology</p>
+              <p class="mt-1 text-sm text-slate-600">CIS at Florida Tech</p>
             </article>
             <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
               <p class="font-semibold text-slate-900">PMP Certification</p>
               <p class="mt-1 text-sm text-slate-600">Project Management Professional</p>
+            </article>
+            <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
+              <p class="font-semibold text-slate-900">Scrum Master I (PSM I)</p>
+              <p class="mt-1 text-sm text-slate-600">Professional Scrum Master</p>
             </article>
           </div>
         </div>
@@ -246,16 +404,12 @@
           </h3>
           <div class="space-y-3">
             <article class="rounded-xl border border-sky-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Google Project Management</p>
-              <p class="mt-1 text-sm text-slate-600">Professional Certificate</p>
+              <p class="font-semibold text-slate-900">Bachelor of Science</p>
+              <p class="mt-1 text-sm text-slate-600">CS at Full Sail University</p>
             </article>
             <article class="rounded-xl border border-sky-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Salesforce Military</p>
-              <p class="mt-1 text-sm text-slate-600">Community Badges</p>
-            </article>
-            <article class="rounded-xl border border-sky-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Veteran Status</p>
-              <p class="mt-1 text-sm text-slate-600">U.S. Military Service</p>
+              <p class="font-semibold text-slate-900">U.S. Army Veteran</p>
+              <p class="mt-1 text-sm text-slate-600">Honorable Service & Leadership</p>
             </article>
           </div>
         </div>
@@ -264,28 +418,28 @@
 
     <section class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
       <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Maker Passions</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">What Drives Me</h2>
-      <p class="mt-2 text-sm text-slate-500">Optimization mode. Plain burger standards.</p>
-
+      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">The Core Drive</h2>
+      <p class="mt-2 text-sm text-slate-500">Rooted in family. Driven by creativity. Defined by optimization.</p>
+    
       <div class="mt-7 grid gap-5 md:grid-cols-3">
         <article class="rounded-2xl border border-amber-100 bg-amber-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Bambu Lab P1S</h3>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Family & Legacy</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            I apply Lockheed-style milestone planning to print prototypes: scope, sequence, test, and tighten.
+            My ultimate optimization goal. Building a future for my wife and children is the primary mission that keeps my planning rhythm sharp and my priorities aligned.
           </p>
         </article>
-
+    
         <article class="rounded-2xl border border-violet-100 bg-violet-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">D&amp;D Drakkenheim</h3>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">D&amp;D: Obijima</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Running campaigns sharpens branching-risk planning, the same muscle I use for program dependencies and team coordination.
+            Running campaigns in Obijima sharpens complex system modeling and branching-risk planning. These are same skills I use for program dependencies and team synchronization.
           </p>
         </article>
-
+    
         <article class="rounded-2xl border border-sky-100 bg-sky-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Maker Workflow</h3>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Master Workflow</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Build, test, adjust, ship mirrors how I bridge software roots with engineering planning outcomes.
+            I execute on an essentialist standard. Whether it’s a 3D print or a project roadmap, my focus is the loop: audit, optimize, and strip away the noise to deliver high-impact results.
           </p>
         </article>
       </div>
@@ -360,33 +514,141 @@
       </div>
     </section>
 
-    <footer class="mt-10">
-      <div class="group level-up mx-auto flex w-fit items-center gap-5 rounded-2xl border-2 border-sky-300 bg-white/70 px-5 py-4 shadow-glowSky backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-white">
-        <span class="inline-flex h-20 w-20 overflow-hidden rounded-full border border-white/90">
-          <img
-            src="assets/cole.jpeg"
-            alt="Cole Yates avatar"
-            class="h-full w-full origin-center scale-150 object-cover transition-transform duration-300 ease-out group-hover:scale-[1.75]"
-            loading="lazy"
-            decoding="async"
-          />
-        </span>
-        <div class="flex flex-col">
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSky">Lead Concept Artist</p>
-          <p class="font-mono text-sm font-bold text-slate-700">Background drawings created by Cole ✏️</p>
+    <footer class="relative mt-10 flex w-full flex-col items-center">
+      <div class="group relative flex flex-col items-center">
+        <div class="level-up inline-flex rounded-2xl p-[1.5px] animate-orbital shadow-glowSky">
+          <div class="flex w-fit items-center gap-5 rounded-2xl border-2 border-sky-300 bg-white/70 px-5 py-4 backdrop-blur-xl transition-all duration-300 ease-out group-hover:-translate-y-2 group-hover:bg-white">
+            <span class="inline-flex h-20 w-20 overflow-hidden rounded-full border border-white/90">
+              <img
+                src="assets/cole.jpeg"
+                alt="Cole Yates avatar"
+                class="h-full w-full origin-center scale-150 object-cover transition-transform duration-300 ease-out group-hover:scale-[1.75]"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <div class="flex flex-col">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSky">Lead Concept Artist</p>
+              <p class="font-mono text-sm font-bold text-slate-700">Background drawings created by Cole Yates ✏️</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pointer-events-none absolute left-1/2 top-full z-20 mt-3 -translate-x-1/2 translate-y-0 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-2 group-hover:opacity-100">
+          <div class="flex items-center gap-2 rounded-2xl border-2 border-sky-300 bg-white/80 p-2 shadow-glowSky backdrop-blur-xl">
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dragon.png" alt="" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dino.png" alt="" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-cat.png" alt="" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-sun.png" alt="" class="h-full w-full object-cover" /></span>
+          </div>
         </div>
       </div>
+
+      <p class="mt-[125px] text-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        SYSTEM ENGINEERED &amp; OPTIMIZED BY
+        <span class="animate-orbital bg-clip-text text-transparent">TYLER YATES</span>
+        | © 2026
+      </p>
     </footer>
   </main>
+  </div>
+
+  <div id="resume-view" class="mode-panel hidden">
+    <section class="relative z-10 mx-auto max-w-5xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
+      <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-makerViolet">Mission Briefing</p>
+            <h1 class="mt-2 font-heading text-3xl font-extrabold text-slate-900 md:text-4xl">Tyler Yates - Professional Resume</h1>
+            <p class="mt-2 text-sm text-slate-600">Engineering Planner | Software Systems | Delivery Operations</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="level-up mt-6 rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
+        <h2 class="font-heading text-2xl font-bold text-slate-900">Professional History</h2>
+        <div class="mt-4 space-y-4 text-sm leading-relaxed text-slate-700">
+          <div class="border-l-2 border-sky-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Engineering Planner @ Lockheed Martin <span class="text-slate-500">(Jan 2026 - Current)</span></p>
+            <p>Focus on Agile ceremonies, project health reports, and resource planning.</p>
+          </div>
+          <div class="border-l-2 border-violet-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Software Engineer @ CAE <span class="text-slate-500">(Sept 2024 - Jan 2026)</span></p>
+            <p>Reduced simulator incidents by 94.3% and aligned software features to FAA standards.</p>
+          </div>
+          <div class="border-l-2 border-sky-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Software Engineer Intern @ Universal Studios <span class="text-slate-500">(Jan 2024 - April 2024)</span></p>
+            <p>Drove user stories from grooming to release while ensuring WCAG compliance.</p>
+          </div>
+          <div class="border-l-2 border-violet-300/80 pl-4">
+            <p class="font-semibold text-slate-900">Project Manager @ Astrion <span class="text-slate-500">(Nov 2019 - May 2021)</span></p>
+            <p>Led cross-disciplinary teams and cut delivery time by 12%.</p>
+          </div>
+          <div class="border-l-2 border-amber-300/80 pl-4">
+            <p class="font-semibold text-slate-900">IT Specialist @ U.S. Army</p>
+            <p>Maintained network infrastructure and resolved hardware/software blockers in live operational environments.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Product &amp; Delivery</p>
+          <ul class="mt-3 space-y-2 text-sm text-slate-700">
+            <li>Backlog Management</li>
+            <li>Go-to-Market Planning</li>
+          </ul>
+        </article>
+        <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Data &amp; Experimentation</p>
+          <ul class="mt-3 space-y-2 text-sm text-slate-700">
+            <li>KPI Frameworks</li>
+            <li>A/B Testing</li>
+          </ul>
+        </article>
+        <article class="level-up rounded-3xl border border-white/80 bg-white/75 p-5 shadow-xl backdrop-blur-xl">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Technical Tools</p>
+          <ul class="mt-3 space-y-2 text-sm text-slate-700">
+            <li>Jira</li>
+            <li>Figma</li>
+            <li>SQL</li>
+            <li>APIs</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="level-up mt-6 rounded-3xl border border-white/80 bg-white/75 p-6 shadow-xl backdrop-blur-xl md:p-8">
+        <h2 class="font-heading text-2xl font-bold text-slate-900">Education</h2>
+        <div class="mt-4 grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl border border-violet-100 bg-violet-50/70 p-4">
+            <p class="font-semibold text-slate-900">MS in Computer Information Systems</p>
+            <p class="text-sm text-makerViolet">Florida Institute of Technology</p>
+          </div>
+          <div class="rounded-2xl border border-sky-100 bg-sky-50/70 p-4">
+            <p class="font-semibold text-slate-900">BS in Computer Science</p>
+            <p class="text-sm text-makerSky">Full Sail University (Valedictorian / Dean's List)</p>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
 
   <script>
     const legacyLayer = document.getElementById("legacy-layer");
     const scrollLine = document.getElementById("scroll-line");
+    const modeToggle = document.getElementById("mode-toggle");
+    const labelPortfolio = document.getElementById("label-portfolio");
+    const labelResume = document.getElementById("label-resume");
+    const portfolioView = document.getElementById("portfolio-view");
+    const resumeView = document.getElementById("resume-view");
+    const systemOverlay = document.getElementById("system-overlay");
     const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
     const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
     const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
     const staggerItemSet = new Set(staggerItems);
     const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
+    let resumeMode = false;
+    let modeBusy = false;
 
     function syncLegacyHeight() {
       legacyLayer.style.height = document.documentElement.scrollHeight + "px";
@@ -474,6 +736,71 @@
       updateScrollLine();
     });
     window.addEventListener("scroll", updateScrollLine, { passive: true });
+
+    function syncModeToggle() {
+      if (resumeMode) {
+        labelPortfolio.querySelectorAll("span").forEach((el) => {
+          el.classList.remove("text-makerSky", "text-makerSky/80");
+          el.classList.add("text-slate-500");
+        });
+        labelResume.querySelectorAll("span").forEach((el) => {
+          el.classList.remove("text-slate-500", "text-slate-500/80");
+          el.classList.add("text-makerViolet");
+        });
+      } else {
+        labelResume.querySelectorAll("span").forEach((el) => {
+          el.classList.remove("text-makerViolet");
+          el.classList.add("text-slate-500");
+        });
+        labelPortfolio.querySelectorAll("span").forEach((el) => {
+          el.classList.remove("text-slate-500");
+          el.classList.add("text-makerSky");
+        });
+      }
+    }
+
+    function runModeTransition() {
+      if (modeBusy) {
+        return;
+      }
+      modeBusy = true;
+
+      const fromPanel = resumeMode ? resumeView : portfolioView;
+      const toPanel = resumeMode ? portfolioView : resumeView;
+
+      systemOverlay.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        systemOverlay.classList.add("is-active");
+      });
+
+      fromPanel.classList.add("mode-exit");
+      fromPanel.classList.remove("mode-active");
+
+      setTimeout(() => {
+        fromPanel.classList.add("hidden");
+        fromPanel.classList.remove("mode-exit");
+        toPanel.classList.remove("hidden");
+        toPanel.classList.add("mode-enter");
+
+        requestAnimationFrame(() => {
+          toPanel.classList.add("mode-active");
+          toPanel.classList.remove("mode-enter");
+        });
+
+        resumeMode = !resumeMode;
+        syncModeToggle();
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }, 230);
+
+      setTimeout(() => {
+        systemOverlay.classList.remove("is-active");
+        systemOverlay.classList.add("hidden");
+        modeBusy = false;
+      }, 760);
+    }
+
+    modeToggle.addEventListener("click", runModeTransition);
+    syncModeToggle();
   </script>
 </body>
 </html>
