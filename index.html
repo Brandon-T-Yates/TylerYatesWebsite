@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tyler Yates | Director of Technology Trajectory</title>
-  <meta
-    name="description"
-    content="Tyler Yates - Engineering Planner @ Lockheed Martin, software roots, future Director of Technology."
-  />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <title>Tyler Yates | Engineering the Plan</title>
+  <meta name="description" content="Engineering Planner @ Lockheed Martin | Software Roots | Future Director of Tech." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,6 +26,8 @@
           colors: {
             makerSky: "#0ea5e9",
             makerViolet: "#8b5cf6",
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
             makerAmber: "#f59e0b",
             makerPaper: "#fafafa"
           },
@@ -91,9 +91,45 @@
       background-size: 200% 200%;
     }
 
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      transform: translateY(-200%);
+      border-radius: 0.75rem;
+      background-color: #ffffff;
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0f172a;
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.5);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital,
+      .animate-title-scroll,
+      .animate-chromatic-border,
+      .animate-quizWiggle {
+        animation: none !important;
+      }
+
+      .level-up,
+      [data-stagger-item] {
+        transition-duration: 0ms !important;
+      }
+    }
+
   </style>
 </head>
-<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body text-slate-900 antialiased">
+<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
+  <a href="#main-content" class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+    Skip to Content
+  </a>
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
     <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
     <div class="absolute top-[30%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl"></div>
@@ -101,10 +137,10 @@
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt="" class="absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-dino.png" alt="" class="absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-cat.png" alt="" class="absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-sun.png" alt="" class="absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
   </div>
 
   <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
@@ -113,35 +149,36 @@
 
   <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
     <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
-      <nav aria-label="Page navigation" class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
-        <a href="index.html" aria-current="page" class="flex flex-col items-start leading-none">
-          <span class="text-[10px] font-bold uppercase tracking-wide text-makerSky">Portfolio</span>
+      <nav aria-label="Portfolio and resume toggle" class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+        <a href="index.html" aria-current="page" aria-label="View portfolio page" class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText">Portfolio</span>
         </a>
         <span class="text-slate-400">|</span>
-        <a href="resume.html" class="flex flex-col items-start leading-none">
+        <a href="resume.html" aria-label="View resume page" class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
           <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Resume</span>
         </a>
       </nav>
     </div>
   </div>
 
-  <main class="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
+  <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
     <section class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-8 shadow-xl backdrop-blur-xl md:p-12">
       <div class="grid items-center gap-8 md:grid-cols-[1fr_auto]">
         <div>
           <div class="mb-6 flex flex-wrap items-center gap-3">
-            <p class="inline-flex h-[26px] items-center justify-center rounded-full border border-sky-200 bg-sky-50 px-4 text-[10px] font-bold uppercase tracking-widest text-makerSky">
+            <p class="inline-flex h-[26px] items-center justify-center rounded-full border border-sky-200 bg-sky-50 px-4 text-[10px] font-bold uppercase tracking-widest text-makerSkyText">
               THE CREATIVE MAKER
             </p> 
             <div class="level-up inline-flex p-[1.5px] rounded-full animate-orbital shadow-sm">
               <div class="relative h-[26px] w-[155px] overflow-hidden rounded-full bg-white">
-                <div class="animate-title-scroll w-full">
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Father</span>
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Dungeon Master</span>
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Home Cook</span>
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Gamer</span>
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Tech Collector</span>
-                  <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Optimizer</span>
+                <div id="personality-scroller" aria-live="polite" aria-atomic="true" aria-label="Rotating personality titles" class="animate-title-scroll w-full">
+                  <span id="personality-title-live" class="sr-only">Father</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Father</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Dungeon Master</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Home Cook</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Gamer</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Tech Collector</span>
+                  <span aria-hidden="true" class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]">Optimizer</span>
                   <span class="flex h-[26px] items-center justify-center text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text animate-orbital leading-[26px]" aria-hidden="true">Father</span>
                 </div>
               </div>
@@ -173,11 +210,11 @@
             />
             </div>
           </div>
-          <a href="quiz.html" class="group level-up relative mt-5 inline-flex animate-quizWiggle self-center rounded-xl p-[2px] shadow-glowSky transition-all duration-500 hover:-translate-y-1">
+          <a href="quiz.html" class="group level-up relative mt-5 inline-flex animate-quizWiggle self-center rounded-xl p-[2px] shadow-glowSky transition-all duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
             <span class="animate-chromatic-border absolute inset-0 rounded-xl bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber"></span>
             <span class="relative z-10 inline-flex items-center gap-2 rounded-[10px] bg-white px-5 py-2.5 text-sm font-bold">
               <span class="bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber bg-clip-text text-transparent">See if we might be best friends here!</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-600 transition-all duration-500 group-hover:text-makerSky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-600 transition-all duration-500 group-hover:text-makerSkyText" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </span>
@@ -190,7 +227,7 @@
       <h2 class="level-up mb-6 font-heading text-2xl font-bold text-slate-800 md:text-3xl">Character Stats</h2>
       <div class="grid gap-5 md:grid-cols-3">
         <article class="level-up rounded-3xl border border-white/60 border-b-4 border-b-sky-300 bg-white/70 p-6 shadow-glowSky backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-sky-400 hover:shadow-2xl md:rotate-[-1.5deg]" data-stagger-item>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">The Blueprint</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">The Blueprint</p>
           <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">Software Engineer Roots</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Software-first foundations let me translate high-stakes aerospace planning constraints into executable systems, while maker projects keep the designs practical and testable.
@@ -198,7 +235,7 @@
         </article>
 
         <article class="level-up rounded-3xl border border-white/60 border-b-4 border-b-violet-300 bg-white/70 p-6 shadow-glowViolet backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-violet-400 hover:shadow-2xl md:rotate-[1.3deg]" data-stagger-item>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">The Grind</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The Grind</p>
           <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">MS in Computer Information Systems</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Graduate work sharpens how I structure aerospace delivery plans and how I model decision trees for campaign strategy and tabletop systems.
@@ -216,7 +253,7 @@
     </section>
 
     <section class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">The Director's Toolkit</p>
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The Director's Toolkit</p>
       <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">Skill Tree for Technical Leadership</h2>
       <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
         I use one playbook across domains: structured planning at Lockheed, software problem framing, and maker experimentation through 3D print cycles and D&amp;D scenario design.
@@ -254,14 +291,14 @@
     </section>
 
     <section class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Career XP</p>
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Career XP</p>
       <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">The Backlog</h2>
       <p class="mt-2 text-sm font-medium text-slate-500">XP: Experience Points</p>
 
       <div class="mt-8 space-y-7">
         <article class="border-l-2 border-sky-300/80 pl-5">
           <h3 class="font-heading text-2xl font-semibold text-slate-900">Engineering Planning</h3>
-          <p class="mt-1 text-sm font-medium text-makerSky">Lockheed Martin</p>
+          <p class="mt-1 text-sm font-medium text-makerSkyText">Lockheed Martin</p>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Orchestrating technical roadmaps and cross-functional synchronization for high-stakes aerospace programs. Bridging software development cycles with mission-critical hardware delivery.
           </p>
@@ -269,7 +306,7 @@
 
         <article class="border-l-2 border-violet-300/80 pl-5">
           <h3 class="font-heading text-2xl font-semibold text-slate-900">Simulation Training Systems</h3>
-          <p class="mt-1 text-sm font-medium text-makerViolet">CAE / Simcom</p>
+          <p class="mt-1 text-sm font-medium text-makerVioletText">CAE / Simcom</p>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Built operational depth in simulation environments where precision, repeatability, and readiness drive outcomes.
           </p>
@@ -277,7 +314,7 @@
 
         <article class="border-l-2 border-sky-300/80 pl-5">
           <h3 class="font-heading text-2xl font-semibold text-slate-900">Agile Product Lifecycle</h3>
-          <p class="mt-1 text-sm font-medium text-makerSky">Universal Studios Orlando</p>
+          <p class="mt-1 text-sm font-medium text-makerSkyText">Universal Studios Orlando</p>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Bridged guest experience with technical execution by driving features from user story creation to global release. Managed cross-team alignment to ensure high-visibility content reached production with accessibility (WCAG) and performance at the forefront.
           </p>
@@ -285,7 +322,7 @@
 
         <article class="border-l-2 border-violet-300/80 pl-5">
           <h3 class="font-heading text-2xl font-semibold text-slate-900">Technical Project Management</h3>
-          <p class="mt-1 text-sm font-medium text-makerViolet">Astrion</p>
+          <p class="mt-1 text-sm font-medium text-makerVioletText">Astrion</p>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
             Led cross-disciplinary engineering squads to optimize delivery pipelines and manage complex dependencies. Implemented process improvements that accelerated delivery by 12% while maintaining rigid scope and budget guardrails for external stakeholders.
           </p>
@@ -302,7 +339,7 @@
     </section>
 
     <section class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10" data-stagger-group>
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Certification Backlog</p>
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Certification Backlog</p>
       <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">Kanban Progress</h2>
 
       <div class="mt-7 grid grid-cols-1 gap-6 md:grid-cols-3" role="list">
@@ -395,7 +432,7 @@
     <section class="level-up rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">The War Room</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The War Room</p>
           <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">After Action Report</h2>
           <p class="mt-2 text-sm text-slate-600">Feedback portal for the mission path to Director of Technology.</p>
         </div>
@@ -403,7 +440,7 @@
 
       <div class="mt-8 grid gap-8 lg:grid-cols-2">
         <aside class="rounded-2xl border border-violet-100 bg-violet-50/60 p-5">
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Current Skill Tree</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Current Skill Tree</p>
           <ul class="mt-4 space-y-3 text-sm text-slate-700">
             <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-makerSky"></span> Agile + Iterative Delivery</li>
             <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-makerViolet"></span> Systems Architecture</li>
@@ -421,7 +458,7 @@
               type="text"
               required
               placeholder="Name / Team"
-              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             />
           </div>
 
@@ -430,7 +467,7 @@
             <select
               id="focus"
               name="focus"
-              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100"
+              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               <option>Technical Leadership</option>
               <option>Program Delivery Systems</option>
@@ -447,13 +484,13 @@
               rows="5"
               required
               placeholder="What is one high-leverage adjustment for the next level?"
-              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 font-heading text-base font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-violet-200 md:w-auto"
+            class="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 font-heading text-base font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-violet-200 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white md:w-auto"
           >
             Submit After Action Report
           </button>
@@ -475,7 +512,7 @@
               />
             </span>
             <div class="flex flex-col">
-              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSky">Lead Concept Artist</p>
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSkyText">Lead Concept Artist</p>
               <p class="font-mono text-sm font-bold text-slate-700">Background drawings created by Cole Yates ✏️</p>
             </div>
           </div>
@@ -483,10 +520,10 @@
 
         <div class="pointer-events-none absolute left-1/2 top-full z-20 mt-3 -translate-x-1/2 translate-y-0 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-2 group-hover:opacity-100">
           <div class="flex items-center gap-2 rounded-2xl border-2 border-sky-300 bg-white/80 p-2 shadow-glowSky backdrop-blur-xl">
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dragon.png" alt="" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dino.png" alt="" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-cat.png" alt="" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-sun.png" alt="" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
           </div>
         </div>
       </div>
@@ -502,6 +539,7 @@
   <script>
     const legacyLayer = document.getElementById("legacy-layer");
     const scrollLine = document.getElementById("scroll-line");
+    const personalityTitleLive = document.getElementById("personality-title-live");
     const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
     const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
     const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
@@ -520,6 +558,18 @@
     }
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (personalityTitleLive) {
+      const rotatingTitles = ["Father", "Dungeon Master", "Home Cook", "Gamer", "Tech Collector", "Optimizer"];
+      let titleIndex = 0;
+      personalityTitleLive.textContent = rotatingTitles[titleIndex];
+      if (!prefersReducedMotion) {
+        window.setInterval(() => {
+          titleIndex = (titleIndex + 1) % rotatingTitles.length;
+          personalityTitleLive.textContent = rotatingTitles[titleIndex];
+        }, 3000);
+      }
+    }
+
     if (prefersReducedMotion) {
       levelUpItems.forEach((item) => {
         item.style.transitionDelay = "";
