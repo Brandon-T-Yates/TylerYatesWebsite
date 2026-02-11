@@ -52,6 +52,20 @@
     };
   </script>
   <style>
+    :root {
+      --orbital-sky: #0ea5e9;
+      --orbital-violet: #8b5cf6;
+      --orbital-amber: #f59e0b;
+      --orbital-gradient: linear-gradient(
+        to right,
+        var(--orbital-sky),
+        var(--orbital-violet),
+        var(--orbital-amber),
+        var(--orbital-sky)
+      );
+      --legacy-doodle-filter: grayscale(10%) saturate(120%);
+    }
+
     @keyframes orbital-flow {
       0% { background-position: 0% 50%; }
       100% { background-position: 200% 50%; }
@@ -59,9 +73,13 @@
 
     /* Unified brand gradient animation */
     .animate-orbital {
-      background: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+      background: var(--orbital-gradient);
       background-size: 200% auto;
       animation: orbital-flow 6s linear infinite;
+    }
+
+    .legacy-doodle {
+      filter: var(--legacy-doodle-filter);
     }
 
     @keyframes scroll-titles {
@@ -137,10 +155,10 @@
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" loading="lazy" decoding="async" width="543" height="484" />
+    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" loading="lazy" decoding="async" width="420" height="427" />
+    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" loading="lazy" decoding="async" width="381" height="507" />
+    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" loading="lazy" decoding="async" width="557" height="564" />
   </div>
 
   <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
@@ -150,7 +168,7 @@
   <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
     <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
       <nav aria-label="Portfolio and resume toggle" class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
-        <a href="index.html" aria-current="page" aria-label="View portfolio page" class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+        <a href="index.html" data-scroll-target="#mission-briefing" aria-current="page" aria-label="View portfolio page" class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
           <span class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText">Portfolio</span>
         </a>
         <span class="text-slate-400">|</span>
@@ -162,7 +180,7 @@
   </div>
 
   <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
-    <section class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-8 shadow-xl backdrop-blur-xl md:p-12">
+    <header id="mission-briefing" class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-8 shadow-xl backdrop-blur-xl md:p-12">
       <div class="grid items-center gap-8 md:grid-cols-[1fr_auto]">
         <div>
           <div class="mb-6 flex flex-wrap items-center gap-3">
@@ -207,6 +225,9 @@
               class="h-full w-full object-cover"
               loading="eager"
               decoding="async"
+              width="3353"
+              height="5114"
+              fetchpriority="high"
             />
             </div>
           </div>
@@ -221,7 +242,7 @@
           </a>
         </div>
       </div>
-    </section>
+    </header>
 
     <section class="mb-14 level-up" data-stagger-group>
       <h2 class="level-up mb-6 font-heading text-2xl font-bold text-slate-800 md:text-3xl">Character Stats</h2>
@@ -498,6 +519,8 @@
                 class="h-full w-full origin-center scale-150 object-cover transition-transform duration-300 ease-out group-hover:scale-[1.75]"
                 loading="lazy"
                 decoding="async"
+                width="4284"
+                height="5712"
               />
             </span>
             <div class="flex flex-col">
@@ -509,10 +532,10 @@
 
         <div class="pointer-events-none absolute left-1/2 top-full z-20 mt-3 -translate-x-1/2 translate-y-0 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-2 group-hover:opacity-100">
           <div class="flex items-center gap-2 rounded-2xl border-2 border-sky-300 bg-white/80 p-2 shadow-glowSky backdrop-blur-xl">
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
-            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="h-full w-full object-cover" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="h-full w-full object-cover" loading="lazy" decoding="async" width="543" height="484" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="h-full w-full object-cover" loading="lazy" decoding="async" width="420" height="427" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="h-full w-full object-cover" loading="lazy" decoding="async" width="381" height="507" /></span>
+            <span class="inline-flex h-14 w-14 overflow-hidden rounded-full border border-white/90"><img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="h-full w-full object-cover" loading="lazy" decoding="async" width="557" height="564" /></span>
           </div>
         </div>
       </div>
@@ -525,121 +548,310 @@
     </footer>
   </main>
 
+  <div
+    id="back-to-top-shell"
+    class="fixed bottom-6 right-6 z-50 inline-flex rounded-full p-[2px] animate-orbital shadow-glowSky transition-all duration-300 ease-out opacity-0 translate-y-20 pointer-events-none"
+  >
+    <button
+      id="back-to-top"
+      type="button"
+      aria-label="Back to top"
+      class="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white text-makerSkyText backdrop-blur-md transition-transform duration-300 ease-out hover:rotate-12 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+    >
+      <span aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-full bg-sky-100/60 blur-sm animate-pulse"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 text-makerSkyText" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
+
   <script>
-    const legacyLayer = document.getElementById("legacy-layer");
-    const scrollLine = document.getElementById("scroll-line");
-    const personalityTitleLive = document.getElementById("personality-title-live");
-    const aarForm = document.getElementById("aar-form");
-    const formStatus = document.getElementById("form-status");
-    const aarSubmitBtn = aarForm ? aarForm.querySelector('button[type="submit"]') : null;
-    const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
-    const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
-    const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
-    const staggerItemSet = new Set(staggerItems);
-    const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
-    let statusHideTimer = null;
+    (() => {
+      "use strict";
 
-    function setFormStatus(message, isError = false) {
-      if (!formStatus) {
-        return;
-      }
-      if (statusHideTimer) {
-        window.clearTimeout(statusHideTimer);
-        statusHideTimer = null;
-      }
-      formStatus.textContent = message;
-      formStatus.classList.remove("hidden", "opacity-0", "opacity-100", "text-red-500", "text-makerSky");
-      formStatus.classList.add(isError ? "text-red-500" : "text-makerSky", "opacity-0");
-      requestAnimationFrame(() => {
-        formStatus.classList.remove("opacity-0");
-        formStatus.classList.add("opacity-100");
-      });
-    }
+      // Core config values for status messaging and network behavior.
+      const AAR_REQUEST_TIMEOUT_MS = 6000;
+      const AAR_STATUS_HIDE_DELAY_MS = 5000;
+      const TITLE_ROTATION_INTERVAL_MS = 3000;
+      const NAV_SCROLL_TOLERANCE_PX = 18;
+      const BACK_TO_TOP_SHOW_SCROLL_PX = 600;
+      const ROTATING_TITLES = ["Father", "Dungeon Master", "Home Cook", "Gamer", "Tech Collector", "Optimizer"];
 
-    function hideFormStatus() {
-      if (!formStatus || formStatus.classList.contains("hidden")) {
-        return;
-      }
-      formStatus.classList.remove("opacity-100");
-      formStatus.classList.add("opacity-0");
-      window.setTimeout(() => {
-        formStatus.classList.add("hidden");
-      }, 300);
-    }
+      // Static DOM references used across page modules.
+      const legacyLayer = document.getElementById("legacy-layer");
+      const scrollLine = document.getElementById("scroll-line");
+      const missionBriefing = document.getElementById("mission-briefing");
+      const personalityTitleLive = document.getElementById("personality-title-live");
+      const aarForm = document.getElementById("aar-form");
+      const formStatus = document.getElementById("form-status");
+      const aarSubmitBtn = aarForm ? aarForm.querySelector('button[type="submit"]') : null;
+      const backToTopShell = document.getElementById("back-to-top-shell");
+      const backToTopBtn = document.getElementById("back-to-top");
+      const navScrollLinks = Array.from(document.querySelectorAll("[data-scroll-target]"));
 
-    if (aarForm) {
-      aarForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
+      // Cached node lists for reveal animation orchestration.
+      const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
+      const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
+      const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
+      const staggerItemSet = new Set(staggerItems);
+      const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
 
-        setFormStatus("Transmitting AAR data to Mission Control...");
-        if (aarSubmitBtn) {
-          aarSubmitBtn.disabled = true;
-          aarSubmitBtn.classList.add("opacity-70", "cursor-not-allowed");
+      // Runtime state that changes during interactions.
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let statusHideTimer = null;
+
+      /**
+       * Render status copy for the After Action Report form.
+       * @param {string} message - Message shown to the user.
+       * @param {boolean} [isError=false] - Switches status color to error.
+       * @returns {void}
+       */
+      function setFormStatus(message, isError = false) {
+        if (!formStatus) {
+          return;
         }
+        if (statusHideTimer) {
+          window.clearTimeout(statusHideTimer);
+          statusHideTimer = null;
+        }
+        formStatus.textContent = message;
+        formStatus.classList.remove("hidden", "opacity-0", "opacity-100", "text-red-500", "text-makerSky");
+        formStatus.classList.add(isError ? "text-red-500" : "text-makerSky", "opacity-0");
+        requestAnimationFrame(() => {
+          formStatus.classList.remove("opacity-0");
+          formStatus.classList.add("opacity-100");
+        });
+      }
 
-        const formData = new FormData(aarForm);
-        const payload = Object.fromEntries(formData.entries());
+      /**
+       * Fade and hide the status region after a brief timeout.
+       * @returns {void}
+       */
+      function hideFormStatus() {
+        if (!formStatus || formStatus.classList.contains("hidden")) {
+          return;
+        }
+        formStatus.classList.remove("opacity-100");
+        formStatus.classList.add("opacity-0");
+        window.setTimeout(() => {
+          formStatus.classList.add("hidden");
+        }, 300);
+      }
+
+      /**
+       * Send JSON to a remote endpoint with an abort timeout.
+       * @param {string} url - Destination endpoint URL.
+       * @param {Record<string, FormDataEntryValue>} payload - JSON body content.
+       * @param {{ timeoutMs?: number }} [options] - Request options.
+       * @returns {Promise<Response>}
+       */
+      async function postJsonWithTimeout(url, payload, { timeoutMs = AAR_REQUEST_TIMEOUT_MS } = {}) {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
 
         try {
-          const response = await fetch(aarForm.action, {
+          const response = await fetch(url, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json"
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
           });
 
           if (!response.ok) {
-            throw new Error("Formspree request failed");
+            throw new Error(`Request failed with status ${response.status}`);
           }
 
-          aarForm.reset();
-          setFormStatus("Mission Accomplished: Report Received.");
-          statusHideTimer = window.setTimeout(() => {
-            hideFormStatus();
-          }, 5000);
-        } catch (error) {
-          setFormStatus("System Error: Transmission Failed. Please retry.", true);
+          return response;
         } finally {
-          if (aarSubmitBtn) {
-            aarSubmitBtn.disabled = false;
-            aarSubmitBtn.classList.remove("opacity-70", "cursor-not-allowed");
-          }
+          window.clearTimeout(timeoutId);
         }
-      });
-    }
-
-    function syncLegacyHeight() {
-      legacyLayer.style.height = document.documentElement.scrollHeight + "px";
-    }
-
-    function updateScrollLine() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-      scrollLine.style.height = Math.max(0, Math.min(100, pct)) + "%";
-    }
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (personalityTitleLive) {
-      const rotatingTitles = ["Father", "Dungeon Master", "Home Cook", "Gamer", "Tech Collector", "Optimizer"];
-      let titleIndex = 0;
-      personalityTitleLive.textContent = rotatingTitles[titleIndex];
-      if (!prefersReducedMotion) {
-        window.setInterval(() => {
-          titleIndex = (titleIndex + 1) % rotatingTitles.length;
-          personalityTitleLive.textContent = rotatingTitles[titleIndex];
-        }, 3000);
       }
-    }
 
-    if (prefersReducedMotion) {
-      levelUpItems.forEach((item) => {
-        item.style.transitionDelay = "";
-        item.classList.remove("opacity-0", "translate-y-5");
-      });
-    } else {
+      /**
+       * Bind submit behavior for the After Action Report form.
+       * @returns {void}
+       */
+      function initAarForm() {
+        if (!aarForm) {
+          return;
+        }
+
+        aarForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          setFormStatus("Transmitting AAR data to Mission Control...");
+          if (aarSubmitBtn) {
+            aarSubmitBtn.disabled = true;
+            aarSubmitBtn.classList.add("opacity-70", "cursor-not-allowed");
+          }
+
+          const payload = Object.fromEntries(new FormData(aarForm).entries());
+
+          try {
+            await postJsonWithTimeout(aarForm.action, payload);
+            aarForm.reset();
+            setFormStatus("Mission Accomplished: Report Received.");
+            statusHideTimer = window.setTimeout(() => {
+              hideFormStatus();
+            }, AAR_STATUS_HIDE_DELAY_MS);
+          } catch (_error) {
+            setFormStatus("System Error: Transmission Failed. Please retry.", true);
+          } finally {
+            if (aarSubmitBtn) {
+              aarSubmitBtn.disabled = false;
+              aarSubmitBtn.classList.remove("opacity-70", "cursor-not-allowed");
+            }
+          }
+        });
+      }
+
+      /**
+       * Match legacy drawing container height to full document height.
+       * @returns {void}
+       */
+      function syncLegacyHeight() {
+        if (!legacyLayer) {
+          return;
+        }
+        legacyLayer.style.height = `${document.documentElement.scrollHeight}px`;
+      }
+
+      /**
+       * Toggle floating "Back to Top" button visibility based on scroll depth.
+       * @param {number} [scrollTop] - Current document scroll position.
+       * @returns {void}
+       */
+      function updateBackToTopVisibility(scrollTop = window.scrollY || document.documentElement.scrollTop) {
+        if (!backToTopShell) {
+          return;
+        }
+        const shouldShow = scrollTop > BACK_TO_TOP_SHOW_SCROLL_PX;
+        backToTopShell.classList.toggle("opacity-0", !shouldShow);
+        backToTopShell.classList.toggle("translate-y-20", !shouldShow);
+        backToTopShell.classList.toggle("pointer-events-none", !shouldShow);
+        backToTopShell.classList.toggle("opacity-100", shouldShow);
+        backToTopShell.classList.toggle("translate-y-0", shouldShow);
+      }
+
+      /**
+       * Update left rail scroll indicator percentage.
+       * @returns {void}
+       */
+      function updateScrollLine() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        updateBackToTopVisibility(scrollTop);
+        if (!scrollLine) {
+          return;
+        }
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+        scrollLine.style.height = `${Math.max(0, Math.min(100, pct))}%`;
+      }
+
+      /**
+       * Normalize a pathname for same-page comparisons (`/` and `/index.html` are equivalent).
+       * @param {string} pathname - URL pathname to normalize.
+       * @returns {string}
+       */
+      function normalizePath(pathname) {
+        return pathname.replace(/\/index\.html$/i, "/").replace(/\/+$/, "") || "/";
+      }
+
+      /**
+       * Determine whether a mouse event is a plain left click (no modifiers).
+       * @param {MouseEvent} event - Click event.
+       * @returns {boolean}
+       */
+      function isPlainLeftClick(event) {
+        return event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+      }
+
+      /**
+       * Initialize navigation guards for same-page scroll targets.
+       * Prevents reload/jump when already at the destination.
+       * @returns {void}
+       */
+      function initNavScrollGuards() {
+        navScrollLinks.forEach((link) => {
+          const targetSelector = link.getAttribute("data-scroll-target");
+          if (!targetSelector) {
+            return;
+          }
+
+          link.addEventListener("click", (event) => {
+            if (!isPlainLeftClick(event)) {
+              return;
+            }
+
+            if (normalizePath(link.pathname) !== normalizePath(window.location.pathname)) {
+              return;
+            }
+
+            const target = document.querySelector(targetSelector);
+            if (!target) {
+              return;
+            }
+
+            const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+            const destinationTop = currentScrollTop + target.getBoundingClientRect().top;
+            event.preventDefault();
+
+            if (Math.abs(currentScrollTop - destinationTop) <= NAV_SCROLL_TOLERANCE_PX) {
+              return;
+            }
+
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+      }
+
+      /**
+       * Bind click behavior for the floating Back to Top button.
+       * @returns {void}
+       */
+      function initBackToTopButton() {
+        if (!backToTopBtn) {
+          return;
+        }
+
+        backToTopBtn.addEventListener("click", () => {
+          if (missionBriefing) {
+            missionBriefing.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      /**
+       * Keep an ARIA-live label synced with the visual rotating title loop.
+       * @returns {void}
+       */
+      function initPersonalityTicker() {
+        if (!personalityTitleLive) {
+          return;
+        }
+
+        let titleIndex = 0;
+        personalityTitleLive.textContent = ROTATING_TITLES[titleIndex];
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        window.setInterval(() => {
+          titleIndex = (titleIndex + 1) % ROTATING_TITLES.length;
+          personalityTitleLive.textContent = ROTATING_TITLES[titleIndex];
+        }, TITLE_ROTATION_INTERVAL_MS);
+      }
+
+      /**
+       * Prime an element with baseline reveal animation classes.
+       * @param {HTMLElement} item - Element to prime.
+       * @returns {void}
+       */
       function primeReveal(item) {
         item.classList.add(
           "opacity-0",
@@ -651,56 +863,96 @@
         );
       }
 
-      standardLevelUpItems.forEach(primeReveal);
-      staggerItems.forEach(primeReveal);
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("opacity-100", "translate-y-0");
-              entry.target.classList.remove("opacity-0", "translate-y-5");
-            }
+      /**
+       * Initialize reveal animations and staggered group behavior.
+       * @returns {void}
+       */
+      function initRevealSystem() {
+        if (prefersReducedMotion) {
+          levelUpItems.forEach((item) => {
+            item.style.transitionDelay = "";
+            item.classList.remove("opacity-0", "translate-y-5");
           });
-        },
-        { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
-      );
+          return;
+        }
 
-      standardLevelUpItems.forEach((item) => observer.observe(item));
+        standardLevelUpItems.forEach(primeReveal);
+        staggerItems.forEach(primeReveal);
 
-      const staggerObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting || entry.target.dataset.revealed === "true") {
-              return;
-            }
+        if (!("IntersectionObserver" in window)) {
+          levelUpItems.forEach((item) => {
+            item.classList.remove("opacity-0", "translate-y-5");
+            item.classList.add("opacity-100", "translate-y-0");
+          });
+          return;
+        }
 
-            const groupItems = entry.target.querySelectorAll("[data-stagger-item]");
-            groupItems.forEach((item, index) => {
-              item.style.transitionDelay = `${index * 100}ms`;
-              item.classList.add("opacity-100", "translate-y-0");
-              item.classList.remove("opacity-0", "translate-y-5");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("opacity-100", "translate-y-0");
+                entry.target.classList.remove("opacity-0", "translate-y-5");
+              }
             });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
+        );
+        standardLevelUpItems.forEach((item) => observer.observe(item));
 
-            entry.target.dataset.revealed = "true";
-            staggerObserver.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.22, rootMargin: "0px 0px -50px 0px" }
-      );
+        const staggerObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting || entry.target.dataset.revealed === "true") {
+                return;
+              }
 
-      staggerGroups.forEach((group) => staggerObserver.observe(group));
-    }
+              const groupItems = entry.target.querySelectorAll("[data-stagger-item]");
+              groupItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 100}ms`;
+                item.classList.add("opacity-100", "translate-y-0");
+                item.classList.remove("opacity-0", "translate-y-5");
+              });
 
-    window.addEventListener("load", () => {
-      syncLegacyHeight();
-      updateScrollLine();
-    });
-    window.addEventListener("resize", () => {
-      syncLegacyHeight();
-      updateScrollLine();
-    });
-    window.addEventListener("scroll", updateScrollLine, { passive: true });
+              entry.target.dataset.revealed = "true";
+              staggerObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.22, rootMargin: "0px 0px -50px 0px" }
+        );
+        staggerGroups.forEach((group) => staggerObserver.observe(group));
+      }
+
+      /**
+       * Boot all non-blocking page behaviors after DOM is ready.
+       * @returns {void}
+       */
+      function initializePage() {
+        initAarForm();
+        initNavScrollGuards();
+        initBackToTopButton();
+        initPersonalityTicker();
+        initRevealSystem();
+        syncLegacyHeight();
+        updateScrollLine();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePage, { once: true });
+      } else {
+        initializePage();
+      }
+
+      window.addEventListener("load", () => {
+        syncLegacyHeight();
+        updateScrollLine();
+      });
+      window.addEventListener("resize", () => {
+        syncLegacyHeight();
+        updateScrollLine();
+      });
+      window.addEventListener("scroll", updateScrollLine, { passive: true });
+    })();
   </script>
 </body>
 </html>

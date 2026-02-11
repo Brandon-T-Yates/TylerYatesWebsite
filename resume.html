@@ -32,24 +32,40 @@
             makerPaper: "#fafafa"
           },
           boxShadow: {
-            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)",
-            glowViolet: "0 20px 40px -24px rgba(139,92,246,0.7)",
-            glowAmber: "0 20px 40px -24px rgba(245,158,11,0.7)"
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)"
           }
         }
       }
     };
   </script>
   <style>
+    :root {
+      --orbital-sky: #0ea5e9;
+      --orbital-violet: #8b5cf6;
+      --orbital-amber: #f59e0b;
+      --orbital-gradient: linear-gradient(
+        to right,
+        var(--orbital-sky),
+        var(--orbital-violet),
+        var(--orbital-amber),
+        var(--orbital-sky)
+      );
+      --legacy-doodle-filter: grayscale(10%) saturate(120%);
+    }
+
     @keyframes orbital-flow {
       0% { background-position: 0% 50%; }
       100% { background-position: 200% 50%; }
     }
 
     .animate-orbital {
-      background: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+      background: var(--orbital-gradient);
       background-size: 200% auto;
       animation: orbital-flow 6s linear infinite;
+    }
+
+    .legacy-doodle {
+      filter: var(--legacy-doodle-filter);
     }
 
     .skip-link {
@@ -93,10 +109,10 @@
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="filter: grayscale(10%) saturate(120%);" />
-    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
+    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" loading="lazy" decoding="async" width="543" height="484" />
+    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" loading="lazy" decoding="async" width="420" height="427" />
+    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" loading="lazy" decoding="async" width="381" height="507" />
+    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" loading="lazy" decoding="async" width="557" height="564" />
   </div>
 
   <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
@@ -132,7 +148,7 @@
 
   <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-5xl px-5 pb-12 pt-12 md:px-10 md:pt-16">
     <article class="level-up rounded-3xl border border-white/80 bg-white/85 p-6 shadow-xl backdrop-blur-xl md:p-8">
-      <div class="flex flex-wrap items-center justify-between gap-4">
+      <header class="flex flex-wrap items-center justify-between gap-4">
         <div class="min-w-[230px]">
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-makerVioletText">Mission Briefing</p>
           <div class="mt-2 flex flex-wrap items-center gap-2">
@@ -145,7 +161,7 @@
           <p>United States</p>
           <p>Director of Technology Trajectory</p>
         </div>
-      </div>
+      </header>
 
       <section class="mt-8 border-t border-slate-200/70 pt-6">
         <h2 class="font-heading text-xl font-bold text-makerSkyText md:text-2xl">Skills</h2>
@@ -275,24 +291,48 @@
   </main>
 
   <script>
-    const legacyLayer = document.getElementById("legacy-layer");
-    const scrollLine = document.getElementById("scroll-line");
-    const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
+    (() => {
+      "use strict";
 
-    function syncLegacyHeight() {
-      legacyLayer.style.height = document.documentElement.scrollHeight + "px";
-    }
+      // Static DOM references for scroll and reveal behavior.
+      const legacyLayer = document.getElementById("legacy-layer");
+      const scrollLine = document.getElementById("scroll-line");
+      const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
 
-    function updateScrollLine() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-      scrollLine.style.height = Math.max(0, Math.min(100, pct)) + "%";
-    }
+      // Runtime state for accessibility-aware motion handling.
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!prefersReducedMotion) {
-      levelUpItems.forEach((item) => {
+      /**
+       * Match decorative background layer height with document height.
+       * @returns {void}
+       */
+      function syncLegacyHeight() {
+        if (!legacyLayer) {
+          return;
+        }
+        legacyLayer.style.height = `${document.documentElement.scrollHeight}px`;
+      }
+
+      /**
+       * Update the left progress rail based on page scroll percentage.
+       * @returns {void}
+       */
+      function updateScrollLine() {
+        if (!scrollLine) {
+          return;
+        }
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+        scrollLine.style.height = `${Math.max(0, Math.min(100, pct))}%`;
+      }
+
+      /**
+       * Prime a card for intersection-based reveal animation.
+       * @param {HTMLElement} item - Card element to prepare.
+       * @returns {void}
+       */
+      function primeReveal(item) {
         item.classList.add(
           "opacity-0",
           "translate-y-5",
@@ -301,32 +341,72 @@
           "ease-out",
           "will-change-transform"
         );
-      });
+      }
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("opacity-100", "translate-y-0");
-              entry.target.classList.remove("opacity-0", "translate-y-5");
-            }
+      /**
+       * Initialize reveal effects, with reduced-motion and browser fallbacks.
+       * @returns {void}
+       */
+      function initRevealSystem() {
+        if (prefersReducedMotion) {
+          levelUpItems.forEach((item) => {
+            item.classList.remove("opacity-0", "translate-y-5");
+            item.classList.add("opacity-100", "translate-y-0");
           });
-        },
-        { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
-      );
+          return;
+        }
 
-      levelUpItems.forEach((item) => observer.observe(item));
-    }
+        levelUpItems.forEach(primeReveal);
 
-    window.addEventListener("load", () => {
-      syncLegacyHeight();
-      updateScrollLine();
-    });
-    window.addEventListener("resize", () => {
-      syncLegacyHeight();
-      updateScrollLine();
-    });
-    window.addEventListener("scroll", updateScrollLine, { passive: true });
+        if (!("IntersectionObserver" in window)) {
+          levelUpItems.forEach((item) => {
+            item.classList.remove("opacity-0", "translate-y-5");
+            item.classList.add("opacity-100", "translate-y-0");
+          });
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("opacity-100", "translate-y-0");
+                entry.target.classList.remove("opacity-0", "translate-y-5");
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
+        );
+
+        levelUpItems.forEach((item) => observer.observe(item));
+      }
+
+      /**
+       * Boot page effects after DOM is ready.
+       * @returns {void}
+       */
+      function initializePage() {
+        initRevealSystem();
+        syncLegacyHeight();
+        updateScrollLine();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePage, { once: true });
+      } else {
+        initializePage();
+      }
+
+      window.addEventListener("load", () => {
+        syncLegacyHeight();
+        updateScrollLine();
+      });
+      window.addEventListener("resize", () => {
+        syncLegacyHeight();
+        updateScrollLine();
+      });
+      window.addEventListener("scroll", updateScrollLine, { passive: true });
+    })();
   </script>
 </body>
 </html>
