@@ -62,13 +62,87 @@
       background-size: 200% auto;
       animation: orbital-flow 6s linear infinite;
     }
+
+    :root {
+      --assembly-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .assembly-hidden {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    .assembly-reveal {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .assembly-transition {
+      transition-property: opacity, transform, box-shadow;
+      transition-duration: 620ms;
+      transition-timing-function: var(--assembly-ease);
+    }
+
+    .progress-grow {
+      transition: width 800ms var(--assembly-ease);
+    }
+
+    .lift-pop {
+      box-shadow:
+        0 28px 52px -30px rgba(14, 165, 233, 0.82),
+        0 14px 24px -18px rgba(15, 23, 42, 0.4);
+      transform: scale(1.02) translateY(-2px);
+    }
+
+    .assembly-blob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 9999px;
+      opacity: 0.88;
+      filter: blur(10px);
+      transform: translate(-50%, -50%) scale(0.18);
+      transition:
+        transform 1200ms var(--assembly-ease),
+        width 1200ms var(--assembly-ease),
+        height 1200ms var(--assembly-ease),
+        filter 1200ms var(--assembly-ease),
+        opacity 1200ms var(--assembly-ease);
+      will-change: transform, width, height, filter, opacity;
+    }
+
+    #blob-layer.is-split #blob-sky {
+      width: 28rem;
+      height: 28rem;
+      filter: blur(54px);
+      opacity: 1;
+      transform: translate(-44vw, -44vh) scale(1);
+    }
+
+    #blob-layer.is-split #blob-violet {
+      width: 32rem;
+      height: 32rem;
+      filter: blur(54px);
+      opacity: 1;
+      transform: translate(37vw, -12vh) scale(1);
+    }
+
+    #blob-layer.is-split #blob-amber {
+      width: 24rem;
+      height: 24rem;
+      filter: blur(50px);
+      opacity: 1;
+      transform: translate(-8vw, 38vh) scale(1);
+    }
   </style>
 </head>
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body text-slate-900 antialiased">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
-    <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl animate-blobSlow"></div>
-    <div class="absolute top-[30%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl animate-blobMid"></div>
-    <div class="absolute bottom-[-10rem] left-[20%] h-[24rem] w-[24rem] rounded-full bg-amber-200/40 blur-3xl animate-blobFast"></div>
+  <div id="blob-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+    <div id="blob-sky" class="assembly-blob animate-blobSlow bg-sky-200/40"></div>
+    <div id="blob-violet" class="assembly-blob animate-blobMid bg-violet-200/40"></div>
+    <div id="blob-amber" class="assembly-blob animate-blobFast bg-amber-200/40"></div>
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
@@ -78,29 +152,31 @@
     <img src="assets/drawing-sun.png" alt="" class="absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" style="filter: grayscale(10%) saturate(120%);" />
   </div>
 
-  <main class="relative z-10 mx-auto max-w-3xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
+  <main id="quiz-container" class="relative z-10 mx-auto max-w-3xl px-5 pb-16 pt-12 assembly-hidden assembly-transition md:px-10 md:pt-16">
     <section class="level-up rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Compatibility Quest</p>
-      <h1 class="mt-3 font-heading text-3xl font-extrabold leading-tight text-slate-900 md:text-5xl">
-        The Best Friend Synergy Check
-      </h1>
-      <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
-        A maker-themed DISC assessment to see how your collaboration style pairs with Tyler's operating mode.
-      </p>
+      <div id="hero-block" class="assembly-hidden assembly-transition">
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerViolet">Compatibility Quest</p>
+        <h1 class="mt-3 font-heading text-3xl font-extrabold leading-tight text-slate-900 md:text-5xl">
+          The Best Friend Synergy Check
+        </h1>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+          A maker-themed DISC assessment to see how your collaboration style pairs with Tyler's operating mode.
+        </p>
+      </div>
 
-      <div class="mt-7">
+      <div id="progress-shell" class="mt-7 assembly-hidden assembly-transition">
         <div class="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-500">
           <span id="progress-label">Question 1 of 10</span>
           <span id="progress-value">10%</span>
         </div>
         <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-slate-200/80">
-          <div id="progress-bar" class="h-full w-[10%] rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-violet-500 transition-all duration-300"></div>
+          <div id="progress-bar" class="h-full w-[10%] rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-violet-500 progress-grow"></div>
         </div>
       </div>
 
       <form id="quiz-form" class="mt-8 space-y-6" aria-label="The Best Friend Synergy Check">
         <div class="rounded-2xl p-[1.5px] animate-orbital shadow-glowSky">
-          <div id="question-card" class="rounded-2xl border border-white/70 bg-white/75 p-6 shadow-glowSky backdrop-blur-md transition-all duration-300 ease-out">
+          <div id="question-card" class="rounded-2xl border border-white/70 bg-white/75 p-6 shadow-glowSky backdrop-blur-md assembly-hidden assembly-transition">
             <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSky">Maker Prompt</p>
             <h2 id="question-text" class="mt-3 font-heading text-2xl font-bold text-slate-900"></h2>
             <div id="answers" class="mt-5 space-y-3"></div>
@@ -269,6 +345,10 @@
     const progressLabel = document.getElementById("progress-label");
     const progressValue = document.getElementById("progress-value");
     const progressBar = document.getElementById("progress-bar");
+    const progressShell = document.getElementById("progress-shell");
+    const quizContainer = document.getElementById("quiz-container");
+    const blobLayer = document.getElementById("blob-layer");
+    const heroBlock = document.getElementById("hero-block");
     const questionCard = document.getElementById("question-card");
     const questionText = document.getElementById("question-text");
     const answersWrap = document.getElementById("answers");
@@ -276,7 +356,6 @@
     const nextBtn = document.getElementById("next-btn");
     const quizForm = document.getElementById("quiz-form");
     const syncStatus = document.getElementById("sync-status");
-    const scanLine = document.getElementById("scan-line");
     const results = document.getElementById("results");
     const compatibilityEl = document.getElementById("compatibility");
     const roleEl = document.getElementById("party-role");
@@ -286,6 +365,34 @@
     const SCAN_DURATION_MS = 600;
     const RESULT_SYNC_MS = 1500;
     let transitionBusy = false;
+
+    function runSystemBoot() {
+      progressBar.style.width = "0%";
+
+      blobLayer.classList.add("is-split");
+
+      setTimeout(() => {
+        quizContainer.classList.remove("assembly-hidden");
+        quizContainer.classList.add("assembly-reveal");
+        heroBlock.classList.remove("assembly-hidden");
+        heroBlock.classList.add("assembly-reveal");
+      }, 200);
+
+      setTimeout(() => {
+        progressShell.classList.remove("assembly-hidden");
+        progressShell.classList.add("assembly-reveal");
+        progressBar.style.width = `${Math.round(((current + 1) / questions.length) * 100)}%`;
+      }, 400);
+
+      setTimeout(() => {
+        questionCard.classList.remove("assembly-hidden");
+        questionCard.classList.add("assembly-reveal", "lift-pop");
+      }, 600);
+
+      setTimeout(() => {
+        questionCard.classList.remove("lift-pop");
+      }, 860);
+    }
 
     function renderQuestion() {
       const q = questions[current];
@@ -492,6 +599,7 @@
     });
 
     renderQuestion();
+    window.onload = runSystemBoot;
   </script>
 </body>
 </html>
