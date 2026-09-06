@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <title>Tyler Yates | Engineering the Plan</title>
+  <title>Tyler Yates | Product Management</title>
   <meta name="description"
-    content="Engineering Planner @ Lockheed Martin | Software Roots | Future Director of Tech." />
+    content="Tyler Yates — Engineering Planner and Scrum Master with a software background, focused on clarifying problems, making tradeoffs, and turning ideas into useful products." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -178,6 +178,37 @@
       transform: translateY(0);
     }
 
+    .doodle-annotation {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transform: rotate(-6deg);
+    }
+
+    .phone-mock-shell {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(14, 165, 233, 0.18), transparent 45%),
+        radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.2), transparent 50%),
+        linear-gradient(160deg, #f8fafc 0%, #eef2ff 55%, #fff7ed 100%);
+    }
+
+    .featured-product-stage {
+      background:
+        radial-gradient(circle at 35% 25%, rgba(14, 165, 233, 0.22), transparent 55%),
+        radial-gradient(circle at 70% 75%, rgba(139, 92, 246, 0.18), transparent 50%),
+        linear-gradient(165deg, rgba(248, 250, 252, 0.9), rgba(238, 242, 255, 0.55));
+    }
+
+    .featured-product-shot {
+      filter: drop-shadow(0 14px 28px rgba(14, 165, 233, 0.2));
+    }
+
+    @media (min-width: 768px) {
+      .featured-product-shot {
+        transform: rotate(1deg);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
 
       .animate-orbital,
@@ -185,6 +216,10 @@
       .animate-chromatic-border,
       .animate-quizWiggle {
         animation: none !important;
+      }
+
+      .featured-product-shot {
+        transform: none;
       }
 
       .level-up,
@@ -208,16 +243,16 @@
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
     <img src="assets/drawing-dragon.png" alt="" aria-hidden="true"
-      class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]"
+      class="legacy-doodle absolute left-[2%] top-[6%] w-[22vw] min-w-[160px] max-w-[280px] -rotate-6 opacity-[0.12] hidden lg:block"
       loading="lazy" decoding="async" width="543" height="484" />
     <img src="assets/drawing-dino.png" alt="" aria-hidden="true"
-      class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]"
+      class="legacy-doodle absolute right-[2%] top-[28%] w-[18vw] min-w-[140px] max-w-[240px] rotate-6 opacity-[0.11] hidden lg:block"
       loading="lazy" decoding="async" width="420" height="427" />
     <img src="assets/drawing-cat.png" alt="" aria-hidden="true"
-      class="legacy-doodle absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]"
+      class="legacy-doodle absolute bottom-[28%] left-[3%] w-[18vw] min-w-[140px] max-w-[220px] rotate-3 opacity-[0.12] hidden md:block"
       loading="lazy" decoding="async" width="381" height="507" />
     <img src="assets/drawing-sun.png" alt="" aria-hidden="true"
-      class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]"
+      class="legacy-doodle absolute bottom-[10%] right-[4%] w-[16vw] min-w-[120px] max-w-[200px] -rotate-3 opacity-[0.11] hidden md:block"
       loading="lazy" decoding="async" width="557" height="564" />
   </div>
 
@@ -244,10 +279,10 @@
     </div>
   </div>
 
-  <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-10 md:pt-16">
+  <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-[1100px] px-5 pb-16 pt-12 md:px-10 md:pt-16">
     <header id="mission-briefing"
       class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-8 shadow-xl backdrop-blur-xl md:p-12">
-      <div class="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+      <div class="grid items-center gap-8 md:grid-cols-[1.2fr_auto]">
         <div>
           <div class="mb-6 flex flex-wrap items-center gap-3">
             <p
@@ -282,15 +317,28 @@
             </div>
           </div>
           <h1 class="font-heading text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl">
-            Engineering the Plan. Building the Result.
+            Turning ideas into
+            <span class="text-transparent bg-clip-text animate-orbital">useful</span>
+            products.
           </h1>
-          <p class="mt-4 text-lg font-semibold text-slate-700 md:text-2xl">
-            Engineering Planner @ Lockheed Martin | Software Roots | Future Director of Tech.
+          <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
+            I’m Tyler Yates — an Engineering Planner and Scrum Master with a software engineering background. I work
+            across users, teams, and technology to clarify problems, make tradeoffs, and move ideas toward better
+            outcomes.
           </p>
-          <p class="mt-6 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
-            At Lockheed Martin I engineer delivery plans that align software cadence with mission hardware, then I bring
-            that same builder loop home through 3D printing and D&amp;D strategy design.
+          <p class="mt-4 text-sm font-medium tracking-wide text-slate-500">
+            Orlando, FL · Product · Technology · Agile
           </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#featured-work" data-scroll-target="#featured-work"
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              View My Work
+            </a>
+            <a href="resume.html"
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-slate-200 bg-white/90 px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              Resume
+            </a>
+          </div>
         </div>
 
         <div class="flex flex-col items-center">
@@ -305,308 +353,229 @@
                 decoding="async" width="3353" height="5114" fetchpriority="high" />
             </div>
           </div>
-          <a href="quiz.html"
-            class="group level-up relative mt-5 inline-flex animate-quizWiggle self-center rounded-xl p-[2px] shadow-glowSky transition-all duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
-            <span
-              class="animate-chromatic-border absolute inset-0 rounded-xl bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber"></span>
-            <span
-              class="relative z-10 inline-flex items-center gap-2 rounded-[10px] bg-white px-5 py-2.5 text-sm font-bold">
-              <span
-                class="bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber bg-clip-text text-transparent">See
-                if we might be best friends here!</span>
-              <svg xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4 text-slate-600 transition-all duration-500 group-hover:text-makerSkyText" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-          </a>
         </div>
       </div>
     </header>
 
-    <section class="mb-14 level-up" data-stagger-group>
-      <h2 class="level-up mb-6 font-heading text-2xl font-bold text-slate-800 md:text-3xl">Character Stats</h2>
+    <section id="featured-work"
+      class="level-up relative mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+      <div class="flex flex-wrap items-start justify-between gap-3 gap-y-2">
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Case Studies</p>
+          <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">Featured Product Work</h2>
+        </div>
+        <span aria-hidden="true"
+          class="doodle-annotation mt-1 hidden shrink-0 select-none rounded-xl border border-violet-100 bg-white/90 px-3 py-1.5 text-sm text-makerVioletText shadow-sm md:inline-flex">
+          proof over tools →
+        </span>
+      </div>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+        Product work focused on turning real problems into better decisions.
+      </p>
+      <div id="featured-work-grid" class="mt-8 space-y-6"></div>
+    </section>
+
+    <section class="mb-12 level-up" data-stagger-group>
+      <h2 class="level-up mb-2 font-heading text-2xl font-bold text-slate-800 md:text-3xl">What I Bring to Product</h2>
+      <p class="mb-6 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+        A blend of user empathy, technical depth, and a bias for action.
+      </p>
       <div class="grid gap-5 md:grid-cols-3">
         <article
           class="level-up rounded-3xl border border-white/60 border-b-4 border-b-sky-300 bg-white/70 p-6 shadow-glowSky backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-sky-400 hover:shadow-2xl md:rotate-[-1.5deg]"
           data-stagger-item>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">The Blueprint</p>
-          <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">Engineering Logic</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-makerSkyText" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <h3 class="mt-3 font-heading text-xl font-bold text-slate-900 md:text-2xl">User-Centered Thinking</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            With my engineering mindset, I love to learn how things work and then use that knowledge to build efficient
-            solutions.
+            I start by understanding the people, context, and friction behind a problem before jumping to a solution.
           </p>
         </article>
 
         <article
           class="level-up rounded-3xl border border-white/60 border-b-4 border-b-violet-300 bg-white/70 p-6 shadow-glowViolet backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-violet-400 hover:shadow-2xl md:rotate-[1.3deg]"
           data-stagger-item>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The Grind</p>
-          <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">MS in Computer Information Systems</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-makerVioletText" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+          <h3 class="mt-3 font-heading text-xl font-bold text-slate-900 md:text-2xl">Technical Fluency</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Graduate work sharpens how I structure delivery plans and how I create decision plans for complex problems.
+            My software background helps me work closely with technical teams, understand tradeoffs, and connect product
+            decisions to implementation.
           </p>
         </article>
 
         <article
           class="level-up rounded-3xl border border-white/60 border-b-4 border-b-amber-300 bg-white/70 p-6 shadow-glowAmber backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-amber-400 hover:shadow-2xl md:rotate-[-1deg]"
           data-stagger-item>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">The Edge</p>
-          <h3 class="mt-3 font-heading text-2xl font-bold text-slate-900">Military Veteran</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-makerAmber" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+          <h3 class="mt-3 font-heading text-xl font-bold text-slate-900 md:text-2xl">Operational Discipline</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Mission discipline anchors my planning rhythm and the same mindset drives rapid prototype
-            iterations in my day-to-day work as well as at home in my hobbies.
+            I bring structure to ambiguity — aligning teams, clarifying priorities, and keeping work moving toward
+            meaningful outcomes.
           </p>
         </article>
       </div>
     </section>
 
     <section
-      class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The Director's Toolkit</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">Skill Tree for Technical Leadership</h2>
-      <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
-        I use one playbook across domains: structured planning at Lockheed, software problem framing, and maker
-        experimentation through 3D print cycles and D&amp;D scenario design.
+      class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Principles</p>
+      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">How I Think About Product</h2>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+        Frameworks are useful. The thinking behind the decision matters more.
       </p>
 
-      <div class="mt-7 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <article class="level-up rounded-2xl border border-sky-100 bg-sky-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Strategy</h3>
-          <ul class="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
-            <li>Agile &amp; Scrum Mastery</li>
-            <li>Cross-functional Alignment</li>
-            <li>Mission-First Leadership</li>
-          </ul>
-        </article>
-
-        <article class="level-up rounded-2xl border border-violet-100 bg-violet-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Technical</h3>
-          <ul class="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
-            <li>Python &amp; C++ Development</li>
-            <li>Systems Architecture</li>
-            <li>Additive Manufacturing (3D)</li>
-          </ul>
-        </article>
-
-        <article class="level-up rounded-2xl border border-amber-100 bg-amber-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Tools</h3>
-          <ul class="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
-            <li>Jira &amp; Confluence</li>
-            <li>Gemini &amp; OpenAI (Advanced Prompting)</li>
-            <li>Claude (Technical Logic)</li>
-            <li>AI-Assisted Development</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section
-      class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Career XP</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">The Backlog</h2>
-      <p class="mt-2 text-sm font-medium text-slate-500">XP: Experience Points</p>
-
-      <div class="mt-8 space-y-7">
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
         <article class="border-l-2 border-sky-300/80 pl-5">
-          <h3 class="font-heading text-2xl font-semibold text-slate-900">Engineering Planning</h3>
-          <p class="mt-1 text-sm font-medium text-makerSkyText">Lockheed Martin</p>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Start with the problem.</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Orchestrating technical roadmaps and cross-functional synchronization for high-stakes aerospace programs.
-            Bridging software development cycles with mission-critical hardware delivery.
+            Understand who is experiencing the problem, why it matters, and what evidence supports it.
           </p>
         </article>
-
         <article class="border-l-2 border-violet-300/80 pl-5">
-          <h3 class="font-heading text-2xl font-semibold text-slate-900">Simulation Training Systems</h3>
-          <p class="mt-1 text-sm font-medium text-makerVioletText">CAE / Simcom</p>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Make tradeoffs visible.</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Built operational depth in simulation environments where precision, repeatability, and readiness drive
-            outcomes.
+            Product is rarely about doing everything. I want teams to understand what we are prioritizing, what we are
+            not, and why.
           </p>
         </article>
-
-        <article class="border-l-2 border-sky-300/80 pl-5">
-          <h3 class="font-heading text-2xl font-semibold text-slate-900">Agile Product Lifecycle</h3>
-          <p class="mt-1 text-sm font-medium text-makerSkyText">Universal Studios Orlando</p>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Bridged guest experience with technical execution by driving features from user story creation to global
-            release. Managed cross-team alignment to ensure high-visibility content reached production with
-            accessibility (WCAG) and performance at the forefront.
-          </p>
-        </article>
-
-        <article class="border-l-2 border-violet-300/80 pl-5">
-          <h3 class="font-heading text-2xl font-semibold text-slate-900">Technical Project Management</h3>
-          <p class="mt-1 text-sm font-medium text-makerVioletText">Astrion</p>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Led cross-disciplinary engineering squads to optimize delivery pipelines and manage complex dependencies.
-            Implemented process improvements that accelerated delivery by 12% while maintaining rigid scope and budget
-            guardrails for external stakeholders.
-          </p>
-        </article>
-
         <article class="border-l-2 border-amber-300/80 pl-5">
-          <h3 class="font-heading text-2xl font-semibold text-slate-900">Mission-Critical Communications</h3>
-          <p class="mt-1 text-sm font-medium text-makerAmber">United States Army</p>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Ship, learn, improve.</h3>
           <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Engineered and maintained secure network infrastructure in high-pressure operational environments. Led
-            technical teams to resolve hardware and software blockers under time-critical constraints to ensure 100%
-            mission readiness.
+            A launch is not the finish line. Measure what happens, learn from real behavior, and keep improving.
           </p>
         </article>
       </div>
     </section>
 
-    <section
-      class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10"
-      data-stagger-group>
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Certification Backlog</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">Kanban Progress</h2>
-
-      <div class="mt-7 grid grid-cols-1 gap-6 md:grid-cols-3" role="list">
-        <div class="level-up rounded-2xl border border-slate-200 bg-white/80 p-5" role="listitem" data-stagger-item>
-          <h3 class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-500">
-            <span class="h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-            To Do
-          </h3>
-          <div class="space-y-3">
-            <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">PMI-ACP</p>
-              <p class="mt-1 text-sm text-slate-600">Agile Certified Practitioner</p>
-            </article>
-            <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Google Project Management</p>
-              <p class="mt-1 text-sm text-slate-600">Professional Certificate</p>
-            </article>
-          </div>
+    <section id="about"
+      class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+      <div class="flex flex-wrap items-start justify-between gap-3 gap-y-2">
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Background</p>
+          <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">About Me</h2>
         </div>
-
-        <div class="level-up rounded-2xl border border-violet-100 bg-violet-50/60 p-5" role="listitem"
-          data-stagger-item>
-          <h3 class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-500">
-            <span class="h-2.5 w-2.5 rounded-full bg-makerViolet"></span>
-            Working Towards
-          </h3>
-          <div class="space-y-3">
-            <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Master of Science</p>
-              <p class="mt-1 text-sm text-slate-600">CIS at Florida Tech</p>
-            </article>
-            <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">PMP Certification</p>
-              <p class="mt-1 text-sm text-slate-600">Project Management Professional</p>
-            </article>
-            <article class="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Scrum Master I (PSM I)</p>
-              <p class="mt-1 text-sm text-slate-600">Professional Scrum Master</p>
-            </article>
-          </div>
-        </div>
-
-        <div class="level-up rounded-2xl border border-sky-100 bg-sky-50/60 p-5" role="listitem" data-stagger-item>
-          <h3 class="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-500">
-            <span class="h-2.5 w-2.5 rounded-full bg-makerSky"></span>
-            Earned
-          </h3>
-          <div class="space-y-3">
-            <article class="rounded-xl border border-sky-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">Bachelor of Science</p>
-              <p class="mt-1 text-sm text-slate-600">CS at Full Sail University</p>
-            </article>
-            <article class="rounded-xl border border-sky-100 bg-white p-4 shadow-sm">
-              <p class="font-semibold text-slate-900">U.S. Army Veteran</p>
-              <p class="mt-1 text-sm text-slate-600">Honorable Service & Leadership</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Maker Passions</p>
-      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">The Core Drive</h2>
-      <p class="mt-2 text-sm text-slate-500">Rooted in family. Driven by creativity. Defined by optimization.</p>
-
-      <div class="mt-7 grid gap-5 md:grid-cols-3">
-        <article class="rounded-2xl border border-amber-100 bg-amber-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Family & Legacy</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            My ultimate optimization goal. Building a future for my wife and children is the primary mission that keeps
-            my planning rhythm sharp and my priorities aligned.
-          </p>
-        </article>
-
-        <article class="rounded-2xl border border-violet-100 bg-violet-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">D&amp;D: Obijima</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            Running campaigns in Obijima sharpens complex system modeling and branching-risk planning. These are same
-            skills I use for program dependencies and team synchronization.
-          </p>
-        </article>
-
-        <article class="rounded-2xl border border-sky-100 bg-sky-50/70 p-5">
-          <h3 class="font-heading text-xl font-semibold text-slate-900">Master Workflow</h3>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">
-            I execute on an essentialist standard. Whether it’s a 3D print or a project roadmap, my focus is the loop:
-            audit, optimize, and strip away the noise to deliver high-impact results.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="level-up rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The War Room</p>
-          <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">After Action Report</h2>
-          <p class="mt-2 text-sm text-slate-600">Feedback portal for the mission path to Director of Technology.</p>
-        </div>
+        <span aria-hidden="true"
+          class="doodle-annotation mt-1 hidden shrink-0 select-none rounded-lg border border-sky-100 bg-white/90 px-2.5 py-1 text-xs text-makerSkyText shadow-sm md:inline-flex"
+          style="transform: rotate(4deg)">
+          the path →
+        </span>
       </div>
 
-      <div class="mt-8 grid gap-8 lg:grid-cols-2">
-        <aside class="rounded-2xl border border-violet-100 bg-violet-50/60 p-5">
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Current Skill Tree</p>
-          <ul class="mt-4 space-y-3 text-sm text-slate-700">
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-makerSky"></span> Agile + Iterative
-              Delivery</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-makerViolet"></span> Systems
-              Architecture</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-makerAmber"></span> Technical
-              Foundation</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-slate-400"></span> Executive
-              Communication Growth</li>
+      <div class="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+        <div class="space-y-4 text-sm leading-relaxed text-slate-600 md:text-base">
+          <p>
+            I started on the technical side of products, but I kept finding myself more interested in the questions that
+            came before the build.
+          </p>
+          <ul class="space-y-2 text-slate-700">
+            <li>Who are we solving this for?</li>
+            <li>What is actually causing the problem?</li>
+            <li>Which solution creates the most value?</li>
+            <li>How will we know whether it worked?</li>
+          </ul>
+          <p>
+            Those questions are what pulled me toward Product Management.
+          </p>
+          <p class="pt-2 text-xs font-medium uppercase tracking-[0.12em] text-slate-500">
+            Tools I work with: Jira · Confluence · Figma · Analytics · AI-assisted workflows
+          </p>
+        </div>
+
+        <aside aria-label="Credentials" class="rounded-2xl border border-violet-100 bg-violet-50/50 p-5">
+          <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerVioletText">Supporting proof</p>
+          <ul class="mt-4 space-y-2.5 text-sm text-slate-700">
+            <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-makerViolet"
+                aria-hidden="true"></span>PSPO I — Scrum.org</li>
+            <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-makerSky"
+                aria-hidden="true"></span>PSM I — Scrum.org</li>
+            <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-makerAmber"
+                aria-hidden="true"></span>M.S. Engineering Management</li>
+            <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-makerSky"
+                aria-hidden="true"></span>B.S. Computer Science</li>
+            <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-makerViolet"
+                aria-hidden="true"></span>U.S. Army Veteran</li>
           </ul>
         </aside>
-
-        <form id="aar-form" class="grid gap-5" action="https://formspree.io/f/xbdadbvb" method="POST"
-          aria-label="After Action Report form">
-          <div class="grid gap-2">
-            <label for="name" class="text-sm font-semibold text-slate-700">Reviewer</label>
-            <input id="name" name="name" type="text" required placeholder="Name / Team"
-              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white" />
-          </div>
-
-          <div class="grid gap-2">
-            <label for="report" class="text-sm font-semibold text-slate-700">AAR Notes</label>
-            <textarea id="report" name="report" rows="5" required
-              placeholder="What is one high-leverage adjustment for the next level?"
-              class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"></textarea>
-          </div>
-
-          <button type="submit"
-            class="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 font-heading text-base font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-violet-200 focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white md:w-auto">
-            Submit After Action Report
-          </button>
-          <div class="min-h-[1.5rem]">
-            <p id="form-status" aria-live="polite"
-              class="mt-4 hidden text-center text-xs font-bold uppercase tracking-widest text-makerSky transition-opacity duration-300 opacity-0">
-            </p>
-          </div>
-        </form>
       </div>
+    </section>
+
+    <section
+      class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10"
+      data-stagger-group>
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Personality</p>
+      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">A Little More About Me</h2>
+      <p class="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
+        The things that keep me curious, motivated, and moving forward.
+      </p>
+
+      <div class="mt-7 grid gap-5 md:grid-cols-3">
+        <article
+          class="level-up rounded-2xl border border-amber-100 bg-amber-50/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1"
+          data-stagger-item>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Family First</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            My wife and children keep me grounded and remind me what really matters.
+          </p>
+        </article>
+
+        <article
+          class="level-up rounded-2xl border border-violet-100 bg-violet-50/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1"
+          data-stagger-item>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Curiosity &amp; Learning</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            I’m always learning — about people, technology, and the world around me.
+          </p>
+        </article>
+
+        <article
+          class="level-up rounded-2xl border border-sky-100 bg-sky-50/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1"
+          data-stagger-item>
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Creative Builder</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">
+            I love turning ideas into real things, whether it’s a product, a process, or a personal project.
+          </p>
+        </article>
+      </div>
+
+      <div class="mt-8 flex justify-center">
+        <a href="quiz.html"
+          class="group level-up relative inline-flex animate-quizWiggle rounded-xl p-[2px] shadow-glowSky transition-all duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span
+            class="animate-chromatic-border absolute inset-0 rounded-xl bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber"></span>
+          <span
+            class="relative z-10 inline-flex min-h-[44px] items-center gap-2 rounded-[10px] bg-white px-5 py-2.5 text-sm font-bold">
+            <span class="bg-gradient-to-r from-makerSky via-makerViolet to-makerAmber bg-clip-text text-transparent">See
+              if we might be best friends here!</span>
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 text-slate-600 transition-all duration-500 group-hover:text-makerSkyText" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section id="connect"
+      class="level-up rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Say Hello</p>
+      <h2 class="mt-3 font-heading text-3xl font-bold text-slate-900">Let’s Connect</h2>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+        I’m open to Product Manager opportunities and always up for a good conversation about products, technology, and
+        interesting problems.
+      </p>
+      <div id="social-links" class="mt-7 flex flex-wrap gap-3"></div>
     </section>
 
     <footer class="relative mt-10 flex w-full flex-col items-center">
@@ -671,143 +640,249 @@
     (() => {
       "use strict";
 
-      // Core config values for status messaging and network behavior.
-      const AAR_REQUEST_TIMEOUT_MS = 6000;
-      const AAR_STATUS_HIDE_DELAY_MS = 5000;
+      // Easy toggles: set enabled + caseStudyUrl / imageSrc to show work and unlock CTAs.
+      const FEATURED_WORK = [
+        {
+          id: "utip",
+          enabled: true,
+          featured: true,
+          title: "uTip",
+          hook: "Rethinking a simple tip calculator around real user friction.",
+          body: "I’m using a simple utility as an opportunity to practice product discovery, test assumptions, prioritize the right problems, and improve the experience based on real feedback.",
+          role: "Product discovery, design, development",
+          focus: "User research · Problem framing · MVP · Prioritization",
+          status: "Case Study In Progress",
+          caseStudyUrl: null, // set to a URL (e.g. "utip.html") to enable the CTA link
+          imageSrc: "assets/uTip.jpg"
+        },
+        {
+          id: "guest-facing",
+          enabled: false,
+          featured: false,
+          title: "Guest-Facing Digital Experience",
+          hook: "",
+          body: "",
+          role: "",
+          focus: "",
+          status: "",
+          caseStudyUrl: null,
+          imageSrc: null
+        },
+        {
+          id: "delivery-improvement",
+          enabled: false,
+          featured: false,
+          title: "Delivery Improvement Initiative",
+          hook: "",
+          body: "",
+          role: "",
+          focus: "",
+          status: "",
+          caseStudyUrl: null,
+          imageSrc: null
+        }
+      ];
+
+      // Contact links — update here if they change.
+      const SOCIAL_LINKS = {
+        linkedin: "https://www.linkedin.com/in/tyleryates57/",
+        github: "https://github.com/Brandon-T-Yates",
+        email: "tyler.yates2017@gmail.com"
+      };
+
       const TITLE_ROTATION_INTERVAL_MS = 3000;
       const NAV_SCROLL_TOLERANCE_PX = 18;
       const BACK_TO_TOP_SHOW_SCROLL_PX = 600;
       const ROTATING_TITLES = ["Father", "Dungeon Master", "Home Cook", "Gamer", "Tech Collector", "Optimizer"];
 
-      // Static DOM references used across page modules.
       const legacyLayer = document.getElementById("legacy-layer");
       const scrollLine = document.getElementById("scroll-line");
       const missionBriefing = document.getElementById("mission-briefing");
       const personalityTitleLive = document.getElementById("personality-title-live");
-      const aarForm = document.getElementById("aar-form");
-      const formStatus = document.getElementById("form-status");
-      const aarSubmitBtn = aarForm ? aarForm.querySelector('button[type="submit"]') : null;
+      const featuredWorkGrid = document.getElementById("featured-work-grid");
+      const socialLinksContainer = document.getElementById("social-links");
       const backToTopShell = document.getElementById("back-to-top-shell");
       const backToTopBtn = document.getElementById("back-to-top");
       const navScrollLinks = Array.from(document.querySelectorAll("[data-scroll-target]"));
 
-      // Cached node lists for reveal animation orchestration.
-      const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
-      const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
-      const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
-      const staggerItemSet = new Set(staggerItems);
-      const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
-
-      // Runtime state that changes during interactions.
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let statusHideTimer = null;
 
       /**
-       * Render status copy for the After Action Report form.
-       * @param {string} message - Message shown to the user.
-       * @param {boolean} [isError=false] - Switches status color to error.
-       * @returns {void}
+       * Escape text for safe HTML interpolation.
+       * @param {string} value
+       * @returns {string}
        */
-      function setFormStatus(message, isError = false) {
-        if (!formStatus) {
-          return;
-        }
-        if (statusHideTimer) {
-          window.clearTimeout(statusHideTimer);
-          statusHideTimer = null;
-        }
-        formStatus.textContent = message;
-        formStatus.classList.remove("hidden", "opacity-0", "opacity-100", "text-red-500", "text-makerSky");
-        formStatus.classList.add(isError ? "text-red-500" : "text-makerSky", "opacity-0");
-        requestAnimationFrame(() => {
-          formStatus.classList.remove("opacity-0");
-          formStatus.classList.add("opacity-100");
-        });
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
 
       /**
-       * Fade and hide the status region after a brief timeout.
-       * @returns {void}
+       * Whether a social config value is still a placeholder.
+       * @param {string} value
+       * @returns {boolean}
        */
-      function hideFormStatus() {
-        if (!formStatus || formStatus.classList.contains("hidden")) {
-          return;
-        }
-        formStatus.classList.remove("opacity-100");
-        formStatus.classList.add("opacity-0");
-        window.setTimeout(() => {
-          formStatus.classList.add("hidden");
-        }, 300);
+      function isPlaceholderLink(value) {
+        return !value || String(value).includes("PLACEHOLDER");
       }
 
       /**
-       * Send JSON to a remote endpoint with an abort timeout.
-       * @param {string} url - Destination endpoint URL.
-       * @param {Record<string, FormDataEntryValue>} payload - JSON body content.
-       * @param {{ timeoutMs?: number }} [options] - Request options.
-       * @returns {Promise<Response>}
+       * Build the case study CTA. Visually active; links only when caseStudyUrl is set.
+       * @param {{ caseStudyUrl?: string|null, title: string }} item
+       * @returns {string}
        */
-      async function postJsonWithTimeout(url, payload, { timeoutMs = AAR_REQUEST_TIMEOUT_MS } = {}) {
-        const controller = new AbortController();
-        const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
+      function renderCaseStudyCta(item) {
+        const hasUrl = typeof item.caseStudyUrl === "string" && item.caseStudyUrl.trim().length > 0;
+        const visualClass =
+          "inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-100";
+        const arrow =
+          '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
 
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json"
-            },
-            body: JSON.stringify(payload),
-            signal: controller.signal
-          });
-
-          if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-          }
-
-          return response;
-        } finally {
-          window.clearTimeout(timeoutId);
+        if (hasUrl) {
+          return `<a href="${escapeHtml(item.caseStudyUrl)}" class="${visualClass}">View Case Study ${arrow}</a>`;
         }
+
+        return `<button type="button" class="${visualClass}" aria-disabled="true" disabled title="Case study page coming soon — set caseStudyUrl in FEATURED_WORK">View Case Study ${arrow}</button>`;
       }
 
       /**
-       * Bind submit behavior for the After Action Report form.
+       * Visual placeholder / screenshot for featured work.
+       * @param {{ title: string, imageSrc?: string|null }} item
+       * @returns {string}
+       */
+      function renderVisualPane(item) {
+        if (item.imageSrc) {
+          return `<div class="featured-product-stage relative flex h-full items-center justify-center rounded-3xl p-4 md:p-5">
+            <div class="featured-product-shot relative w-full max-w-[215px] sm:max-w-[225px] md:max-w-[235px]">
+              <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+                <img src="${escapeHtml(item.imageSrc)}" alt="${escapeHtml(item.title)} app preview" width="648" height="1440" class="aspect-[9/14] h-auto w-full max-h-[22rem] object-cover object-top md:max-h-[26rem]" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>`;
+        }
+
+        return `<div class="flex items-center justify-center">
+          <div class="relative mx-auto w-full max-w-[240px]">
+            <div class="rounded-[2rem] border-[10px] border-slate-900 bg-slate-900 p-2 shadow-2xl">
+              <div class="phone-mock-shell flex aspect-[9/19] flex-col items-center justify-center rounded-[1.25rem] px-5 text-center">
+                <p class="font-heading text-2xl font-extrabold tracking-tight">
+                  <span class="text-transparent bg-clip-text animate-orbital">${escapeHtml(item.title)}</span>
+                </p>
+                <p class="mt-4 inline-flex rounded-full border border-amber-100 bg-amber-50/90 px-3 py-1 text-[11px] font-semibold text-amber-800">Case Study In Progress</p>
+                <p class="mt-4 text-sm leading-relaxed text-slate-600">Real product screens coming soon.</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      }
+
+      /**
+       * Large featured project layout.
+       * @param {object} item
+       * @returns {string}
+       */
+      function renderFeaturedProject(item) {
+        return `<article class="level-up overflow-hidden rounded-3xl border border-sky-100 bg-white/90 shadow-glowSky">
+          <div class="grid gap-8 p-6 md:grid-cols-2 md:items-stretch md:gap-12 md:p-8 lg:gap-14 lg:p-10">
+            <div class="md:pr-2">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSkyText">Featured project</p>
+              <h3 class="mt-2 font-heading text-3xl font-extrabold text-slate-900 md:text-4xl">${escapeHtml(item.title)}</h3>
+              <p class="mt-3 text-base font-semibold leading-snug text-slate-700 md:text-lg">${escapeHtml(item.hook || "")}</p>
+              <p class="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">${escapeHtml(item.body || "")}</p>
+              <dl class="mt-6 space-y-3 text-sm">
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Role</dt>
+                  <dd class="mt-1 font-medium text-slate-700">${escapeHtml(item.role || "")}</dd>
+                </div>
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Focus</dt>
+                  <dd class="mt-1 font-medium text-slate-700">${escapeHtml(item.focus || "")}</dd>
+                </div>
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Status</dt>
+                  <dd class="mt-1">
+                    <span class="inline-flex rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">${escapeHtml(item.status || "")}</span>
+                  </dd>
+                </div>
+              </dl>
+              <div class="mt-7">${renderCaseStudyCta(item)}</div>
+            </div>
+            ${renderVisualPane(item)}
+          </div>
+        </article>`;
+      }
+
+      /**
+       * Compact card for secondary enabled projects.
+       * @param {object} item
+       * @returns {string}
+       */
+      function renderSecondaryProject(item) {
+        return `<article class="level-up rounded-3xl border border-white/60 border-b-4 border-b-violet-300 bg-white/80 p-6 shadow-glowViolet" data-stagger-item>
+          <h3 class="font-heading text-2xl font-bold text-slate-900">${escapeHtml(item.title)}</h3>
+          ${item.hook ? `<p class="mt-2 text-sm font-medium text-makerVioletText">${escapeHtml(item.hook)}</p>` : ""}
+          ${item.body ? `<p class="mt-3 text-sm leading-relaxed text-slate-600">${escapeHtml(item.body)}</p>` : ""}
+          <div class="mt-5">${renderCaseStudyCta(item)}</div>
+        </article>`;
+      }
+
+      /**
+       * Render enabled featured work from FEATURED_WORK config.
        * @returns {void}
        */
-      function initAarForm() {
-        if (!aarForm) {
+      function initFeaturedWork() {
+        if (!featuredWorkGrid) {
           return;
         }
 
-        aarForm.addEventListener("submit", async (event) => {
-          event.preventDefault();
+        const enabledWork = FEATURED_WORK.filter((item) => item.enabled);
+        featuredWorkGrid.innerHTML = enabledWork
+          .map((item) => (item.featured ? renderFeaturedProject(item) : renderSecondaryProject(item)))
+          .join("");
+      }
 
-          setFormStatus("Transmitting AAR data to Mission Control...");
-          if (aarSubmitBtn) {
-            aarSubmitBtn.disabled = true;
-            aarSubmitBtn.classList.add("opacity-70", "cursor-not-allowed");
-          }
+      /**
+       * Render Let's Connect buttons: LinkedIn primary, Email secondary, GitHub tertiary.
+       * @returns {void}
+       */
+      function initSocialLinks() {
+        if (!socialLinksContainer) {
+          return;
+        }
 
-          const payload = Object.fromEntries(new FormData(aarForm).entries());
+        const primaryClass =
+          "inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+        const secondaryClass =
+          "inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+        const tertiaryClass =
+          "inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-transparent px-5 py-3 text-sm font-semibold text-slate-500 underline-offset-4 transition hover:text-makerSkyText hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+        const disabledClass =
+          "inline-flex min-h-[44px] cursor-not-allowed items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-400";
 
-          try {
-            await postJsonWithTimeout(aarForm.action, payload);
-            aarForm.reset();
-            setFormStatus("Mission Accomplished: Report Received.");
-            statusHideTimer = window.setTimeout(() => {
-              hideFormStatus();
-            }, AAR_STATUS_HIDE_DELAY_MS);
-          } catch (_error) {
-            setFormStatus("System Error: Transmission Failed. Please retry.", true);
-          } finally {
-            if (aarSubmitBtn) {
-              aarSubmitBtn.disabled = false;
-              aarSubmitBtn.classList.remove("opacity-70", "cursor-not-allowed");
+        const entries = [
+          { label: "LinkedIn", value: SOCIAL_LINKS.linkedin, kind: "url", tier: "primary" },
+          { label: "Email", value: SOCIAL_LINKS.email, kind: "email", tier: "secondary" },
+          { label: "GitHub", value: SOCIAL_LINKS.github, kind: "url", tier: "tertiary" }
+        ];
+
+        socialLinksContainer.innerHTML = entries
+          .map(({ label, value, kind, tier }) => {
+            const activeClass =
+              tier === "primary" ? primaryClass : tier === "secondary" ? secondaryClass : tertiaryClass;
+
+            if (isPlaceholderLink(value)) {
+              return `<span class="${disabledClass}" aria-disabled="true" title="Add your ${label} in SOCIAL_LINKS">${escapeHtml(label)}</span>`;
             }
-          }
-        });
+
+            const href = kind === "email" ? `mailto:${value}` : value;
+            const externalAttrs = kind === "url" ? ' target="_blank" rel="noopener noreferrer"' : "";
+            return `<a href="${escapeHtml(href)}" class="${activeClass}"${externalAttrs}>${escapeHtml(label)}</a>`;
+          })
+          .join("");
       }
 
       /**
@@ -823,7 +898,7 @@
 
       /**
        * Toggle floating "Back to Top" button visibility based on scroll depth.
-       * @param {number} [scrollTop] - Current document scroll position.
+       * @param {number} [scrollTop]
        * @returns {void}
        */
       function updateBackToTopVisibility(scrollTop = window.scrollY || document.documentElement.scrollTop) {
@@ -854,8 +929,8 @@
       }
 
       /**
-       * Normalize a pathname for same-page comparisons (`/` and `/index.html` are equivalent).
-       * @param {string} pathname - URL pathname to normalize.
+       * Normalize a pathname for same-page comparisons.
+       * @param {string} pathname
        * @returns {string}
        */
       function normalizePath(pathname) {
@@ -863,8 +938,7 @@
       }
 
       /**
-       * Determine whether a mouse event is a plain left click (no modifiers).
-       * @param {MouseEvent} event - Click event.
+       * @param {MouseEvent} event
        * @returns {boolean}
        */
       function isPlainLeftClick(event) {
@@ -873,7 +947,6 @@
 
       /**
        * Initialize navigation guards for same-page scroll targets.
-       * Prevents reload/jump when already at the destination.
        * @returns {void}
        */
       function initNavScrollGuards() {
@@ -950,8 +1023,7 @@
       }
 
       /**
-       * Prime an element with baseline reveal animation classes.
-       * @param {HTMLElement} item - Element to prime.
+       * @param {HTMLElement} item
        * @returns {void}
        */
       function primeReveal(item) {
@@ -966,10 +1038,16 @@
       }
 
       /**
-       * Initialize reveal animations and staggered group behavior.
+       * Initialize reveal animations after dynamic sections are rendered.
        * @returns {void}
        */
       function initRevealSystem() {
+        const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
+        const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
+        const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
+        const staggerItemSet = new Set(staggerItems);
+        const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
+
         if (prefersReducedMotion) {
           levelUpItems.forEach((item) => {
             item.style.transitionDelay = "";
@@ -1030,7 +1108,8 @@
        * @returns {void}
        */
       function initializePage() {
-        initAarForm();
+        initFeaturedWork();
+        initSocialLinks();
         initNavScrollGuards();
         initBackToTopButton();
         initPersonalityTicker();

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <title>uTip Case Study | Tyler Yates</title>
+  <meta name="description"
+    content="Product Management case study: rethinking uTip — a simple tip calculator — around real user friction, discovery, prioritization, and iteration." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          colors: {
+            makerSky: "#0ea5e9",
+            makerViolet: "#8b5cf6",
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
+            makerAmber: "#f59e0b",
+            makerPaper: "#fafafa"
+          },
+          boxShadow: {
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)",
+            glowViolet: "0 20px 40px -24px rgba(139,92,246,0.7)",
+            glowAmber: "0 20px 40px -24px rgba(245,158,11,0.7)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --orbital-sky: #0ea5e9;
+      --orbital-violet: #8b5cf6;
+      --orbital-amber: #f59e0b;
+      --orbital-gradient: linear-gradient(to right,
+          var(--orbital-sky),
+          var(--orbital-violet),
+          var(--orbital-amber),
+          var(--orbital-sky));
+      --legacy-doodle-filter: grayscale(10%) saturate(120%);
+    }
+
+    @keyframes orbital-flow {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 200% 50%;
+      }
+    }
+
+    .animate-orbital {
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    .legacy-doodle {
+      filter: var(--legacy-doodle-filter);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      transform: translateY(-200%);
+      border-radius: 0.75rem;
+      background-color: #ffffff;
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0f172a;
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.5);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .doodle-annotation {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transform: rotate(-6deg);
+    }
+
+    .featured-product-stage {
+      background:
+        radial-gradient(circle at 35% 25%, rgba(14, 165, 233, 0.22), transparent 55%),
+        radial-gradient(circle at 70% 75%, rgba(139, 92, 246, 0.18), transparent 50%),
+        linear-gradient(165deg, rgba(248, 250, 252, 0.9), rgba(238, 242, 255, 0.55));
+    }
+
+    .featured-product-shot {
+      filter: drop-shadow(0 14px 28px rgba(14, 165, 233, 0.2));
+    }
+
+    @media (min-width: 768px) {
+      .featured-product-shot {
+        transform: rotate(1deg);
+      }
+    }
+
+    .case-section {
+      scroll-margin-top: 5.5rem;
+    }
+
+    .flow-arrow {
+      color: #94a3b8;
+    }
+
+    .section-nav a.is-active {
+      color: #0369a1;
+      background-color: rgba(14, 165, 233, 0.08);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital {
+        animation: none !important;
+      }
+
+      .featured-product-shot {
+        transform: none;
+      }
+
+      .level-up,
+      [data-stagger-item] {
+        transition-duration: 0ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
+  <a href="#main-content"
+    class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+    Skip to Content
+  </a>
+
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+    <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute top-[22%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl"></div>
+    <div class="absolute bottom-[-10rem] left-[18%] h-[24rem] w-[24rem] rounded-full bg-amber-200/40 blur-3xl"></div>
+  </div>
+
+  <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true"
+      class="legacy-doodle absolute left-[2%] top-[8%] w-[20vw] min-w-[140px] max-w-[240px] -rotate-6 opacity-[0.1] hidden lg:block"
+      loading="lazy" decoding="async" width="543" height="484" />
+    <img src="assets/drawing-dino.png" alt="" aria-hidden="true"
+      class="legacy-doodle absolute right-[2%] top-[36%] w-[16vw] min-w-[120px] max-w-[210px] rotate-6 opacity-[0.1] hidden lg:block"
+      loading="lazy" decoding="async" width="420" height="427" />
+    <img src="assets/drawing-cat.png" alt="" aria-hidden="true"
+      class="legacy-doodle absolute bottom-[30%] left-[2%] w-[16vw] min-w-[120px] max-w-[200px] rotate-3 opacity-[0.1] hidden md:block"
+      loading="lazy" decoding="async" width="381" height="507" />
+    <img src="assets/drawing-sun.png" alt="" aria-hidden="true"
+      class="legacy-doodle absolute bottom-[8%] right-[3%] w-[14vw] min-w-[110px] max-w-[180px] -rotate-3 opacity-[0.1] hidden md:block"
+      loading="lazy" decoding="async" width="557" height="564" />
+  </div>
+
+  <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
+    <div id="scroll-line"
+      class="h-0 w-full bg-gradient-to-b from-cyan-400 via-sky-500 to-violet-500 transition-[height] duration-150">
+    </div>
+  </div>
+
+  <header class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
+    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+      <nav aria-label="Case study navigation"
+        class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+        <a href="index.html"
+          class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          ← Back to Portfolio
+        </a>
+        <span class="text-slate-300" aria-hidden="true">|</span>
+        <a href="resume.html"
+          class="text-[10px] font-bold uppercase tracking-wide text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          Resume
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="relative z-10 mx-auto max-w-[1100px] px-5 pb-16 pt-20 md:px-10 md:pt-24">
+    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_9.5rem] lg:items-start lg:gap-8">
+      <main id="main-content" tabindex="-1" class="min-w-0">
+
+        <!-- 1. Hero -->
+        <header id="hero"
+          class="case-section level-up mb-10 overflow-hidden rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <div class="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p
+                class="inline-flex h-[26px] items-center rounded-full border border-sky-200 bg-sky-50 px-4 text-[10px] font-bold uppercase tracking-widest text-makerSkyText">
+                Product Case Study
+              </p>
+              <h1 class="mt-4 font-heading text-5xl font-extrabold tracking-tight text-slate-900 md:text-6xl">
+                <span class="text-transparent bg-clip-text animate-orbital">uTip</span>
+              </h1>
+              <p class="mt-4 max-w-xl font-heading text-xl font-semibold leading-snug text-slate-800 md:text-2xl">
+                Rethinking a simple tip calculator around real user friction.
+              </p>
+              <p class="mt-5 max-w-xl text-sm leading-relaxed text-slate-600 md:text-base">
+                uTip began as a simple, ad-free tip calculator. I’m now using the product as a hands-on Product
+                Management case study — starting with the problem, testing assumptions, prioritizing opportunities, and
+                improving the experience based on what I learn.
+              </p>
+
+              <dl class="mt-8 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Role</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-700">Product discovery, design, development</dd>
+                </div>
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Product</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-700">Mobile utility app</dd>
+                </div>
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Status</dt>
+                  <dd class="mt-1">
+                    <span
+                      class="inline-flex rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">Case
+                      Study In Progress</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Focus</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-700">User research · Problem framing · Prioritization ·
+                    MVP · Iteration</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="featured-product-stage relative flex items-center justify-center rounded-3xl p-5 md:p-6">
+              <span aria-hidden="true"
+                class="doodle-annotation absolute -top-2 right-3 hidden select-none rounded-xl border border-violet-100 bg-white/90 px-3 py-1.5 text-sm text-makerVioletText shadow-sm sm:inline-flex">
+                real screen →
+              </span>
+              <div class="featured-product-shot relative w-full max-w-[220px] sm:max-w-[240px]">
+                <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+                  <img src="assets/uTip.jpg" alt="uTip app screenshot showing bill, tip percentage, total, and rounding controls"
+                    width="648" height="1440"
+                    class="aspect-[9/14] h-auto w-full max-h-[24rem] object-cover object-top md:max-h-[28rem]"
+                    loading="eager" decoding="async" fetchpriority="high" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- 2. At a Glance -->
+        <section id="at-a-glance" aria-labelledby="at-a-glance-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Snapshot</p>
+          <h2 id="at-a-glance-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            At a Glance
+          </h2>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            <article class="rounded-2xl border border-sky-100 bg-sky-50/50 p-5">
+              <h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerSkyText">The Product</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700">
+                A simple, ad-free mobile tip calculator designed to make calculating and adjusting tips quick.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-violet-100 bg-violet-50/40 p-5">
+              <h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerVioletText">The Challenge</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700">
+                Determine where users experience friction around tipping — and whether uTip can solve more than the
+                basic calculation.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-amber-100 bg-amber-50/40 p-5">
+              <h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-700">My Role</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700">
+                End-to-end ownership: product discovery, experience design, and building the current app.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/80 p-5">
+              <h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Current Status</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700">
+                Working product shipped. Discovery and research are underway — insights and prioritization are still in
+                progress.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 3. Context -->
+        <section id="context" aria-labelledby="context-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Context</p>
+          <h2 id="context-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            From “I built an app” to “what problem am I solving?”
+          </h2>
+          <div class="mt-8 grid gap-8 md:grid-cols-[1fr_auto_1fr] md:items-center">
+            <div class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Starting point</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-800">A working tip calculator</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                The first version solved the functional problem: calculate a tip quickly, without ads getting in the
+                way.
+              </p>
+            </div>
+            <div class="hidden text-center md:block" aria-hidden="true">
+              <span class="flow-arrow font-heading text-2xl font-bold">→</span>
+            </div>
+            <div class="rounded-2xl border border-sky-100 bg-gradient-to-br from-sky-50/80 to-violet-50/60 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerSkyText">Product lens</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-800">Revisit through discovery</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                Shipping a working product and creating a valuable product are not necessarily the same thing.
+              </p>
+            </div>
+          </div>
+          <p class="mt-8 max-w-3xl border-l-2 border-violet-300/80 pl-5 text-base leading-relaxed text-slate-700 md:text-lg">
+            I wanted to revisit uTip by starting somewhere different — not with features, but with the user problem.
+          </p>
+        </section>
+
+        <!-- 4. The Problem -->
+        <section id="problem" aria-labelledby="problem-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">The Problem</p>
+              <h2 id="problem-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+                The calculator worked. The uncertainty didn’t go away.
+              </h2>
+            </div>
+            <span aria-hidden="true"
+              class="doodle-annotation mt-1 hidden shrink-0 select-none rounded-xl border border-amber-100 bg-white/90 px-3 py-1.5 text-sm text-amber-700 shadow-sm md:inline-flex">
+              question first →
+            </span>
+          </div>
+          <p class="mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+            The bigger question wasn’t “can people calculate a tip?” — it was whether the product helped with the
+            moments of friction people actually feel when deciding what to tip.
+          </p>
+
+          <figure
+            class="mt-8 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-violet-50 p-6 md:p-8">
+            <figcaption class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSkyText">The Question
+            </figcaption>
+            <blockquote class="mt-4 font-heading text-xl font-semibold leading-snug text-slate-900 md:text-2xl">
+              “What makes tipping feel unnecessarily difficult, uncertain, or frustrating — and where could a simple
+              tool meaningfully help?”
+            </blockquote>
+            <p class="mt-4 text-sm text-slate-500">This is the question guiding discovery — not a validated conclusion.
+            </p>
+          </figure>
+
+          <div class="mt-8 grid gap-5 md:grid-cols-2">
+            <article class="rounded-2xl border border-amber-100 bg-amber-50/50 p-5">
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-flex rounded-full border border-amber-200 bg-white px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-800">Assumption</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-700/80">To be validated</span>
+              </div>
+              <p class="mt-4 text-sm leading-relaxed text-slate-700">
+                People may experience friction beyond arithmetic — choosing a percentage, splitting context, rounding
+                the final amount, or wanting a fast, distraction-free path.
+              </p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-white/70 p-5">
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">Evidence</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">In progress</span>
+              </div>
+              <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                No validated research findings yet. User interviews and feedback are planned so assumptions can be
+                tested — not treated as fact.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 5. What I Needed to Learn -->
+        <section id="learn-questions" aria-labelledby="learn-questions-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Before Solutions</p>
+          <h2 id="learn-questions-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            What I Needed to Learn
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Research questions I’m investigating — not findings.
+          </p>
+          <ol class="mt-8 space-y-3" data-stagger-group>
+            <li
+              class="flex gap-4 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm transition hover:border-sky-100"
+              data-stagger-item>
+              <span
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sm font-bold text-makerSkyText">1</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Research question</p>
+                <p class="mt-1 text-sm font-medium leading-relaxed text-slate-800 md:text-base">When do people actually
+                  use a tip calculator?</p>
+              </div>
+            </li>
+            <li
+              class="flex gap-4 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm transition hover:border-violet-100"
+              data-stagger-item>
+              <span
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-50 text-sm font-bold text-makerVioletText">2</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Research question</p>
+                <p class="mt-1 text-sm font-medium leading-relaxed text-slate-800 md:text-base">What part of tipping
+                  creates the most friction?</p>
+              </div>
+            </li>
+            <li
+              class="flex gap-4 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm transition hover:border-amber-100"
+              data-stagger-item>
+              <span
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-50 text-sm font-bold text-amber-700">3</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Research question</p>
+                <p class="mt-1 text-sm font-medium leading-relaxed text-slate-800 md:text-base">How do people choose a tip
+                  percentage?</p>
+              </div>
+            </li>
+            <li
+              class="flex gap-4 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm transition hover:border-sky-100"
+              data-stagger-item>
+              <span
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sm font-bold text-makerSkyText">4</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Research question</p>
+                <p class="mt-1 text-sm font-medium leading-relaxed text-slate-800 md:text-base">Do people care about
+                  rounding the final bill?</p>
+              </div>
+            </li>
+            <li
+              class="flex gap-4 rounded-2xl border border-white/60 bg-white/90 p-4 shadow-sm transition hover:border-violet-100"
+              data-stagger-item>
+              <span
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-50 text-sm font-bold text-makerVioletText">5</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Research question</p>
+                <p class="mt-1 text-sm font-medium leading-relaxed text-slate-800 md:text-base">What would make someone use
+                  a dedicated tool instead of a calculator or mental math?</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <!-- 6. Discovery / Research -->
+        <section id="discovery" aria-labelledby="discovery-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Discovery</p>
+              <h2 id="discovery-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+                User Research
+              </h2>
+            </div>
+            <span
+              class="inline-flex rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">Research
+              In Progress</span>
+          </div>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            This section will be updated as interviews and feedback are completed. Placeholders below show how evidence
+            will be organized — without inventing results.
+          </p>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">User Interviews</h3>
+              <p class="mt-2 text-2xl font-bold text-slate-400">0 <span class="text-sm font-semibold">planned</span></p>
+              <p class="mt-2 text-sm text-slate-500">In Progress</p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">Observations</h3>
+              <p class="mt-3 text-sm text-slate-500">To be captured during discovery.</p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">Common Behaviors</h3>
+              <p class="mt-3 text-sm text-slate-500">Awaiting patterns from real usage conversations.</p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">Pain Points</h3>
+              <p class="mt-3 text-sm text-slate-500">Will be listed only after evidence exists.</p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">Quotes</h3>
+              <p class="mt-3 text-sm italic text-slate-400">“Real quotes will appear here.”</p>
+            </article>
+            <article class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/60 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-800">Patterns</h3>
+              <p class="mt-3 text-sm text-slate-500">Synthesis planned after interviews.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 7. What I Learned (insights) -->
+        <section id="insights" aria-labelledby="insights-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Insights</p>
+          <h2 id="insights-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            What I Learned
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Structure for validated insights. Nothing here is claimed until research supports it.
+          </p>
+
+          <div
+            class="mt-8 rounded-3xl border border-dashed border-slate-300 bg-gradient-to-b from-white to-slate-50/80 px-6 py-12 text-center">
+            <p
+              class="inline-flex rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">
+              Insights In Progress</p>
+            <p class="mx-auto mt-5 max-w-md font-heading text-xl font-semibold text-slate-700">
+              No validated insights yet.
+            </p>
+            <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-slate-500">
+              Each future insight will include what I heard, the evidence behind it, and why it matters for product
+              decisions.
+            </p>
+            <div class="mx-auto mt-8 grid max-w-3xl gap-3 text-left sm:grid-cols-3">
+              <div class="rounded-xl border border-slate-200 bg-white/80 p-4 opacity-60">
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Insight</p>
+                <p class="mt-2 text-sm text-slate-400">—</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 bg-white/80 p-4 opacity-60">
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Evidence</p>
+                <p class="mt-2 text-sm text-slate-400">—</p>
+              </div>
+              <div class="rounded-xl border border-slate-200 bg-white/80 p-4 opacity-60">
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Why it matters</p>
+                <p class="mt-2 text-sm text-slate-400">—</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Opportunity Framing -->
+        <section id="opportunity" aria-labelledby="opportunity-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Framing</p>
+          <h2 id="opportunity-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Turning observations into opportunities
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            How discovery will translate into product choices — once evidence exists.
+          </p>
+
+          <div class="mt-8 flex flex-col items-stretch gap-3 md:flex-row md:items-center md:gap-4">
+            <div class="flex-1 rounded-2xl border border-dashed border-slate-300 bg-slate-50/70 p-5 text-center md:text-left">
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Observation</p>
+              <p class="mt-3 text-sm text-slate-400">In Progress</p>
+            </div>
+            <span class="hidden shrink-0 font-heading text-xl text-slate-300 md:inline" aria-hidden="true">→</span>
+            <div class="flex-1 rounded-2xl border border-dashed border-slate-300 bg-slate-50/70 p-5 text-center md:text-left">
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">User Need</p>
+              <p class="mt-3 text-sm text-slate-400">In Progress</p>
+            </div>
+            <span class="hidden shrink-0 font-heading text-xl text-slate-300 md:inline" aria-hidden="true">→</span>
+            <div class="flex-1 rounded-2xl border border-dashed border-violet-200 bg-violet-50/40 p-5 text-center md:text-left">
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerVioletText">Product Opportunity</p>
+              <p class="mt-3 text-sm text-slate-400">To Be Validated</p>
+            </div>
+          </div>
+          <p class="mt-6 text-sm text-slate-500">
+            Framework ready. Content waits on research — not assumptions dressed up as opportunities.
+          </p>
+        </section>
+
+        <!-- 9. Prioritization -->
+        <section id="prioritization" aria-labelledby="prioritization-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerAmber">Decisions</p>
+          <h2 id="prioritization-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Prioritization &amp; Tradeoffs
+          </h2>
+          <p class="mt-4 max-w-2xl border-l-2 border-amber-300/80 pl-5 text-sm leading-relaxed text-slate-700 md:text-base">
+            The goal is not to add more features. It’s to identify the smallest changes that meaningfully reduce user
+            friction.
+          </p>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600">
+            Prioritization means choosing what <span class="font-semibold text-slate-800">not</span> to build. Until
+            opportunities are evidence-backed, this table shows the decision framework — not invented feature calls.
+          </p>
+
+          <div class="mt-8 overflow-x-auto rounded-2xl border border-slate-200 bg-white/90">
+            <table class="w-full min-w-[640px] border-collapse text-left text-sm">
+              <caption class="sr-only">Prioritization framework for future product opportunities</caption>
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50/80 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
+                  <th scope="col" class="px-4 py-3">Opportunity</th>
+                  <th scope="col" class="px-4 py-3">User value</th>
+                  <th scope="col" class="px-4 py-3">Effort</th>
+                  <th scope="col" class="px-4 py-3">Confidence</th>
+                  <th scope="col" class="px-4 py-3">Decision</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-600">
+                <tr class="border-b border-slate-100">
+                  <td class="px-4 py-4 text-slate-400" colspan="5">
+                    No prioritized opportunities yet — awaiting discovery synthesis.
+                  </td>
+                </tr>
+                <tr class="border-b border-slate-100 opacity-50">
+                  <td class="px-4 py-3">—</td>
+                  <td class="px-4 py-3">—</td>
+                  <td class="px-4 py-3">—</td>
+                  <td class="px-4 py-3">—</td>
+                  <td class="px-4 py-3">
+                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 text-[11px] font-semibold text-makerSkyText">Now</span>
+                    <span class="ml-1 rounded-full border border-violet-100 bg-violet-50 px-2 py-0.5 text-[11px] font-semibold text-makerVioletText">Next</span>
+                    <span class="ml-1 rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-500">Later</span>
+                    <span class="ml-1 rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[11px] font-semibold text-slate-400">Not pursuing</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 10. Product Direction -->
+        <section id="direction" aria-labelledby="direction-heading"
+          class="case-section level-up mb-10 overflow-hidden rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Current Product</p>
+          <h2 id="direction-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Product Direction
+          </h2>
+          <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+            These capabilities exist in the current product. The case study is evaluating which behaviors are genuinely
+            valuable and what should change next — not presenting them as research-driven outcomes.
+          </p>
+
+          <div class="mt-8 grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div class="featured-product-stage flex justify-center rounded-3xl p-5">
+              <div class="featured-product-shot w-full max-w-[200px] sm:max-w-[220px]">
+                <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+                  <img src="assets/uTip.jpg" alt="Current uTip experience with bill input, tip slider, total, and round controls"
+                    width="648" height="1440"
+                    class="aspect-[9/14] h-auto w-full max-h-[22rem] object-cover object-top md:max-h-[26rem]"
+                    loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerVioletText">Current Experience</p>
+              <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Bill amount</li>
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Tip amount</li>
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Tip percentage</li>
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Total</li>
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Round up</li>
+                <li class="rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm font-medium text-slate-700">Round down</li>
+              </ul>
+              <p class="mt-6 text-sm leading-relaxed text-slate-500">
+                Built first to solve a clear functional need. Discovery will decide what stays, what improves, and what
+                gets cut.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. Designing / Building -->
+        <section id="building" aria-labelledby="building-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Build Thinking</p>
+          <h2 id="building-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Designing &amp; Building
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Implementation supports the product story — it isn’t the story. Technical fluency helps with feasibility,
+            tradeoffs, and fast prototyping.
+          </p>
+
+          <div class="mt-8 space-y-4">
+            <article class="grid gap-3 rounded-2xl border border-sky-100 bg-sky-50/40 p-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center md:gap-4">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerSkyText">Product decision</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Keep the flow short: bill → tip → total</p>
+              </div>
+              <span class="hidden text-slate-300 md:inline" aria-hidden="true">→</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerVioletText">UX consideration</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Minimize taps and visual noise at the moment of payment</p>
+              </div>
+              <span class="hidden text-slate-300 md:inline" aria-hidden="true">→</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-700">Technical implication</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Single-screen calculator keeps state simple and updates immediate</p>
+              </div>
+            </article>
+            <article class="grid gap-3 rounded-2xl border border-violet-100 bg-violet-50/30 p-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center md:gap-4">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerSkyText">Product decision</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Offer rounding without adding complexity to the core path</p>
+              </div>
+              <span class="hidden text-slate-300 md:inline" aria-hidden="true">→</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-makerVioletText">UX consideration</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Secondary actions sit below the primary result</p>
+              </div>
+              <span class="hidden text-slate-300 md:inline" aria-hidden="true">→</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-700">Technical implication</p>
+                <p class="mt-2 text-sm font-medium text-slate-800">Rounding adjusts tip/total without requiring a separate flow</p>
+              </div>
+            </article>
+          </div>
+          <p class="mt-6 text-sm leading-relaxed text-slate-500">
+            These connections describe how the current build was shaped. Future changes should still start from
+            validated user needs — then consider UX and engineering cost together.
+          </p>
+        </section>
+
+        <!-- 12. Measuring Success -->
+        <section id="metrics" aria-labelledby="metrics-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Outcomes</p>
+          <h2 id="metrics-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Measuring Success
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            No live performance data is claimed here yet. Below are <span class="font-semibold text-slate-800">proposed
+              measures</span> I would watch to learn whether improvements actually help.
+          </p>
+
+          <p class="mt-8 text-[10px] font-bold uppercase tracking-[0.2em] text-makerVioletText">Success signals I would watch</p>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Task completion</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">Did the user finish a tip calculation without
+                abandoning the flow?</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Time to complete</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">How quickly can someone go from bill entry to a
+                usable total?</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Feature usage</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">Which controls (percentage, round up/down) people
+                actually use — and which they ignore.</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Repeat usage</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">Whether people return when tipping comes up again —
+                a signal the tool earned a place in the habit.</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Abandonment</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">Where people stop. Friction points matter more than
+                vanity counts.</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <h3 class="font-heading text-lg font-semibold text-slate-900">Qualitative feedback</h3>
+              <p class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Proposed</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">Interview notes and app-store feedback that explain
+                <em>why</em> behavior changed — not just that it did.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 13. Reflection -->
+        <section id="reflection" aria-labelledby="reflection-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Reflection</p>
+          <h2 id="reflection-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            What I’m Learning About Product
+          </h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Working principles for this case study. They’re not claims that research has already proven specific product
+            outcomes.
+          </p>
+          <ul class="mt-8 space-y-4">
+            <li class="border-l-2 border-sky-300/80 pl-5">
+              <p class="font-heading text-lg font-semibold text-slate-900">Assumptions are not evidence.</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">A plausible idea still needs validation before it
+                drives roadmap decisions.</p>
+            </li>
+            <li class="border-l-2 border-violet-300/80 pl-5">
+              <p class="font-heading text-lg font-semibold text-slate-900">A working feature is not necessarily a valuable
+                feature.</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Shipping proves feasibility. Value requires
+                understanding whether it reduced real friction.</p>
+            </li>
+            <li class="border-l-2 border-amber-300/80 pl-5">
+              <p class="font-heading text-lg font-semibold text-slate-900">Discovery should influence what gets built.</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">The next version of uTip should be shaped by what
+                users struggle with — not by what is easy to add.</p>
+            </li>
+            <li class="border-l-2 border-sky-300/80 pl-5">
+              <p class="font-heading text-lg font-semibold text-slate-900">Simplicity can be a product decision.</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Saying no protects the core job when extra options
+                would slow people down.</p>
+            </li>
+            <li class="border-l-2 border-violet-300/80 pl-5">
+              <p class="font-heading text-lg font-semibold text-slate-900">Prioritization requires saying no.</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Tradeoffs are clearer when “Not pursuing” is an
+                explicit option.</p>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 14. What's Next -->
+        <section id="next" aria-labelledby="next-heading"
+          class="case-section level-up mb-10 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Roadmap</p>
+          <h2 id="next-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            What’s Next
+          </h2>
+          <ol class="mt-8 grid gap-4 sm:grid-cols-2">
+            <li class="rounded-2xl border border-sky-100 bg-sky-50/50 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerSkyText">Now</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-900">Complete discovery</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Gather user feedback and interview notes against the
+                research questions above.</p>
+            </li>
+            <li class="rounded-2xl border border-violet-100 bg-violet-50/40 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-makerVioletText">Next</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-900">Synthesize &amp; prioritize</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Turn patterns into opportunities, then decide Now /
+                Next / Later / Not pursuing.</p>
+            </li>
+            <li class="rounded-2xl border border-amber-100 bg-amber-50/40 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-700">Then</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-900">Test high-value changes</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Prototype and validate the smallest improvements most
+                likely to reduce friction.</p>
+            </li>
+            <li class="rounded-2xl border border-slate-200 bg-white/90 p-5">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Later</p>
+              <p class="mt-3 font-heading text-lg font-semibold text-slate-900">Measure &amp; iterate</p>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Watch the proposed success signals and keep learning
+                from behavior and feedback.</p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- 15. CTA -->
+        <section id="connect" aria-labelledby="connect-heading"
+          class="case-section level-up rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Close</p>
+          <h2 id="connect-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+            Good products get better by learning.
+          </h2>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Want to talk Product? Let’s connect.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="index.html"
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              Back to Portfolio
+            </a>
+            <a href="https://www.linkedin.com/in/tyleryates57/" target="_blank" rel="noopener noreferrer"
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-slate-200 bg-white/90 px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              LinkedIn
+            </a>
+            <a href="mailto:tyler.yates2017@gmail.com"
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-transparent px-5 py-3 text-sm font-semibold text-slate-500 underline-offset-4 transition hover:text-makerSkyText hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              Email
+            </a>
+          </div>
+        </section>
+
+        <footer class="mt-12 text-center">
+          <p class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+            SITE ENGINEERED &amp; OPTIMIZED BY
+            <span class="animate-orbital bg-clip-text text-transparent">TYLER YATES</span>
+            | © 2026
+          </p>
+        </footer>
+      </main>
+
+      <!-- Lightweight desktop section nav -->
+      <aside class="sticky top-24 hidden self-start lg:block" aria-label="On this page">
+        <nav class="section-nav rounded-2xl border border-white/70 bg-white/80 p-3 shadow-sm backdrop-blur-xl">
+          <p class="px-2 pb-2 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">On this page</p>
+          <ul class="space-y-0.5 text-[11px] font-semibold text-slate-500">
+            <li><a href="#at-a-glance" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">At a Glance</a></li>
+            <li><a href="#problem" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">Problem</a></li>
+            <li><a href="#discovery" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">Research</a></li>
+            <li><a href="#prioritization" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">Prioritization</a></li>
+            <li><a href="#direction" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">Direction</a></li>
+            <li><a href="#metrics" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">Metrics</a></li>
+            <li><a href="#next" class="block rounded-lg px-2 py-1.5 transition hover:bg-sky-50 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">What’s Next</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </div>
+
+  <div id="back-to-top-shell"
+    class="fixed bottom-6 right-6 z-50 inline-flex rounded-full p-[2px] animate-orbital shadow-glowSky transition-all duration-300 ease-out opacity-0 translate-y-20 pointer-events-none">
+    <button id="back-to-top" type="button" aria-label="Back to top"
+      class="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white text-makerSkyText backdrop-blur-md transition-transform duration-300 ease-out hover:rotate-12 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+      <span aria-hidden="true"
+        class="pointer-events-none absolute inset-0 rounded-full bg-sky-100/60 blur-sm animate-pulse"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 text-makerSkyText" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const BACK_TO_TOP_SHOW_SCROLL_PX = 600;
+      const legacyLayer = document.getElementById("legacy-layer");
+      const scrollLine = document.getElementById("scroll-line");
+      const backToTopShell = document.getElementById("back-to-top-shell");
+      const backToTopBtn = document.getElementById("back-to-top");
+      const sectionNavLinks = Array.from(document.querySelectorAll(".section-nav a[href^='#']"));
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function syncLegacyHeight() {
+        if (!legacyLayer) return;
+        legacyLayer.style.height = `${document.documentElement.scrollHeight}px`;
+      }
+
+      function updateBackToTopVisibility(scrollTop = window.scrollY || document.documentElement.scrollTop) {
+        if (!backToTopShell) return;
+        const shouldShow = scrollTop > BACK_TO_TOP_SHOW_SCROLL_PX;
+        backToTopShell.classList.toggle("opacity-0", !shouldShow);
+        backToTopShell.classList.toggle("translate-y-20", !shouldShow);
+        backToTopShell.classList.toggle("pointer-events-none", !shouldShow);
+        backToTopShell.classList.toggle("opacity-100", shouldShow);
+        backToTopShell.classList.toggle("translate-y-0", shouldShow);
+      }
+
+      function updateScrollLine() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        updateBackToTopVisibility(scrollTop);
+        if (!scrollLine) return;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+        scrollLine.style.height = `${Math.max(0, Math.min(100, pct))}%`;
+      }
+
+      function updateSectionNav() {
+        if (!sectionNavLinks.length) return;
+        const scrollPos = (window.scrollY || document.documentElement.scrollTop) + 120;
+        let currentId = null;
+
+        sectionNavLinks.forEach((link) => {
+          const id = link.getAttribute("href")?.slice(1);
+          const section = id ? document.getElementById(id) : null;
+          if (section && section.offsetTop <= scrollPos) {
+            currentId = id;
+          }
+        });
+
+        sectionNavLinks.forEach((link) => {
+          const id = link.getAttribute("href")?.slice(1);
+          link.classList.toggle("is-active", id === currentId);
+        });
+      }
+
+      function primeReveal(item) {
+        item.classList.add(
+          "opacity-0",
+          "translate-y-5",
+          "transition-all",
+          "duration-700",
+          "ease-out",
+          "will-change-transform"
+        );
+      }
+
+      function initRevealSystem() {
+        const levelUpItems = Array.from(document.querySelectorAll(".level-up"));
+        const staggerGroups = Array.from(document.querySelectorAll("[data-stagger-group]"));
+        const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
+        const staggerItemSet = new Set(staggerItems);
+        const standardLevelUpItems = levelUpItems.filter((item) => !staggerItemSet.has(item));
+
+        if (prefersReducedMotion) {
+          levelUpItems.forEach((item) => {
+            item.classList.remove("opacity-0", "translate-y-5");
+          });
+          return;
+        }
+
+        standardLevelUpItems.forEach(primeReveal);
+        staggerItems.forEach(primeReveal);
+
+        if (!("IntersectionObserver" in window)) {
+          levelUpItems.forEach((item) => {
+            item.classList.remove("opacity-0", "translate-y-5");
+            item.classList.add("opacity-100", "translate-y-0");
+          });
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("opacity-100", "translate-y-0");
+                entry.target.classList.remove("opacity-0", "translate-y-5");
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        );
+        standardLevelUpItems.forEach((item) => observer.observe(item));
+
+        const staggerObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting || entry.target.dataset.revealed === "true") return;
+              const groupItems = entry.target.querySelectorAll("[data-stagger-item]");
+              groupItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 80}ms`;
+                item.classList.add("opacity-100", "translate-y-0");
+                item.classList.remove("opacity-0", "translate-y-5");
+              });
+              entry.target.dataset.revealed = "true";
+              staggerObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
+        );
+        staggerGroups.forEach((group) => staggerObserver.observe(group));
+      }
+
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function onScroll() {
+        updateScrollLine();
+        updateSectionNav();
+      }
+
+      function initializePage() {
+        initRevealSystem();
+        syncLegacyHeight();
+        onScroll();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePage, { once: true });
+      } else {
+        initializePage();
+      }
+
+      window.addEventListener("load", () => {
+        syncLegacyHeight();
+        onScroll();
+      });
+      window.addEventListener("resize", () => {
+        syncLegacyHeight();
+        onScroll();
+      });
+      window.addEventListener("scroll", onScroll, { passive: true });
+    })();
+  </script>
+</body>
+
+</html>
