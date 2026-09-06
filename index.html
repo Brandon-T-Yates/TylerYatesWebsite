@@ -200,13 +200,7 @@
     }
 
     .featured-product-shot {
-      filter: drop-shadow(0 14px 28px rgba(14, 165, 233, 0.2));
-    }
-
-    @media (min-width: 768px) {
-      .featured-product-shot {
-        transform: rotate(1deg);
-      }
+      filter: none;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -318,7 +312,7 @@
           </div>
           <h1 class="font-heading text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl">
             Turning ideas into
-            <span class="text-transparent bg-clip-text animate-orbital">useful</span>
+            <span class="text-transparent bg-clip-text animate-orbital">amazing</span>
             products.
           </h1>
           <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
@@ -648,11 +642,11 @@
           featured: true,
           title: "uTip",
           hook: "Rethinking a simple tip calculator around real user friction.",
-          body: "I’m using a simple utility as an opportunity to practice product discovery, test assumptions, prioritize the right problems, and improve the experience based on real feedback.",
-          role: "Product discovery, design, development",
-          focus: "User research · Problem framing · MVP · Prioritization",
-          status: "Case Study In Progress",
-          caseStudyUrl: null, // set to a URL (e.g. "utip.html") to enable the CTA link
+          body: "I shipped uTip as a simple, ad-free Android app, then revisited it through a Product Management lens — using user interviews to challenge assumptions, reframe the problem, and identify what I would prioritize differently today.",
+          role: "Product strategy · UX · Design · Development",
+          focus: "User research · Problem framing · Prioritization · Product strategy",
+          status: "Shipped · Retrospective",
+          caseStudyUrl: "utip.html",
           imageSrc: "assets/uTip.jpg"
         },
         {
@@ -757,9 +751,17 @@
       function renderVisualPane(item) {
         if (item.imageSrc) {
           return `<div class="featured-product-stage relative flex h-full items-center justify-center rounded-3xl p-4 md:p-5">
-            <div class="featured-product-shot relative w-full max-w-[215px] sm:max-w-[225px] md:max-w-[235px]">
-              <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-                <img src="${escapeHtml(item.imageSrc)}" alt="${escapeHtml(item.title)} app preview" width="648" height="1440" class="aspect-[9/14] h-auto w-full max-h-[22rem] object-cover object-top md:max-h-[26rem]" loading="lazy" decoding="async" />
+            <div class="featured-product-shot relative w-full max-w-[360px]">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
+                <img
+                  src="${escapeHtml(item.imageSrc)}"
+                  alt="${escapeHtml(item.title)} app preview"
+                  width="648"
+                  height="1440"
+                  class="absolute left-0 top-0 h-auto w-full"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             </div>
           </div>`;
@@ -805,7 +807,7 @@
                 <div>
                   <dt class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Status</dt>
                   <dd class="mt-1">
-                    <span class="inline-flex rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">${escapeHtml(item.status || "")}</span>
+                    <span class="inline-flex rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700"> ${escapeHtml(item.status || "")} </span>
                   </dd>
                 </div>
               </dl>
@@ -854,28 +856,47 @@
           return;
         }
 
-        const primaryClass =
-          "inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-        const secondaryClass =
-          "inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-        const tertiaryClass =
-          "inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-transparent px-5 py-3 text-sm font-semibold text-slate-500 underline-offset-4 transition hover:text-makerSkyText hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-        const disabledClass =
-          "inline-flex min-h-[44px] cursor-not-allowed items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-400";
+        const socialButtonBase =
+          "inline-flex min-h-[44px] w-full items-center justify-center rounded-2xl border px-6 py-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto sm:min-w-[120px]";
+
+        const socialButtonThemes = {
+          linkedin:
+            "border-sky-200 bg-sky-50/70 text-sky-700 hover:border-sky-300 hover:bg-sky-100 hover:text-sky-800 focus-visible:ring-sky-400",
+
+          email:
+            "border-amber-200 bg-amber-50/70 text-amber-700 hover:border-amber-300 hover:bg-amber-100 hover:text-amber-800 focus-visible:ring-amber-400",
+
+          github:
+            "border-violet-200 bg-violet-50/70 text-violet-700 hover:border-violet-300 hover:bg-violet-100 hover:text-violet-800 focus-visible:ring-violet-400"
+        };
 
         const entries = [
-          { label: "LinkedIn", value: SOCIAL_LINKS.linkedin, kind: "url", tier: "primary" },
-          { label: "Email", value: SOCIAL_LINKS.email, kind: "email", tier: "secondary" },
-          { label: "GitHub", value: SOCIAL_LINKS.github, kind: "url", tier: "tertiary" }
+          {
+            label: "LinkedIn",
+            value: SOCIAL_LINKS.linkedin,
+            kind: "url",
+            theme: "linkedin"
+          },
+          {
+            label: "Email",
+            value: SOCIAL_LINKS.email,
+            kind: "email",
+            theme: "email"
+          },
+          {
+            label: "GitHub",
+            value: SOCIAL_LINKS.github,
+            kind: "url",
+            theme: "github"
+          }
         ];
 
         socialLinksContainer.innerHTML = entries
-          .map(({ label, value, kind, tier }) => {
-            const activeClass =
-              tier === "primary" ? primaryClass : tier === "secondary" ? secondaryClass : tertiaryClass;
+          .map(({ label, value, kind, theme }) => {
+            const activeClass = `${socialButtonBase} ${socialButtonThemes[theme]}`;
 
             if (isPlaceholderLink(value)) {
-              return `<span class="${disabledClass}" aria-disabled="true" title="Add your ${label} in SOCIAL_LINKS">${escapeHtml(label)}</span>`;
+              return `<span class="${activeClass} opacity-50 cursor-not-allowed" aria-disabled="true" title="Add your ${label} in SOCIAL_LINKS">${escapeHtml(label)}</span>`;
             }
 
             const href = kind === "email" ? `mailto:${value}` : value;
