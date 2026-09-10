@@ -231,6 +231,9 @@
       }
     }
   </style>
+  <!-- Site information and privacy dialog -->
+  <link rel="stylesheet" href="assets/site-info.css" />
+  <script src="assets/site-info.js" defer></script>
 </head>
 
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
@@ -386,8 +389,8 @@
                 </g>
               </svg>
               <span
-                class="absolute bottom-3 right-3 rounded-full border border-violet-100 bg-white/90 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-makerVioletText shadow-sm">You
-                are here</span>
+                class="absolute bottom-3 right-3 rounded-full border border-violet-100 bg-white/90 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-makerVioletText shadow-sm">Current
+                Step</span>
             </div>
 
             <div class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-makerSkyText">
@@ -508,8 +511,68 @@
         <span class="animate-orbital bg-clip-text text-transparent">TYLER YATES</span>
         | © 2026
       </p>
+      <button type="button" class="site-info-link site-info-footer-link" data-site-info-trigger
+        aria-haspopup="dialog" aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
     </footer>
   </main>
+
+  <div id="back-to-top-shell"
+    class="fixed bottom-6 right-6 z-50 inline-flex rounded-full p-[2px] animate-orbital shadow-glowSky transition-all duration-300 ease-out opacity-0 translate-y-20 pointer-events-none">
+    <button id="back-to-top" type="button" aria-label="Back to top"
+      class="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white text-makerSkyText backdrop-blur-md transition-transform duration-300 ease-out hover:rotate-12 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+      <span aria-hidden="true"
+        class="pointer-events-none absolute inset-0 rounded-full bg-sky-100/60 blur-sm animate-pulse"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 text-makerSkyText" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const BACK_TO_TOP_SHOW_SCROLL_PX = 600;
+      const backToTopShell = document.getElementById("back-to-top-shell");
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      function updateBackToTopVisibility(scrollTop = window.scrollY || document.documentElement.scrollTop) {
+        if (!backToTopShell) {
+          return;
+        }
+        const shouldShow = scrollTop > BACK_TO_TOP_SHOW_SCROLL_PX;
+        backToTopShell.classList.toggle("opacity-0", !shouldShow);
+        backToTopShell.classList.toggle("translate-y-20", !shouldShow);
+        backToTopShell.classList.toggle("pointer-events-none", !shouldShow);
+        backToTopShell.classList.toggle("opacity-100", shouldShow);
+        backToTopShell.classList.toggle("translate-y-0", shouldShow);
+      }
+
+      function initBackToTopButton() {
+        if (!backToTopBtn) {
+          return;
+        }
+
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function initializePage() {
+        initBackToTopButton();
+        updateBackToTopVisibility();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePage, { once: true });
+      } else {
+        initializePage();
+      }
+
+      window.addEventListener("scroll", () => updateBackToTopVisibility(), { passive: true });
+    })();
+  </script>
 </body>
 
 </html>

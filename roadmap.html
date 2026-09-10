@@ -864,6 +864,79 @@
       text-transform: uppercase;
     }
 
+    .back-to-top-shell {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 50;
+      display: inline-flex;
+      padding: 2px;
+      border-radius: 999px;
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      box-shadow: 0 20px 40px -24px rgba(14, 165, 233, .7);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(80px);
+      transition: opacity .3s ease-out, transform .3s ease-out;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    .back-to-top-shell.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .back-to-top-button {
+      position: relative;
+      display: inline-flex;
+      width: 64px;
+      height: 64px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--maker-sky-text);
+      cursor: pointer;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      transition: transform .3s ease-out;
+    }
+
+    .back-to-top-button:hover {
+      transform: rotate(12deg) scale(1.1);
+    }
+
+    .back-to-top-button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--maker-sky);
+    }
+
+    .back-to-top-pulse {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(224, 242, 254, .6);
+      filter: blur(4px);
+      pointer-events: none;
+      animation: back-to-top-pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+    }
+
+    .back-to-top-button svg {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+
+    @keyframes back-to-top-pulse {
+      50% {
+        opacity: .5;
+      }
+    }
+
     @media (max-width: 767px) {
       .top-switcher {
         top: 16px;
@@ -950,6 +1023,9 @@
       }
     }
   </style>
+  <!-- Site information and privacy dialog -->
+  <link rel="stylesheet" href="assets/site-info.css" />
+  <script src="assets/site-info.js" defer></script>
 </head>
 
 <body>
@@ -1256,8 +1332,60 @@
       </div>
       <p class="site-credit">SITE ENGINEERED &amp; OPTIMIZED BY <span class="gradient-text orbital">TYLER YATES</span> |
         © 2026</p>
+      <button type="button" class="site-info-link site-info-footer-link" data-site-info-trigger
+        aria-haspopup="dialog" aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
     </footer>
   </main>
+
+  <div id="back-to-top-shell" class="back-to-top-shell">
+    <button id="back-to-top" class="back-to-top-button" type="button" aria-label="Back to top">
+      <span class="back-to-top-pulse" aria-hidden="true"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const BACK_TO_TOP_SHOW_SCROLL_PX = 600;
+      const backToTopShell = document.getElementById("back-to-top-shell");
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      function updateBackToTopVisibility(scrollTop = window.scrollY || document.documentElement.scrollTop) {
+        if (!backToTopShell) {
+          return;
+        }
+        backToTopShell.classList.toggle("is-visible", scrollTop > BACK_TO_TOP_SHOW_SCROLL_PX);
+      }
+
+      function initBackToTopButton() {
+        if (!backToTopBtn) {
+          return;
+        }
+
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function initializePage() {
+        initBackToTopButton();
+        updateBackToTopVisibility();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializePage, { once: true });
+      } else {
+        initializePage();
+      }
+
+      window.addEventListener("scroll", () => updateBackToTopVisibility(), { passive: true });
+    })();
+  </script>
 </body>
 
 </html>

@@ -220,6 +220,9 @@
       }
     }
   </style>
+  <!-- Site information and privacy dialog -->
+  <link rel="stylesheet" href="assets/site-info.css" />
+  <script src="assets/site-info.js" defer></script>
 </head>
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
   <a href="#quiz-container" class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
@@ -327,6 +330,10 @@
         Back to Mission Control
       </a>
     </section>
+    <footer class="site-info-footer">
+      <button type="button" class="site-info-link" data-site-info-trigger aria-haspopup="dialog"
+        aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
+    </footer>
   </main>
 
   <script>

@@ -270,6 +270,9 @@
       }
     }
   </style>
+  <!-- Site information and privacy dialog -->
+  <link rel="stylesheet" href="assets/site-info.css" />
+  <script src="assets/site-info.js" defer></script>
 </head>
 
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
@@ -735,6 +738,8 @@
         <span class="animate-orbital bg-clip-text text-transparent">TYLER YATES</span>
         | © 2026
       </p>
+      <button type="button" class="site-info-link site-info-footer-link" data-site-info-trigger
+        aria-haspopup="dialog" aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
     </footer>
   </main>
 
