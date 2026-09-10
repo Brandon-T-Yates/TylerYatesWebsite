@@ -10,6 +10,40 @@
   <meta
     content="uTip product case study: a shipped Android app revisited through user research, problem reframing, prioritization, and product reflection."
     name="description" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    function trackAnalyticsEvent(eventName, parameters = {}) {
+      gtag("event", eventName, parameters);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-E3XY6Z4DZ7");
+
+    document.addEventListener("click", (event) => {
+      const trackedElement = event.target.closest?.("[data-ga-event]");
+      if (!trackedElement) {
+        return;
+      }
+
+      const parameters = {
+        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
+        link_location: trackedElement.dataset.gaLocation || "content"
+      };
+
+      if (trackedElement.href) {
+        parameters.link_url = trackedElement.href;
+      }
+
+      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
+    });
+  </script>
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link
@@ -189,12 +223,12 @@
       <nav aria-label="Case study navigation"
         class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
         <a class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          href="index.html">
+          href="index.html" data-ga-event="portfolio_nav_click" data-ga-location="top_nav">
           ← Back to Portfolio
         </a>
         <span aria-hidden="true" class="text-slate-300">|</span>
         <a class="text-[10px] font-bold uppercase tracking-wide text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          href="resume.html">
+          href="resume.html" data-ga-event="resume_nav_click" data-ga-location="top_nav">
           Resume
         </a>
       </nav>
@@ -245,7 +279,8 @@
                 <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   href="#research">See the key findings</a>
                 <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-violet-200 bg-violet-50/70 px-6 py-3 text-sm font-bold text-makerVioletText shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerViolet focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                  href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank">Read full case
+                  href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
+                  data-ga-event="utip_case_study_pdf_click" data-ga-location="hero">Read full case
                   study PDF
                   ↗</a>
               </div>
@@ -648,14 +683,17 @@
             research notes, opportunity analysis, and retrospective.</p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank">Full Case Study PDF
+              href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
+              data-ga-event="utip_case_study_pdf_click" data-ga-location="bottom_cta">Full Case Study PDF
               ↗</a>
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-sky-200 bg-sky-50/70 px-6 py-3 text-sm font-bold text-makerSkyText shadow-sm transition hover:-translate-y-0.5 hover:bg-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              href="index.html">Back to Portfolio</a>
+              href="index.html" data-ga-event="portfolio_nav_click" data-ga-location="bottom_cta">Back to Portfolio</a>
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-violet-200 bg-violet-50/70 px-6 py-3 text-sm font-bold text-makerVioletText shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerViolet focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              href="https://www.linkedin.com/in/tyleryates57/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+              href="https://www.linkedin.com/in/tyleryates57/" rel="noopener noreferrer" target="_blank"
+              data-ga-event="linkedin_click" data-ga-location="bottom_cta">LinkedIn</a>
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-amber-200 bg-amber-50/70 px-6 py-3 text-sm font-bold text-amber-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-amber-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              href="mailto:tyler.yates2017@gmail.com">Email</a>
+              href="mailto:tyler.yates2017@gmail.com" data-ga-event="email_click"
+              data-ga-location="bottom_cta">Email</a>
           </div>
         </section>
         <footer class="mt-12 text-center">

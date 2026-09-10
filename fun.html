@@ -9,6 +9,40 @@
   <meta name="description"
     content="Side quests, experiments, personal builds, and other fun things made by Tyler Yates." />
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    function trackAnalyticsEvent(eventName, parameters = {}) {
+      gtag("event", eventName, parameters);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-E3XY6Z4DZ7");
+
+    document.addEventListener("click", (event) => {
+      const trackedElement = event.target.closest?.("[data-ga-event]");
+      if (!trackedElement) {
+        return;
+      }
+
+      const parameters = {
+        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
+        link_location: trackedElement.dataset.gaLocation || "content"
+      };
+
+      if (trackedElement.href) {
+        parameters.link_url = trackedElement.href;
+      }
+
+      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -222,12 +256,14 @@
     <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
       <nav aria-label="Site navigation"
         class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
-        <a href="index.html" aria-label="Go to portfolio home"
+        <a href="index.html" aria-label="Go to portfolio home" data-ga-event="portfolio_nav_click"
+          data-ga-location="top_nav"
           class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
           <span class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText">Portfolio</span>
         </a>
         <span class="text-slate-400">|</span>
-        <a href="resume.html" aria-label="View resume"
+        <a href="resume.html" aria-label="View resume" data-ga-event="resume_nav_click"
+          data-ga-location="top_nav"
           class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
           <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Resume</span>
         </a>
@@ -275,7 +311,7 @@
       </div>
 
       <div class="grid gap-6 md:grid-cols-2">
-        <a href="roadmap.html"
+        <a href="roadmap.html" data-ga-event="roadmap_tile_click" data-ga-location="side_quest_grid"
           class="active-tile group relative min-h-[360px] overflow-hidden rounded-3xl border border-sky-100 border-b-4 border-b-violet-300 bg-white/88 p-7 shadow-glowViolet backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-2 hover:border-b-[6px] hover:border-b-violet-400 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-makerPaper md:p-8">
           <div class="relative z-10 flex h-full flex-col">
             <div class="flex items-start justify-between gap-4">
@@ -437,7 +473,7 @@
           <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">The main portfolio has the case studies,
             Product thinking, background, and professional work.</p>
         </div>
-        <a href="index.html"
+        <a href="index.html" data-ga-event="portfolio_cta_click" data-ga-location="bottom_cta"
           class="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 self-start rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:self-center">
           Back to Portfolio
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"

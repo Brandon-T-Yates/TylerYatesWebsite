@@ -9,6 +9,40 @@
   <meta name="description"
     content="Tyler Yates — Engineering Planner and Scrum Master with a software background, focused on clarifying problems, making tradeoffs, and turning ideas into useful products." />
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    function trackAnalyticsEvent(eventName, parameters = {}) {
+      gtag("event", eventName, parameters);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-E3XY6Z4DZ7");
+
+    document.addEventListener("click", (event) => {
+      const trackedElement = event.target.closest?.("[data-ga-event]");
+      if (!trackedElement) {
+        return;
+      }
+
+      const parameters = {
+        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
+        link_location: trackedElement.dataset.gaLocation || "content"
+      };
+
+      if (trackedElement.href) {
+        parameters.link_url = trackedElement.href;
+      }
+
+      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -279,7 +313,7 @@
           <span class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText">Portfolio</span>
         </a>
         <span class="text-slate-400">|</span>
-        <a href="resume.html" aria-label="View resume page"
+        <a href="resume.html" aria-label="View resume page" data-ga-event="resume_nav_click" data-ga-location="top_nav"
           class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
           <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Resume</span>
         </a>
@@ -342,7 +376,7 @@
               class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
               View My Work
             </a>
-            <a href="resume.html"
+            <a href="resume.html" data-ga-event="resume_cta_click" data-ga-location="hero"
               class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-slate-200 bg-white/90 px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
               Resume
             </a>
@@ -616,6 +650,7 @@
           </div>
 
           <a href="https://brandon-t-yates.github.io/Scrum-Prep/" target="_blank" rel="noopener noreferrer"
+            data-ga-event="scrum_prep_click" data-ga-location="scrum_prep_section"
             class="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 self-start rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:self-center">
             Explorer Scrum Prep
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -638,7 +673,7 @@
       <div id="social-links" class="mt-7 flex flex-wrap gap-3"></div>
     </section>
 
-    <a href="fun.html"
+    <a href="fun.html" data-ga-event="fun_stuff_click" data-ga-location="bottom_teaser"
       class="level-up group mx-auto mt-6 block max-w-3xl rounded-2xl border border-violet-100 border-b-2 border-b-sky-200 bg-white/65 p-5 shadow-glowViolet backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-1 hover:border-b-violet-300 hover:bg-white/80 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white md:p-6">
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div class="min-w-0">
@@ -817,13 +852,16 @@
        */
       function renderCaseStudyCta(item) {
         const hasUrl = typeof item.caseStudyUrl === "string" && item.caseStudyUrl.trim().length > 0;
+        const analyticsAttrs = item.id === "utip"
+          ? ' data-ga-event="utip_case_study_click" data-ga-location="featured_work"'
+          : "";
         const visualClass =
           "inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-100";
         const arrow =
           '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
 
         if (hasUrl) {
-          return `<a href="${escapeHtml(item.caseStudyUrl)}" class="${visualClass}">View Case Study ${arrow}</a>`;
+          return `<a href="${escapeHtml(item.caseStudyUrl)}"${analyticsAttrs} class="${visualClass}">View Case Study ${arrow}</a>`;
         }
 
         return `<button type="button" class="${visualClass}" aria-disabled="true" disabled title="Case study page coming soon — set caseStudyUrl in FEATURED_WORK">View Case Study ${arrow}</button>`;
@@ -961,24 +999,27 @@
             label: "LinkedIn",
             value: SOCIAL_LINKS.linkedin,
             kind: "url",
-            theme: "linkedin"
+            theme: "linkedin",
+            analyticsEvent: "linkedin_click"
           },
           {
             label: "Email",
             value: SOCIAL_LINKS.email,
             kind: "email",
-            theme: "email"
+            theme: "email",
+            analyticsEvent: "email_click"
           },
           {
             label: "GitHub",
             value: SOCIAL_LINKS.github,
             kind: "url",
-            theme: "github"
+            theme: "github",
+            analyticsEvent: "github_click"
           }
         ];
 
         socialLinksContainer.innerHTML = entries
-          .map(({ label, value, kind, theme }) => {
+          .map(({ label, value, kind, theme, analyticsEvent }) => {
             const activeClass = `${socialButtonBase} ${socialButtonThemes[theme]}`;
 
             if (isPlaceholderLink(value)) {
@@ -987,7 +1028,7 @@
 
             const href = kind === "email" ? `mailto:${value}` : value;
             const externalAttrs = kind === "url" ? ' target="_blank" rel="noopener noreferrer"' : "";
-            return `<a href="${escapeHtml(href)}" class="${activeClass}"${externalAttrs}>${escapeHtml(label)}</a>`;
+            return `<a href="${escapeHtml(href)}" class="${activeClass}" data-ga-event="${analyticsEvent}" data-ga-location="lets_connect"${externalAttrs}>${escapeHtml(label)}</a>`;
           })
           .join("");
       }

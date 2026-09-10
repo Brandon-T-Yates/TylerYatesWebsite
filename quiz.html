@@ -7,6 +7,40 @@
   <title>Tyler Yates | Synergy Check</title>
   <meta name="description" content="Engineering Planner @ Lockheed Martin | Software Roots | Future Director of Tech." />
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    function trackAnalyticsEvent(eventName, parameters = {}) {
+      gtag("event", eventName, parameters);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-E3XY6Z4DZ7");
+
+    document.addEventListener("click", (event) => {
+      const trackedElement = event.target.closest?.("[data-ga-event]");
+      if (!trackedElement) {
+        return;
+      }
+
+      const parameters = {
+        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
+        link_location: trackedElement.dataset.gaLocation || "content"
+      };
+
+      if (trackedElement.href) {
+        parameters.link_url = trackedElement.href;
+      }
+
+      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -286,6 +320,8 @@
 
       <a
         href="index.html"
+        data-ga-event="portfolio_nav_click"
+        data-ga-location="quiz_footer"
         class="mt-8 inline-flex rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         Back to Mission Control
@@ -809,6 +845,11 @@
         function startSyncAndTelemetry() {
           requestAnimationFrame(() => {
             const resultSummary = calculateResults(true);
+            trackAnalyticsEvent("quiz_complete", {
+              score_percentage: resultSummary.compatibility,
+              party_role: resultSummary.role,
+              attempt_count: attemptCount
+            });
             syncStatus.classList.remove("hidden");
             requestAnimationFrame(() => {
               syncStatus.classList.add("opacity-100");
@@ -852,10 +893,16 @@
 
         state.answers[state.current] = Number(checked.value);
         if (state.current === QUESTIONS.length - 1) {
+          trackAnalyticsEvent("quiz_results_click", {
+            question_number: state.current + 1
+          });
           runResultsTransition();
           return;
         }
 
+        trackAnalyticsEvent("quiz_next_click", {
+          question_number: state.current + 1
+        });
         runQuestionTransition(state.current + 1);
       }
 
@@ -868,6 +915,9 @@
           return;
         }
 
+        trackAnalyticsEvent("quiz_previous_click", {
+          question_number: state.current + 1
+        });
         renderQuestion(state.current - 1);
         focusCurrentQuestionOption();
       }
@@ -877,6 +927,7 @@
        * @returns {void}
        */
       function handleRetakeClick() {
+        trackAnalyticsEvent("quiz_retake_click");
         state.current = 0;
         state.answers = new Array(QUESTIONS.length).fill(null);
         state.transitionBusy = false;
@@ -901,6 +952,17 @@
         nextBtn.addEventListener("click", handleNextClick);
         prevBtn.addEventListener("click", handlePreviousClick);
         retakeBtn.addEventListener("click", handleRetakeClick);
+        answersWrap.addEventListener("change", (event) => {
+          const selectedAnswer = event.target.closest?.('input[type="radio"]');
+          if (!selectedAnswer) {
+            return;
+          }
+
+          trackAnalyticsEvent("quiz_answer_selected", {
+            question_number: state.current + 1,
+            answer_number: Number(selectedAnswer.value) + 1
+          });
+        });
       }
 
       /**
