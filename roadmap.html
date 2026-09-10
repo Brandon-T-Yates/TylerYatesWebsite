@@ -4,45 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <title>My Career Roadmap | Tyler Yates</title>
   <meta name="description"
     content="A living visual roadmap of Tyler Yates' path into Product Management — what is complete, what is in progress, and what comes next." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    function trackAnalyticsEvent(eventName, parameters = {}) {
-      gtag("event", eventName, parameters);
-    }
-
-    gtag("js", new Date());
-    gtag("config", "G-E3XY6Z4DZ7");
-
-    document.addEventListener("click", (event) => {
-      const trackedElement = event.target.closest?.("[data-ga-event]");
-      if (!trackedElement) {
-        return;
-      }
-
-      const parameters = {
-        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
-        link_location: trackedElement.dataset.gaLocation || "content"
-      };
-
-      if (trackedElement.href) {
-        parameters.link_url = trackedElement.href;
-      }
-
-      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
-    });
-  </script>
+  <!-- Consent-gated analytics and privacy controls -->
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -1024,18 +994,18 @@
     }
   </style>
   <!-- Site information and privacy dialog -->
-  <link rel="stylesheet" href="assets/site-info.css" />
-  <script src="assets/site-info.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site-info.css" />
+  <script src="assets/js/site-info.js" defer></script>
 </head>
 
 <body>
   <div class="amber-glow" aria-hidden="true"></div>
 
   <div aria-hidden="true">
-    <img src="assets/drawing-dragon.png" alt="" class="legacy-doodle legacy-dragon" loading="lazy" decoding="async" />
-    <img src="assets/drawing-dino.png" alt="" class="legacy-doodle legacy-dino" loading="lazy" decoding="async" />
-    <img src="assets/drawing-cat.png" alt="" class="legacy-doodle legacy-cat" loading="lazy" decoding="async" />
-    <img src="assets/drawing-sun.png" alt="" class="legacy-doodle legacy-sun" loading="lazy" decoding="async" />
+    <img src="assets/images/drawing-dragon.png" alt="" class="legacy-doodle legacy-dragon" loading="lazy" decoding="async" />
+    <img src="assets/images/drawing-dino.png" alt="" class="legacy-doodle legacy-dino" loading="lazy" decoding="async" />
+    <img src="assets/images/drawing-cat.png" alt="" class="legacy-doodle legacy-cat" loading="lazy" decoding="async" />
+    <img src="assets/images/drawing-sun.png" alt="" class="legacy-doodle legacy-sun" loading="lazy" decoding="async" />
   </div>
 
   <div class="top-switcher orbital">
@@ -1322,7 +1292,7 @@
       <div class="credit-shell orbital">
         <div class="credit-card">
           <span class="credit-avatar">
-            <img src="assets/cole.jpeg" alt="Cole Yates avatar" loading="lazy" decoding="async" />
+            <img src="assets/images/cole.jpeg" alt="Cole Yates avatar" loading="lazy" decoding="async" />
           </span>
           <div>
             <p class="credit-label">Lead Concept Artist</p>

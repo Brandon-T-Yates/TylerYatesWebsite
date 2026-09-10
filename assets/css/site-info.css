@@ -100,6 +100,41 @@
   margin-top: 14px;
 }
 
+.site-info-consent {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #e0e7ff;
+  border-radius: 18px;
+  background: rgba(238, 242, 255, .62);
+}
+
+.site-info-consent h3 {
+  margin: 0;
+  color: #0f172a;
+  font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.site-info-consent .privacy-choice-actions {
+  margin-top: 12px;
+}
+
+.site-info-consent + p {
+  margin-top: 14px;
+}
+
+.site-info-policy-link {
+  color: #6d28d9;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.site-info-policy-link:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 3px;
+}
+
 .site-info-contact {
   padding-top: 16px;
   border-top: 1px solid #e2e8f0;

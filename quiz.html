@@ -3,44 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <title>Tyler Yates | Synergy Check</title>
   <meta name="description" content="A maker-themed Best Friend Synergy Check exploring how your collaboration style pairs with Tyler's operating mode." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    function trackAnalyticsEvent(eventName, parameters = {}) {
-      gtag("event", eventName, parameters);
-    }
-
-    gtag("js", new Date());
-    gtag("config", "G-E3XY6Z4DZ7");
-
-    document.addEventListener("click", (event) => {
-      const trackedElement = event.target.closest?.("[data-ga-event]");
-      if (!trackedElement) {
-        return;
-      }
-
-      const parameters = {
-        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
-        link_location: trackedElement.dataset.gaLocation || "content"
-      };
-
-      if (trackedElement.href) {
-        parameters.link_url = trackedElement.href;
-      }
-
-      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
-    });
-  </script>
+  <!-- Consent-gated analytics and privacy controls -->
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -221,8 +191,8 @@
     }
   </style>
   <!-- Site information and privacy dialog -->
-  <link rel="stylesheet" href="assets/site-info.css" />
-  <script src="assets/site-info.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site-info.css" />
+  <script src="assets/js/site-info.js" defer></script>
 </head>
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
   <a href="#quiz-container" class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
@@ -235,10 +205,10 @@
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" loading="lazy" decoding="async" width="543" height="484" />
-    <img src="assets/drawing-dino.png" alt="" aria-hidden="true" class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" loading="lazy" decoding="async" width="420" height="427" />
-    <img src="assets/drawing-cat.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="bottom: calc(5%);" loading="lazy" decoding="async" width="381" height="507" />
-    <img src="assets/drawing-sun.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" loading="lazy" decoding="async" width="557" height="564" />
+    <img src="assets/images/drawing-dragon.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]" loading="lazy" decoding="async" width="543" height="484" />
+    <img src="assets/images/drawing-dino.png" alt="" aria-hidden="true" class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]" loading="lazy" decoding="async" width="420" height="427" />
+    <img src="assets/images/drawing-cat.png" alt="" aria-hidden="true" class="legacy-doodle absolute left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]" style="bottom: calc(5%);" loading="lazy" decoding="async" width="381" height="507" />
+    <img src="assets/images/drawing-sun.png" alt="" aria-hidden="true" class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]" loading="lazy" decoding="async" width="557" height="564" />
   </div>
 
   <main id="quiz-container" tabindex="-1" inert class="relative z-10 mx-auto max-w-3xl px-5 pb-16 pt-12 assembly-hidden assembly-transition md:px-10 md:pt-16">
@@ -323,8 +293,6 @@
 
       <a
         href="index.html"
-        data-ga-event="portfolio_nav_click"
-        data-ga-location="quiz_footer"
         class="mt-8 inline-flex rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         Back to Mission Control
@@ -434,13 +402,10 @@
         }
       ];
 
-      // Scoring, rendering, and telemetry constants.
+      // Scoring and rendering constants.
       const TYLER_PROFILE = { D: 0.36, I: 0.2, S: 0.08, C: 0.36 };
       const TRAIT_LABELS = { D: "Dominance", I: "Influence", S: "Steadiness", C: "Conscientiousness" };
       const TRAIT_COLORS = { D: "bg-makerAmber", I: "bg-makerViolet", S: "bg-sky-400", C: "bg-makerSky" };
-      const TELEMETRY_ENDPOINT = "https://formspree.io/f/xnjbjrey";
-      const QUIZ_ATTEMPT_KEY = "synergy_quiz_attempt_count";
-      const TELEMETRY_TIMEOUT_MS = 2500;
 
       // Static DOM references used across quiz modules.
       const progressLabel = document.getElementById("progress-label");
@@ -527,82 +492,17 @@
       }
 
       /**
-       * Persist and increment quiz attempt count in local storage.
-       * @returns {number} Updated attempt count.
+       * Group a compatibility score without sending an exact result.
+       * @param {number} compatibility - Rounded compatibility percentage.
+       * @returns {string}
        */
-      function incrementQuizAttemptCount() {
-        try {
-          const rawCount = localStorage.getItem(QUIZ_ATTEMPT_KEY);
-          const currentCount = Number.parseInt(rawCount || "0", 10);
-          const nextCount = Number.isNaN(currentCount) ? 1 : currentCount + 1;
-          localStorage.setItem(QUIZ_ATTEMPT_KEY, String(nextCount));
-          return nextCount;
-        } catch (_error) {
-          return 1;
-        }
-      }
-
-      /**
-       * Send JSON payload with timeout and optional silent failure handling.
-       * @param {string} url - Destination endpoint.
-       * @param {Record<string, unknown>} payload - JSON body content.
-       * @param {{ timeoutMs?: number, silent?: boolean }} [options] - Request options.
-       * @returns {Promise<Response | null>}
-       */
-      async function postJson(url, payload, { timeoutMs = TELEMETRY_TIMEOUT_MS, silent = false } = {}) {
-        const controller = new AbortController();
-        const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
-
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json"
-            },
-            body: JSON.stringify(payload),
-            signal: controller.signal
-          });
-
-          if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-          }
-
-          return response;
-        } catch (error) {
-          if (silent) {
-            return null;
-          }
-          throw error;
-        } finally {
-          window.clearTimeout(timeoutId);
-        }
-      }
-
-      /**
-       * Build telemetry payload for quiz completion.
-       * @param {{ compatibility: number, role: string }} resultSummary - Computed quiz summary.
-       * @param {number} attemptCount - Incremented local attempt count.
-       * @returns {{ timestamp: string, attemptCount: number, compatibilityPercentage: number, partyRole: string }}
-       */
-      function buildTelemetryPayload(resultSummary, attemptCount) {
-        return {
-          timestamp: new Date().toISOString(),
-          attemptCount,
-          compatibilityPercentage: resultSummary.compatibility,
-          partyRole: resultSummary.role
-        };
-      }
-
-      /**
-       * Transmit telemetry in fire-and-forget mode (silent on failure).
-       * @param {{ compatibility: number, role: string }} resultSummary - Computed quiz summary.
-       * @param {number} attemptCount - Incremented local attempt count.
-       * @returns {Promise<void>}
-       */
-      async function transmitQuizTelemetry(resultSummary, attemptCount) {
-        const payload = buildTelemetryPayload(resultSummary, attemptCount);
-        await postJson(TELEMETRY_ENDPOINT, payload, { silent: true });
+      function getCompatibilityRange(compatibility) {
+        if (compatibility < 50) return "0-49";
+        if (compatibility < 60) return "50-59";
+        if (compatibility < 70) return "60-69";
+        if (compatibility < 80) return "70-79";
+        if (compatibility < 90) return "80-89";
+        return "90-100";
       }
 
       /**
@@ -813,7 +713,7 @@
       }
 
       /**
-       * Animate final scan, compute results, send telemetry, then reveal summary.
+       * Animate final scan, compute results, then reveal the summary.
        * @returns {void}
        */
       function runResultsTransition() {
@@ -822,13 +722,12 @@
         nextBtn.disabled = true;
         quizForm.setAttribute("inert", "");
 
-        const attemptCount = incrementQuizAttemptCount();
-        let telemetryComplete = false;
+        let resultsCalculated = false;
         let syncDelayComplete = false;
         let finalized = false;
 
         function finalizeResultsTransition() {
-          if (finalized || !telemetryComplete || !syncDelayComplete) {
+          if (finalized || !resultsCalculated || !syncDelayComplete) {
             return;
           }
 
@@ -849,22 +748,19 @@
           focusResultsSummary();
         }
 
-        function startSyncAndTelemetry() {
+        function startResultsSync() {
           requestAnimationFrame(() => {
             const resultSummary = calculateResults(true);
-            trackAnalyticsEvent("quiz_complete", {
-              score_percentage: resultSummary.compatibility,
+            window.trackAnalyticsEvent?.("quiz_complete", {
               party_role: resultSummary.role,
-              attempt_count: attemptCount
+              compatibility_range: getCompatibilityRange(resultSummary.compatibility)
             });
             syncStatus.classList.remove("hidden");
             requestAnimationFrame(() => {
               syncStatus.classList.add("opacity-100");
             });
-            transmitQuizTelemetry(resultSummary, attemptCount).finally(() => {
-              telemetryComplete = true;
-              finalizeResultsTransition();
-            });
+            resultsCalculated = true;
+            finalizeResultsTransition();
           });
         }
 
@@ -874,13 +770,13 @@
         }, SCAN_DURATION_MS + RESULT_SYNC_MS);
 
         if (prefersReducedMotion) {
-          startSyncAndTelemetry();
+          startResultsSync();
           return;
         }
 
         questionCard.classList.add("opacity-0", "scale-95");
         window.setTimeout(() => {
-          startSyncAndTelemetry();
+          startResultsSync();
         }, SCAN_DURATION_MS / 2);
       }
 
@@ -900,16 +796,10 @@
 
         state.answers[state.current] = Number(checked.value);
         if (state.current === QUESTIONS.length - 1) {
-          trackAnalyticsEvent("quiz_results_click", {
-            question_number: state.current + 1
-          });
           runResultsTransition();
           return;
         }
 
-        trackAnalyticsEvent("quiz_next_click", {
-          question_number: state.current + 1
-        });
         runQuestionTransition(state.current + 1);
       }
 
@@ -922,9 +812,6 @@
           return;
         }
 
-        trackAnalyticsEvent("quiz_previous_click", {
-          question_number: state.current + 1
-        });
         renderQuestion(state.current - 1);
         focusCurrentQuestionOption();
       }
@@ -934,7 +821,6 @@
        * @returns {void}
        */
       function handleRetakeClick() {
-        trackAnalyticsEvent("quiz_retake_click");
         state.current = 0;
         state.answers = new Array(QUESTIONS.length).fill(null);
         state.transitionBusy = false;
@@ -959,17 +845,6 @@
         nextBtn.addEventListener("click", handleNextClick);
         prevBtn.addEventListener("click", handlePreviousClick);
         retakeBtn.addEventListener("click", handleRetakeClick);
-        answersWrap.addEventListener("change", (event) => {
-          const selectedAnswer = event.target.closest?.('input[type="radio"]');
-          if (!selectedAnswer) {
-            return;
-          }
-
-          trackAnalyticsEvent("quiz_answer_selected", {
-            question_number: state.current + 1,
-            answer_number: Number(selectedAnswer.value) + 1
-          });
-        });
       }
 
       /**

@@ -4,45 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <title>More Fun Stuff | Tyler Yates</title>
   <meta name="description"
     content="Side quests, experiments, personal builds, and other fun things made by Tyler Yates." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    function trackAnalyticsEvent(eventName, parameters = {}) {
-      gtag("event", eventName, parameters);
-    }
-
-    gtag("js", new Date());
-    gtag("config", "G-E3XY6Z4DZ7");
-
-    document.addEventListener("click", (event) => {
-      const trackedElement = event.target.closest?.("[data-ga-event]");
-      if (!trackedElement) {
-        return;
-      }
-
-      const parameters = {
-        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
-        link_location: trackedElement.dataset.gaLocation || "content"
-      };
-
-      if (trackedElement.href) {
-        parameters.link_url = trackedElement.href;
-      }
-
-      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
-    });
-  </script>
+  <!-- Consent-gated analytics and privacy controls -->
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -232,8 +202,8 @@
     }
   </style>
   <!-- Site information and privacy dialog -->
-  <link rel="stylesheet" href="assets/site-info.css" />
-  <script src="assets/site-info.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site-info.css" />
+  <script src="assets/js/site-info.js" defer></script>
 </head>
 
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
@@ -244,13 +214,13 @@
   </div>
 
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt=""
+    <img src="assets/images/drawing-dragon.png" alt=""
       class="legacy-doodle absolute left-[2%] top-[8%] hidden w-[18vw] min-w-[145px] max-w-[235px] -rotate-6 opacity-[0.10] lg:block"
       loading="lazy" decoding="async" />
-    <img src="assets/drawing-dino.png" alt=""
+    <img src="assets/images/drawing-dino.png" alt=""
       class="legacy-doodle absolute right-[2%] top-[35%] hidden w-[16vw] min-w-[130px] max-w-[210px] rotate-6 opacity-[0.09] lg:block"
       loading="lazy" decoding="async" />
-    <img src="assets/drawing-sun.png" alt=""
+    <img src="assets/images/drawing-sun.png" alt=""
       class="legacy-doodle absolute bottom-[8%] right-[4%] hidden w-[14vw] min-w-[115px] max-w-[185px] -rotate-3 opacity-[0.09] md:block"
       loading="lazy" decoding="async" />
   </div>
@@ -493,7 +463,7 @@
           <div
             class="flex w-fit items-center gap-5 rounded-2xl border-2 border-sky-300 bg-white/70 px-5 py-4 backdrop-blur-xl transition-all duration-300 ease-out group-hover:-translate-y-2 group-hover:bg-white">
             <span class="inline-flex h-16 w-16 overflow-hidden rounded-full border border-white/90 md:h-20 md:w-20">
-              <img src="assets/cole.jpeg" alt="Cole Yates avatar"
+              <img src="assets/images/cole.jpeg" alt="Cole Yates avatar"
                 class="h-full w-full origin-center scale-150 object-cover transition-transform duration-300 ease-out group-hover:scale-[1.75]"
                 loading="lazy" decoding="async" />
             </span>

@@ -55,8 +55,6 @@
           <p>
             This is my personal portfolio. The views and opinions shared here
             are my own and do not represent my current or former employers.
-            Company names, product names, logos, and trademarks referenced on
-            this site belong to their respective owners.
           </p>
 
           <p>
@@ -66,11 +64,30 @@
           </p>
 
           <p>
-            This site uses Google Analytics to help me understand aggregate
-            site traffic and how visitors interact with the portfolio.
-            Google Analytics may use cookies or similar technologies to
-            measure site usage and interactions. External links may take you
-            to websites with their own privacy policies and terms.
+            Google Analytics is optional and loads only if you allow it. Your
+            choice is saved in this browser so it carries across the site. I
+            do not sell personal information or use this site for targeted
+            advertising. This portfolio is hosted by GitHub Pages, and
+            external links have their own privacy policies and terms.
+          </p>
+
+          <div class="site-info-consent" aria-labelledby="site-info-consent-heading">
+            <h3 id="site-info-consent-heading">Analytics choice</h3>
+            <p class="privacy-consent-status" role="status" aria-live="polite" data-analytics-consent-status>
+              Analytics preference: not selected
+            </p>
+            <div class="privacy-choice-actions">
+              <button class="privacy-consent-button" type="button" data-analytics-consent="granted">
+                Allow Analytics
+              </button>
+              <button class="privacy-consent-button" type="button" data-analytics-consent="denied">
+                Disable Analytics
+              </button>
+            </div>
+          </div>
+
+          <p>
+            <a class="site-info-policy-link" href="privacy.html">Read the full privacy notice <span aria-hidden="true">→</span></a>
           </p>
 
           <p class="site-info-contact">
@@ -86,6 +103,7 @@
   `;
 
   document.body.append(modal);
+  window.tylerPrivacyConsent?.refresh();
 
   const closeButton = modal.querySelector("[data-site-info-close]");
 

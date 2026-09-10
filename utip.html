@@ -5,45 +5,15 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <link href="assets/favicon.png" rel="icon" type="image/png" />
+  <link href="assets/images/favicon.png" rel="icon" type="image/png" />
   <title>uTip Case Study | Tyler Yates</title>
   <meta
     content="uTip product case study: a shipped Android app revisited through user research, problem reframing, prioritization, and product reflection."
     name="description" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    function trackAnalyticsEvent(eventName, parameters = {}) {
-      gtag("event", eventName, parameters);
-    }
-
-    gtag("js", new Date());
-    gtag("config", "G-E3XY6Z4DZ7");
-
-    document.addEventListener("click", (event) => {
-      const trackedElement = event.target.closest?.("[data-ga-event]");
-      if (!trackedElement) {
-        return;
-      }
-
-      const parameters = {
-        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
-        link_location: trackedElement.dataset.gaLocation || "content"
-      };
-
-      if (trackedElement.href) {
-        parameters.link_url = trackedElement.href;
-      }
-
-      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
-    });
-  </script>
+  <!-- Consent-gated analytics and privacy controls -->
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link
@@ -188,8 +158,8 @@
     }
   </style>
   <!-- Site information and privacy dialog -->
-  <link rel="stylesheet" href="assets/site-info.css" />
-  <script src="assets/site-info.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site-info.css" />
+  <script src="assets/js/site-info.js" defer></script>
 </head>
 
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
@@ -205,16 +175,16 @@
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden" id="legacy-layer">
     <img alt="" aria-hidden="true"
       class="legacy-doodle absolute left-[2%] top-[8%] w-[20vw] min-w-[140px] max-w-[240px] -rotate-6 opacity-[0.1] hidden lg:block"
-      decoding="async" height="484" loading="lazy" src="assets/drawing-dragon.png" width="543" />
+      decoding="async" height="484" loading="lazy" src="assets/images/drawing-dragon.png" width="543" />
     <img alt="" aria-hidden="true"
       class="legacy-doodle absolute right-[2%] top-[36%] w-[16vw] min-w-[120px] max-w-[210px] rotate-6 opacity-[0.1] hidden lg:block"
-      decoding="async" height="427" loading="lazy" src="assets/drawing-dino.png" width="420" />
+      decoding="async" height="427" loading="lazy" src="assets/images/drawing-dino.png" width="420" />
     <img alt="" aria-hidden="true"
       class="legacy-doodle absolute bottom-[30%] left-[2%] w-[16vw] min-w-[120px] max-w-[200px] rotate-3 opacity-[0.1] hidden md:block"
-      decoding="async" height="507" loading="lazy" src="assets/drawing-cat.png" width="381" />
+      decoding="async" height="507" loading="lazy" src="assets/images/drawing-cat.png" width="381" />
     <img alt="" aria-hidden="true"
       class="legacy-doodle absolute bottom-[8%] right-[3%] w-[14vw] min-w-[110px] max-w-[180px] -rotate-3 opacity-[0.1] hidden md:block"
-      decoding="async" height="564" loading="lazy" src="assets/drawing-sun.png" width="557" />
+      decoding="async" height="564" loading="lazy" src="assets/images/drawing-sun.png" width="557" />
   </div>
   <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
     <div class="h-0 w-full bg-gradient-to-b from-cyan-400 via-sky-500 to-violet-500 transition-[height] duration-150"
@@ -282,7 +252,7 @@
                 <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   href="#research">See the key findings</a>
                 <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-violet-200 bg-violet-50/70 px-6 py-3 text-sm font-bold text-makerVioletText shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerViolet focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                  href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
+                  href="assets/docs/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
                   data-ga-event="utip_case_study_pdf_click" data-ga-location="hero">Read full case
                   study PDF
                   ↗</a>
@@ -297,7 +267,7 @@
                   class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
                   <img alt="uTip app screenshot showing bill, tip percentage, total, and rounding controls"
                     class="absolute left-0 top-0 h-auto w-full" decoding="async" fetchpriority="high" height="1440"
-                    loading="eager" src="assets/uTip.jpg" width="648" />
+                    loading="eager" src="assets/images/uTip.jpg" width="648" />
                 </div>
               </div>
             </div>
@@ -547,7 +517,7 @@
                   class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
                   <img alt="Shipped uTip interface with bill, tip percentage, total, and rounding controls"
                     class="absolute left-0 top-0 h-auto w-full" decoding="async" height="1440" loading="lazy"
-                    src="assets/uTip.jpg" width="648" />
+                    src="assets/images/uTip.jpg" width="648" />
                 </div>
               </div>
             </div>
@@ -686,7 +656,7 @@
             research notes, opportunity analysis, and retrospective.</p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              href="assets/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
+              href="assets/docs/Product-Case-Study-uTip.pdf" rel="noopener noreferrer" target="_blank"
               data-ga-event="utip_case_study_pdf_click" data-ga-location="bottom_cta">Full Case Study PDF
               ↗</a>
             <a class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-sky-200 bg-sky-50/70 px-6 py-3 text-sm font-bold text-makerSkyText shadow-sm transition hover:-translate-y-0.5 hover:bg-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white"

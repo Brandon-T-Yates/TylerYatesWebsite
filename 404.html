@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <title>Page Not Found | Tyler Yates</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          colors: {
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
+            makerPaper: "#fafafa"
+          },
+          boxShadow: {
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --orbital-gradient: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+    }
+
+    @keyframes orbital-flow {
+      from {
+        background-position: 0% 50%;
+      }
+
+      to {
+        background-position: 200% 50%;
+      }
+    }
+
+    .animate-orbital {
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="relative flex min-h-screen items-center justify-center overflow-hidden bg-makerPaper px-5 font-body text-slate-900 antialiased">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute -right-40 top-[20%] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl"></div>
+    <div class="absolute -bottom-40 left-[20%] h-[24rem] w-[24rem] rounded-full bg-amber-200/40 blur-3xl"></div>
+    <img src="assets/images/drawing-dragon.png" alt=""
+      class="absolute left-[4%] top-[8%] hidden w-[24vw] max-w-[300px] -rotate-6 opacity-10 md:block"
+      loading="eager" decoding="async" />
+    <img src="assets/images/drawing-sun.png" alt=""
+      class="absolute bottom-[5%] right-[6%] hidden w-[18vw] max-w-[220px] -rotate-3 opacity-10 md:block"
+      loading="eager" decoding="async" />
+  </div>
+
+  <main class="relative z-10 w-full max-w-2xl text-center">
+    <div class="rounded-3xl p-[1.5px] animate-orbital shadow-glowSky">
+      <section class="rounded-[calc(1.5rem-1.5px)] border border-white/80 bg-white/85 p-8 shadow-xl backdrop-blur-xl md:p-12">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-makerVioletText">404 · Quest not found</p>
+        <h1 class="mt-4 font-heading text-4xl font-extrabold leading-tight text-slate-900 md:text-5xl">
+          Looks like this side quest doesn’t exist.
+        </h1>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href="index.html"
+            class="inline-flex min-h-[44px] items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            Back to Portfolio
+          </a>
+          <a href="fun.html"
+            class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-violet-200 bg-white/90 px-6 py-3 text-sm font-bold text-makerVioletText shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            More Fun Stuff
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

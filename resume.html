@@ -4,45 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <title>Tyler Yates | Resume</title>
   <meta name="description"
     content="Tyler Yates - Engineering Planner and Scrum Master with a software engineering background and hands-on product experience across Agile delivery, user research, and digital products." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XY6Z4DZ7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    function trackAnalyticsEvent(eventName, parameters = {}) {
-      gtag("event", eventName, parameters);
-    }
-
-    gtag("js", new Date());
-    gtag("config", "G-E3XY6Z4DZ7");
-
-    document.addEventListener("click", (event) => {
-      const trackedElement = event.target.closest?.("[data-ga-event]");
-      if (!trackedElement) {
-        return;
-      }
-
-      const parameters = {
-        link_text: trackedElement.textContent.trim().replace(/\s+/g, " "),
-        link_location: trackedElement.dataset.gaLocation || "content"
-      };
-
-      if (trackedElement.href) {
-        parameters.link_url = trackedElement.href;
-      }
-
-      trackAnalyticsEvent(trackedElement.dataset.gaEvent, parameters);
-    });
-  </script>
+  <!-- Consent-gated analytics and privacy controls -->
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -136,8 +106,8 @@
     }
   </style>
   <!-- Site information and privacy dialog -->
-  <link rel="stylesheet" href="assets/site-info.css" />
-  <script src="assets/site-info.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site-info.css" />
+  <script src="assets/js/site-info.js" defer></script>
 </head>
 
 <body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
@@ -152,16 +122,16 @@
   </div>
 
   <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-    <img src="assets/drawing-dragon.png" alt="" aria-hidden="true"
+    <img src="assets/images/drawing-dragon.png" alt="" aria-hidden="true"
       class="legacy-doodle absolute left-[5%] top-[4%] w-[32vw] min-w-[220px] max-w-[420px] -rotate-6 opacity-[0.11]"
       loading="lazy" decoding="async" width="543" height="484" />
-    <img src="assets/drawing-dino.png" alt="" aria-hidden="true"
+    <img src="assets/images/drawing-dino.png" alt="" aria-hidden="true"
       class="legacy-doodle absolute right-[4%] top-[20%] w-[24vw] min-w-[170px] max-w-[320px] rotate-6 opacity-[0.1]"
       loading="lazy" decoding="async" width="420" height="427" />
-    <img src="assets/drawing-cat.png" alt="" aria-hidden="true"
+    <img src="assets/images/drawing-cat.png" alt="" aria-hidden="true"
       class="legacy-doodle absolute bottom-[20%] left-[8%] w-[24vw] min-w-[170px] max-w-[300px] rotate-3 opacity-[0.12]"
       loading="lazy" decoding="async" width="381" height="507" />
-    <img src="assets/drawing-sun.png" alt="" aria-hidden="true"
+    <img src="assets/images/drawing-sun.png" alt="" aria-hidden="true"
       class="legacy-doodle absolute bottom-[8%] right-[8%] w-[20vw] min-w-[150px] max-w-[250px] -rotate-3 opacity-[0.11]"
       loading="lazy" decoding="async" width="557" height="564" />
   </div>
@@ -174,7 +144,7 @@
 
   <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
     <div class="inline-flex items-center gap-2">
-      <a href="assets/Tyler_Yates_Resume.pdf" download aria-label="Download Tyler Yates resume PDF"
+      <a href="assets/docs/Tyler_Yates_Resume.pdf" download aria-label="Download Tyler Yates resume PDF"
         data-ga-event="resume_pdf_download" data-ga-location="top_nav"
         class="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-glowSky backdrop-blur-xl transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-slate-600" fill="none" viewBox="0 0 24 24"

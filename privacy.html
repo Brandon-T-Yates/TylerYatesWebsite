@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <title>Site Info &amp; Privacy | Tyler Yates</title>
+  <meta name="description"
+    content="Privacy information and analytics choices for Tyler Yates' personal portfolio." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          colors: {
+            makerSky: "#0ea5e9",
+            makerViolet: "#8b5cf6",
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
+            makerAmber: "#f59e0b",
+            makerPaper: "#fafafa"
+          },
+          boxShadow: {
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --orbital-gradient: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+    }
+
+    @keyframes orbital-flow {
+      from {
+        background-position: 0% 50%;
+      }
+
+      to {
+        background-position: 200% 50%;
+      }
+    }
+
+    .animate-orbital {
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      transform: translateY(-200%);
+      border-radius: .75rem;
+      background: #fff;
+      padding: .6rem 1rem;
+      color: #0f172a;
+      font-size: .875rem;
+      font-weight: 600;
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, .5);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital {
+        animation: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/privacy-consent.css" />
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/privacy-consent.js" defer></script>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body text-slate-900 antialiased">
+  <a href="#main-content"
+    class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2">
+    Skip to Content
+  </a>
+
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute -left-32 -top-40 h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute right-[-10rem] top-[32%] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl"></div>
+    <div class="absolute bottom-[-8rem] left-[20%] h-[24rem] w-[24rem] rounded-full bg-amber-200/40 blur-3xl"></div>
+  </div>
+
+  <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
+    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+      <nav aria-label="Site navigation"
+        class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+        <a href="index.html" aria-label="Go to portfolio home"
+          class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText">Portfolio</span>
+        </a>
+        <span class="text-slate-400" aria-hidden="true">|</span>
+        <a href="resume.html" aria-label="View resume"
+          class="flex flex-col items-start leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">Resume</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content" tabindex="-1" class="relative z-10 mx-auto max-w-4xl px-5 pb-16 pt-24 md:px-10 md:pt-28">
+    <article class="rounded-3xl border border-white/80 bg-white/80 p-7 shadow-xl backdrop-blur-xl md:p-10">
+      <header class="border-b border-slate-200 pb-7">
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Portfolio details</p>
+        <h1 class="mt-3 font-heading text-4xl font-extrabold text-slate-900 md:text-5xl">Site Info &amp; Privacy</h1>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+          A plain-language explanation of how this personal portfolio is hosted, what optional analytics can measure,
+          and how to control your preference.
+        </p>
+        <p class="mt-3 text-xs font-semibold text-slate-500">Last updated: September 10, 2026</p>
+      </header>
+
+      <div class="mt-8 space-y-8">
+        <section aria-labelledby="personal-site-heading">
+          <h2 id="personal-site-heading" class="font-heading text-2xl font-bold text-slate-900">Personal site and employer information</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            This is my personal portfolio. The views and opinions shared here are my own and do not represent my
+            current or former employers. Company names, product names, logos, and trademarks referenced on this site
+            belong to their respective owners.
+          </p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            Projects and case studies are based on my own work, learning, or publicly shareable information. No
+            confidential or proprietary employer information is intentionally published.
+          </p>
+        </section>
+
+        <section aria-labelledby="analytics-heading">
+          <h2 id="analytics-heading" class="font-heading text-2xl font-bold text-slate-900">Optional Google Analytics</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            Google Analytics 4 is used only if you explicitly choose “Allow Analytics.” Before that choice—or after
+            you disable analytics—the Google Analytics script is not loaded and portfolio events are not sent to
+            Google.
+          </p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            If allowed, Google Analytics may measure aggregate information such as visits, pages viewed, approximate
+            location, browser or device details, and selected portfolio interactions. It may use first-party cookies,
+            including <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs">_ga</code> cookies, to distinguish users
+            and sessions. This site disables advertising storage, Google signals, and advertising personalization in
+            its analytics configuration.
+          </p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            Learn more from Google’s
+            <a href="https://support.google.com/analytics/answer/11593727" target="_blank" rel="noopener noreferrer"
+              class="font-semibold text-makerSkyText underline decoration-sky-200 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">GA4 data collection information</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="browser-storage-heading">
+          <h2 id="browser-storage-heading" class="font-heading text-2xl font-bold text-slate-900">Browser and local storage</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            This site uses your browser’s localStorage only to remember your analytics preference across pages. The
+            key is <code class="break-all rounded bg-slate-100 px-1.5 py-0.5 text-xs">tyler_portfolio_analytics_consent</code>
+            and its value is either <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs">granted</code> or
+            <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs">denied</code>. Normal browser caching may also
+            occur when site files are loaded.
+          </p>
+        </section>
+
+        <section aria-labelledby="hosting-heading">
+          <h2 id="hosting-heading" class="font-heading text-2xl font-bold text-slate-900">GitHub Pages hosting</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            This static site is hosted by GitHub Pages. GitHub states that a visitor’s IP address is logged and stored
+            for security purposes when a GitHub Pages site is visited, whether or not the visitor is signed in. That
+            processing is handled by GitHub under its own privacy practices.
+          </p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            See GitHub’s
+            <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection"
+              target="_blank" rel="noopener noreferrer"
+              class="font-semibold text-makerSkyText underline decoration-sky-200 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">GitHub Pages data collection information</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="external-links-heading">
+          <h2 id="external-links-heading" class="font-heading text-2xl font-bold text-slate-900">External links</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            Links to other websites, downloads, or services may take you outside this portfolio. Those destinations
+            operate under their own privacy policies and terms, which I do not control.
+          </p>
+        </section>
+
+        <section aria-labelledby="sale-advertising-heading">
+          <h2 id="sale-advertising-heading" class="font-heading text-2xl font-bold text-slate-900">No sale or targeted advertising</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            I do not sell personal information collected through this portfolio, and I do not use this site to serve
+            targeted advertising. Analytics is used only to understand aggregate site traffic and portfolio
+            interactions when a visitor allows it.
+          </p>
+        </section>
+
+        <section aria-labelledby="children-heading">
+          <h2 id="children-heading" class="font-heading text-2xl font-bold text-slate-900">Children’s privacy</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            This portfolio is intended for a general professional audience and is not directed to children under 13.
+            I do not knowingly collect personal information directly from children through accounts or submission
+            forms on this site. If you believe a child has provided personal information through this site, please
+            contact me.
+          </p>
+        </section>
+
+        <section id="privacy-choices" aria-labelledby="choices-heading"
+          class="scroll-mt-6 rounded-2xl border border-violet-100 bg-violet-50/55 p-5">
+          <h2 id="choices-heading" class="font-heading text-2xl font-bold text-slate-900">Privacy choices</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            You can allow or disable analytics at any time. Disabling analytics stops future portfolio analytics
+            events and removes site-set Google Analytics cookies where the browser permits it.
+          </p>
+          <p class="privacy-consent-status" role="status" aria-live="polite" data-analytics-consent-status>
+            Analytics preference: not selected
+          </p>
+          <div class="privacy-choice-actions mt-4">
+            <button class="privacy-consent-button" type="button" data-analytics-consent="granted">Allow Analytics</button>
+            <button class="privacy-consent-button" type="button" data-analytics-consent="denied">Disable Analytics</button>
+          </div>
+        </section>
+
+        <section aria-labelledby="contact-heading">
+          <h2 id="contact-heading" class="font-heading text-2xl font-bold text-slate-900">Questions</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">
+            Contact me at
+            <a href="mailto:tyler@tyleryates.me"
+              class="font-semibold text-makerSkyText underline decoration-sky-200 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">tyler@tyleryates.me</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+
+    <footer class="mt-10 text-center">
+      <a href="index.html"
+        class="text-sm font-semibold text-makerSkyText underline decoration-sky-200 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky">
+        Back to Portfolio
+      </a>
+      <p class="mt-5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        SITE ENGINEERED &amp; OPTIMIZED BY
+        <span class="animate-orbital bg-clip-text text-transparent">TYLER YATES</span> | © 2026
+      </p>
+    </footer>
+  </main>
+</body>
+
+</html>
