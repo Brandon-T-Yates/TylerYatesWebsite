@@ -114,36 +114,45 @@
 
     .top-switcher {
       position: fixed;
-      top: 22px;
-      right: 28px;
+      top: 24px;
+      right: 32px;
       z-index: 50;
+      display: inline-flex;
       padding: 1.5px;
       border-radius: 999px;
       box-shadow: 0 20px 40px -24px rgba(14, 165, 233, .7);
     }
 
     .top-switcher-inner {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 12px;
       border-radius: 999px;
-      padding: 9px 15px;
-      background: rgba(255, 255, 255, .88);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, .7);
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .08em;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, .85);
+      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px);
     }
 
     .top-switcher a {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       color: var(--slate-500);
       text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: .025em;
     }
 
     .top-switcher a:first-child {
       color: var(--maker-sky-text);
+    }
+
+    .top-switcher-inner>span {
+      color: #94a3b8;
     }
 
     .back-link {
@@ -164,7 +173,11 @@
       color: #5b21b6;
     }
 
-    .top-switcher a:focus-visible,
+    .top-switcher a:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--maker-sky);
+    }
+
     .back-link:focus-visible,
     .return-button:focus-visible {
       outline: 2px solid var(--maker-sky);
@@ -817,11 +830,18 @@
       text-transform: uppercase;
     }
 
-    @media (max-width: 780px) {
+    @media (max-width: 767px) {
       .top-switcher {
-        position: absolute;
-        top: 14px;
+        top: 16px;
         right: 16px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .amber-glow {
+        position: absolute;
+        top: calc(100vh + 8rem);
+        bottom: auto;
       }
 
       .wrap {
@@ -997,8 +1017,8 @@
         </div>
         <div class="checkpoint">4</div>
 
-        <div class="trainer-wrap" aria-label="Tyler's current position on the roadmap">
-          <div class="trainer-label">You are here</div>
+        <div class="trainer-wrap" aria-label="Tyler's current position on the roadmap: I am here">
+          <div class="trainer-label">I am here</div>
           <svg class="sprite" viewBox="0 0 40 52" role="img"
             aria-label="Pixel-art Tyler avatar based on the uploaded trainer-style sprite reference, wearing a backwards cap, sunglasses, a dark patterned shirt, khaki shorts, and sneakers, gently idling like a classic handheld RPG trainer">
             <!-- fixed ground shadow -->
