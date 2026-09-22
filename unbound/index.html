@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+  <title>Unbound — Take Back Your Time</title>
+  <meta name="description"
+    content="Unbound is a simple iPhone focus app that lets you choose what stays accessible and restrict the rest." />
+  <link rel="canonical" href="https://tyleryates.me/unbound" />
+
+  <link rel="stylesheet" href="../assets/css/privacy-consent.css" />
+  <script src="../assets/js/analytics.js" defer></script>
+  <script src="../assets/js/privacy-consent.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          colors: {
+            makerSky: "#0ea5e9",
+            makerViolet: "#8b5cf6",
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
+            makerAmber: "#f59e0b",
+            makerPaper: "#fafafa",
+            unboundGreen: "#214e3f",
+            unboundCream: "#f7f2e7"
+          },
+          boxShadow: {
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)",
+            glowViolet: "0 20px 40px -24px rgba(139,92,246,0.7)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --orbital-gradient: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+    }
+
+    @keyframes orbital-flow {
+      from {
+        background-position: 0% 50%;
+      }
+
+      to {
+        background-position: 200% 50%;
+      }
+    }
+
+    .animate-orbital {
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      transform: translateY(-200%);
+      border-radius: .75rem;
+      background: #fff;
+      padding: .6rem 1rem;
+      color: #0f172a;
+      font-size: .875rem;
+      font-weight: 600;
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, .5);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    [data-image-state="loaded"] .screenshot-fallback {
+      display: none;
+    }
+
+    [data-image-state="missing"] img {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital {
+        animation: none !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/site-info.css" />
+  <script src="../assets/js/site-info.js" defer></script>
+  <script src="../assets/js/unbound.js" defer></script>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
+  <a href="#main-content"
+    class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+    Skip to Content
+  </a>
+
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute top-[35%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-violet-200/35 blur-3xl"></div>
+    <div class="absolute bottom-[-10rem] left-[20%] h-[24rem] w-[24rem] rounded-full bg-amber-200/35 blur-3xl"></div>
+  </div>
+
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+    <img src="../assets/images/drawing-dragon.png" alt=""
+      class="absolute left-[2%] top-[8%] hidden w-[20vw] min-w-[140px] max-w-[240px] -rotate-6 opacity-[0.08] lg:block"
+      loading="lazy" decoding="async" width="543" height="484" />
+    <img src="../assets/images/drawing-sun.png" alt=""
+      class="absolute bottom-[7%] right-[3%] hidden w-[14vw] min-w-[110px] max-w-[180px] -rotate-3 opacity-[0.08] md:block"
+      loading="lazy" decoding="async" width="557" height="564" />
+  </div>
+
+  <header class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
+    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+      <nav aria-label="Build navigation"
+        class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+        <a href="../things-built.html" data-ga-event="things_built_back_click" data-ga-location="top_nav"
+          class="text-[10px] font-bold uppercase tracking-wide text-makerSkyText focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          ← Things I've Built
+        </a>
+        <span aria-hidden="true" class="text-slate-300">|</span>
+        <a href="../index.html" data-ga-event="portfolio_nav_click" data-ga-location="top_nav"
+          class="text-[10px] font-bold uppercase tracking-wide text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1"
+    class="relative z-10 mx-auto w-full max-w-[1210px] px-5 pb-16 pt-20 md:px-10 md:pt-24">
+    <header
+      class="mb-12 overflow-hidden rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10 lg:p-12">
+      <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.72fr)] lg:gap-14">
+        <div>
+          <p
+            class="inline-flex h-[26px] items-center rounded-full border border-sky-200 bg-sky-50 px-4 text-[10px] font-bold uppercase tracking-widest text-makerSkyText">
+            iPhone Product
+          </p>
+          <h1 class="mt-5 font-heading text-5xl font-extrabold tracking-tight text-slate-900 md:text-7xl">Unbound</h1>
+          <p class="mt-4 font-heading text-2xl font-semibold leading-snug text-unboundGreen md:text-3xl">
+            Take back your time.
+          </p>
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-600 md:text-lg">
+            Choose the apps you want to keep. When you're ready to focus, lock everything else away.
+          </p>
+          <div class="mt-8">
+            <span
+              class="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-50/80 px-6 py-3 text-sm font-bold text-emerald-900 shadow-sm">
+              Coming to the App Store
+            </span>
+          </div>
+        </div>
+
+        <figure class="mx-auto w-full max-w-[410px]" data-unbound-screenshot data-image-state="pending">
+          <div
+            class="screenshot-fallback flex min-h-[520px] items-center justify-center rounded-3xl border border-slate-200 bg-unboundCream/80 p-8 text-center shadow-xl">
+            <p class="max-w-xs text-sm font-semibold leading-relaxed text-slate-500">
+              Add <span class="break-all text-unboundGreen">unbound-take-back-your-time.png</span> to display the
+              promotional artwork.
+            </p>
+          </div>
+          <img src="../assets/images/unbound/unbound-take-back-your-time.png"
+            alt="Unbound promotional artwork: Take back your time"
+            class="h-auto w-full rounded-3xl shadow-2xl" loading="eager" decoding="async" fetchpriority="high" />
+        </figure>
+      </div>
+    </header>
+
+    <section class="mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10"
+      aria-labelledby="idea-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The idea</p>
+      <h2 id="idea-heading" class="mt-3 max-w-3xl font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+        A different way to think about app blocking.
+      </h2>
+      <div class="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-slate-600 md:text-base">
+        <p>Most app blockers start by asking what you want to block.</p>
+        <p class="font-semibold text-slate-900">Unbound flips that around.</p>
+        <p>
+          Choose the apps you want to keep available, then lock everything else away when it's time to focus.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12" aria-labelledby="how-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">How it works</p>
+      <h2 id="how-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+        Three small steps.
+      </h2>
+      <ol class="mt-7 grid gap-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+        <li class="border-l-2 border-sky-300 pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Choose what stays</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Pick the apps you want available.</p>
+        </li>
+        <li aria-hidden="true" class="hidden font-heading text-2xl font-bold text-slate-300 md:block">→</li>
+        <li class="border-l-2 border-violet-300 pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Lock in</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Start focused time with one tap.</p>
+        </li>
+        <li aria-hidden="true" class="hidden font-heading text-2xl font-bold text-slate-300 md:block">→</li>
+        <li class="border-l-2 border-amber-300 pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Unlock when you're ready</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Return to normal when you're finished.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="mb-12" aria-labelledby="screenshots-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">The product</p>
+      <h2 id="screenshots-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+        Built to stay out of the way.
+      </h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 md:gap-8">
+        <figure class="w-full" data-unbound-screenshot data-image-state="pending">
+          <div
+            class="screenshot-fallback flex min-h-[560px] items-center justify-center rounded-3xl border border-slate-200 bg-white/75 p-8 text-center shadow-xl backdrop-blur-xl">
+            <p class="max-w-xs text-sm font-semibold leading-relaxed text-slate-500">
+              Add <span class="break-all text-unboundGreen">unbound-keep-what-matters.png</span> to display the
+              promotional artwork.
+            </p>
+          </div>
+          <img src="../assets/images/unbound/unbound-keep-what-matters.png"
+            alt="Unbound promotional artwork: Keep what matters"
+            class="h-auto w-full rounded-3xl shadow-xl" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="w-full" data-unbound-screenshot data-image-state="pending">
+          <div
+            class="screenshot-fallback flex min-h-[560px] items-center justify-center rounded-3xl border border-slate-200 bg-white/75 p-8 text-center shadow-xl backdrop-blur-xl">
+            <p class="max-w-xs text-sm font-semibold leading-relaxed text-slate-500">
+              Add <span class="break-all text-unboundGreen">unbound-home-screen-control.png</span> to display the
+              promotional artwork.
+            </p>
+          </div>
+          <img src="../assets/images/unbound/unbound-home-screen-control.png"
+            alt="Unbound promotional artwork: Control it from your Home Screen"
+            class="h-auto w-full rounded-3xl shadow-xl" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10"
+      aria-labelledby="simple-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerSkyText">Product principles</p>
+      <h2 id="simple-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">
+        Simple by design.
+      </h2>
+      <p class="mt-6 font-heading text-lg font-semibold text-unboundGreen md:text-xl">
+        No account · No subscription · No tracking · No streaks
+      </p>
+      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+        Unbound is intentionally small. No dashboards, gamification, or complicated setup — just a quick way to make
+        room for what matters.
+      </p>
+    </section>
+
+    <section class="mb-12" aria-labelledby="details-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-makerVioletText">Details</p>
+      <h2 id="details-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900">Privacy &amp; support</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <a href="privacy/"
+          class="group rounded-2xl border border-sky-100 bg-white/70 p-5 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="font-heading text-xl font-semibold text-slate-900">Privacy Policy</span>
+          <span class="ml-1 text-makerSkyText transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a href="support/"
+          class="group rounded-2xl border border-violet-100 bg-white/70 p-5 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerViolet focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="font-heading text-xl font-semibold text-slate-900">Support</span>
+          <span class="ml-1 text-makerVioletText transition-transform group-hover:translate-x-1"
+            aria-hidden="true">→</span>
+          <span class="mt-2 block text-sm text-slate-500">support@tyleryates.me</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="mt-12 text-center">
+      <p class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        Site engineered &amp; optimized by
+        <span class="animate-orbital bg-clip-text text-transparent">Tyler Yates</span> | © 2026
+      </p>
+      <button type="button" class="site-info-link site-info-footer-link" data-site-info-trigger
+        aria-haspopup="dialog" aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
+    </footer>
+  </main>
+</body>
+
+</html>

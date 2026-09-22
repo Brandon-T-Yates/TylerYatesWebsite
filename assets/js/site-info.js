@@ -87,7 +87,7 @@
           </div>
 
           <p>
-            <a class="site-info-policy-link" href="privacy.html">Read the full privacy notice <span aria-hidden="true">→</span></a>
+            <a class="site-info-policy-link" href="/privacy.html">Read the full privacy notice <span aria-hidden="true">→</span></a>
           </p>
 
           <p class="site-info-contact">

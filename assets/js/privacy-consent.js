@@ -13,7 +13,7 @@
   };
   const privacyDetailsHref = /\/privacy\.html$/i.test(window.location.pathname)
     ? "#privacy-choices"
-    : "privacy.html";
+    : "/privacy.html";
 
   const banner = document.createElement("aside");
   banner.className = "privacy-banner";
