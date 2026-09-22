@@ -1,7 +1,8 @@
 # Unbound screenshots
 
-Place the three unedited promotional images in this directory using these exact filenames:
+Place the unedited app icon and promotional images in this directory using these exact filenames:
 
+- `unbound-app-icon.png`
 - `unbound-take-back-your-time.png`
 - `unbound-keep-what-matters.png`
 - `unbound-home-screen-control.png`
