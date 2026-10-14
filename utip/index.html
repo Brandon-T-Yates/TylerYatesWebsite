@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <title>uTip — Simple Tip Calculator</title>
+  <meta name="description"
+    content="uTip is a simple tip calculator with adjustable tips, instant totals, whole-dollar rounding, light and dark modes, and adjustable text size." />
+  <link rel="canonical" href="https://www.tyleryates.me/utip" />
+  <script>
+    // Keep the landing markup mirrored in utip/index.html for directory-first preview servers.
+    // GitHub Pages serves /utip from this file; the explicit legacy URL remains a case-study link.
+    if (window.location.pathname === "/utip.html") {
+      window.location.replace("/utip/casestudy/" + window.location.search + window.location.hash);
+    } else if (["/utip/", "/utip/index.html", "/utip/index"].includes(window.location.pathname)) {
+      // Directory-first preview servers redirect /utip back to /utip/.
+      // Render the landing page there, and normalize only when the host supports /utip directly.
+      fetch("/utip" + window.location.search, { method: "HEAD", redirect: "follow", cache: "no-store" })
+        .then((response) => {
+          if (response.ok && !response.redirected && new URL(response.url).pathname === "/utip") {
+            window.location.replace("/utip" + window.location.search + window.location.hash);
+          }
+        })
+        .catch(() => {
+          // The rendered landing page stays usable if the routing check cannot complete.
+        });
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/privacy-consent.css" />
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/privacy-consent.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          colors: {
+            makerSky: "#0ea5e9",
+            makerViolet: "#8b5cf6",
+            makerSkyText: "#0369a1",
+            makerVioletText: "#6d28d9",
+            makerAmber: "#f59e0b",
+            makerPaper: "#fafafa",
+            utipBlue: "#3B82F6",
+            utipBlueDark: "#1D4ED8",
+            utipBlueSoft: "#EFF6FF"
+          },
+          boxShadow: {
+            glowSky: "0 20px 40px -24px rgba(14,165,233,0.7)",
+            glowViolet: "0 20px 40px -24px rgba(139,92,246,0.7)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --orbital-gradient: linear-gradient(to right, #0ea5e9, #8b5cf6, #f59e0b, #0ea5e9);
+    }
+
+    @keyframes orbital-flow {
+      from {
+        background-position: 0% 50%;
+      }
+
+      to {
+        background-position: 200% 50%;
+      }
+    }
+
+    .animate-orbital {
+      background: var(--orbital-gradient);
+      background-size: 200% auto;
+      animation: orbital-flow 6s linear infinite;
+    }
+
+    .legacy-doodle {
+      filter: grayscale(10%) saturate(120%);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      transform: translateY(-200%);
+      border-radius: .75rem;
+      background: #fff;
+      padding: .6rem 1rem;
+      color: #0f172a;
+      font-size: .875rem;
+      font-weight: 600;
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, .5);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    [data-image-state="pending"] .screenshot-fallback,
+    [data-image-state="loaded"] .screenshot-fallback {
+      display: none;
+    }
+
+    [data-image-state="missing"] img {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-orbital {
+        animation: none !important;
+      }
+
+      .level-up {
+        transition-duration: 0ms !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/css/site-info.css" />
+  <script src="/assets/js/site-info.js" defer></script>
+  <script src="/assets/js/unbound.js" defer></script>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden bg-makerPaper font-body font-normal text-slate-900 antialiased">
+  <a href="#main-content"
+    class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+    Skip to Content
+  </a>
+
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-blue-200/40 blur-3xl"></div>
+    <div class="absolute top-[35%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-blue-100/40 blur-3xl"></div>
+    <div class="absolute bottom-[-10rem] left-[20%] h-[24rem] w-[24rem] rounded-full bg-sky-100/40 blur-3xl"></div>
+  </div>
+
+  <div id="legacy-layer" aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+    <img src="/assets/images/drawing-dragon.png" alt=""
+      class="legacy-doodle absolute left-[2%] top-[8%] hidden w-[20vw] min-w-[140px] max-w-[240px] -rotate-6 opacity-[0.10] lg:block"
+      loading="lazy" decoding="async" width="543" height="484" />
+    <img src="/assets/images/drawing-dino.png" alt=""
+      class="legacy-doodle absolute right-[2%] top-[38%] hidden w-[16vw] min-w-[120px] max-w-[210px] rotate-6 opacity-[0.09] lg:block"
+      loading="lazy" decoding="async" width="420" height="427" />
+    <img src="/assets/images/drawing-cat.png" alt=""
+      class="legacy-doodle absolute bottom-[28%] left-[2%] hidden w-[16vw] min-w-[120px] max-w-[200px] rotate-3 opacity-[0.09] md:block"
+      loading="lazy" decoding="async" width="381" height="507" />
+    <img src="/assets/images/drawing-sun.png" alt=""
+      class="legacy-doodle absolute bottom-[7%] right-[3%] hidden w-[14vw] min-w-[110px] max-w-[180px] -rotate-3 opacity-[0.09] md:block"
+      loading="lazy" decoding="async" width="557" height="564" />
+  </div>
+
+  <div class="fixed left-4 top-0 z-40 hidden h-screen w-1.5 overflow-hidden rounded-full bg-slate-300/70 md:block">
+    <div id="scroll-line"
+      class="h-0 w-full bg-gradient-to-b from-blue-400 via-utipBlue to-utipBlueDark transition-[height] duration-150">
+    </div>
+  </div>
+
+  <header class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
+    <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
+      <nav aria-label="Build navigation"
+        class="inline-flex items-center gap-3 rounded-full bg-white/85 px-4 py-2 backdrop-blur-xl">
+        <a href="/things-built.html" data-ga-event="things_built_back_click" data-ga-location="top_nav"
+          class="text-[10px] font-bold uppercase tracking-wide text-utipBlueDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          ← Things I've Built
+        </a>
+        <span aria-hidden="true" class="text-slate-300">|</span>
+        <a href="/index.html" data-ga-event="portfolio_nav_click" data-ga-location="top_nav"
+          class="text-[10px] font-bold uppercase tracking-wide text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1"
+    class="relative z-10 mx-auto w-full max-w-[1210px] px-5 pb-16 pt-20 md:px-10 md:pt-24">
+    <header
+      class="level-up mb-12 overflow-hidden rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10 lg:p-12">
+      <div class="grid gap-8 md:grid-cols-2 md:items-stretch md:gap-12 lg:gap-14">
+        <div class="md:pr-2">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-utipBlueDark">Built product · Android</p>
+          <h1 class="mt-4 font-heading text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">uTip</h1>
+          <p class="mt-3 font-heading text-xl font-semibold leading-snug text-utipBlueDark md:text-2xl">
+            A simpler way to tip.
+          </p>
+          <p class="mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Enter your bill, choose a tip percentage, and see the tip and total instantly. uTip keeps an everyday
+            calculation quick and convenient, with whole-dollar rounding and display options that work for you.
+          </p>
+          <p class="mt-7 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Features</p>
+          <dl class="mt-3 grid gap-x-6 gap-y-4 text-sm sm:grid-cols-2">
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Adjustable tips</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">Choose the tip percentage that suits your bill.</dd>
+            </div>
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Instant calculations</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">Your tip amount and total update automatically.</dd>
+            </div>
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Whole-dollar rounding</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">Round the total up or down to the nearest whole dollar.</dd>
+            </div>
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Light &amp; dark modes</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">Choose the appearance you prefer.</dd>
+            </div>
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Adjustable text size</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">Use larger text for easier reading.</dd>
+            </div>
+            <div>
+              <dt class="font-heading font-semibold text-slate-900">Simple interface</dt>
+              <dd class="mt-1 leading-relaxed text-slate-600">A clear, easy-to-use layout for a quick calculation.</dd>
+            </div>
+          </dl>
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <a href="/utip/casestudy/" data-ga-event="utip_case_study_click" data-ga-location="app_hero"
+              class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl bg-utipBlueDark px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              Read the Case Study <span aria-hidden="true">→</span>
+            </a>
+            <span class="inline-flex rounded-full border border-blue-200 bg-utipBlueSoft px-3 py-1 text-xs font-semibold text-utipBlueDark">
+              Shipped Android app
+            </span>
+          </div>
+        </div>
+        <figure
+          class="relative flex h-full flex-col items-center justify-center gap-4 rounded-3xl bg-gradient-to-br from-utipBlueSoft via-white/50 to-blue-50/70 p-4 md:p-5"
+          data-unbound-screenshot data-image-state="pending">
+          <div class="relative w-full max-w-[280px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
+            <div aria-hidden="true"
+              class="screenshot-fallback flex aspect-[648/1440] items-center justify-center bg-utipBlueSoft p-6 text-center">
+              <p class="max-w-xs text-sm font-semibold leading-relaxed text-slate-500">The uTip screenshot is unavailable.</p>
+            </div>
+            <img src="/assets/images/uTip.jpg"
+              alt="uTip interface showing a bill amount, adjustable tip percentage, calculated total, and buttons to round up or down"
+              class="h-auto w-full" width="648" height="1440" loading="eager" decoding="async" fetchpriority="high" />
+          </div>
+          <figcaption class="text-center text-xs leading-relaxed text-slate-500">The shipped uTip interface.</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <section class="level-up mb-12" aria-labelledby="how-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-utipBlueDark">How it works</p>
+      <h2 id="how-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">Three small steps.</h2>
+      <ol class="mt-7 grid gap-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+        <li class="border-l-2 border-blue-200 pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Enter your bill</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Start with the bill amount.</p>
+        </li>
+        <li aria-hidden="true" class="hidden font-heading text-2xl font-bold text-slate-300 md:block">→</li>
+        <li class="border-l-2 border-utipBlue pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Choose your tip</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Adjust the percentage and see the tip and total.</p>
+        </li>
+        <li aria-hidden="true" class="hidden font-heading text-2xl font-bold text-slate-300 md:block">→</li>
+        <li class="border-l-2 border-blue-300 pl-5">
+          <h3 class="font-heading text-xl font-semibold text-slate-900">Round if you like</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Round the total up or down to a whole dollar.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="level-up mb-12 rounded-3xl border border-white/70 bg-white/70 p-7 shadow-xl backdrop-blur-xl md:p-10"
+      aria-labelledby="simple-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-utipBlueDark">Product principles</p>
+      <h2 id="simple-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900 md:text-4xl">Simple by design.</h2>
+      <p class="mt-6 font-heading text-lg font-semibold text-utipBlueDark md:text-xl">
+        Local calculations · No account · Your display preferences
+      </p>
+      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+        Tip calculations happen on your device. Bill amounts, tip percentages, and totals are not sent to external
+        servers. Your dark-mode and larger-text preferences are stored locally, so the app stays convenient to use.
+      </p>
+    </section>
+
+    <section class="level-up mb-12" aria-labelledby="details-heading">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-utipBlueDark">Details</p>
+      <h2 id="details-heading" class="mt-3 font-heading text-3xl font-bold text-slate-900">Privacy &amp; support</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+        Need help with uTip or have a question? Contact
+        <a href="mailto:support@tyleryates.me"
+          class="font-semibold text-utipBlueDark underline decoration-blue-200 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">support@tyleryates.me</a>.
+      </p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <a href="/utip/privacy/" data-ga-event="utip_privacy_click" data-ga-location="app_details"
+          class="group rounded-2xl border border-blue-100 bg-white/70 p-5 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="font-heading text-xl font-semibold text-slate-900">Privacy Policy</span>
+          <span class="ml-1 text-utipBlueDark transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+          <span class="mt-2 block text-sm text-slate-500">How uTip handles your information.</span>
+        </a>
+        <a href="mailto:support@tyleryates.me" data-ga-event="utip_support_click" data-ga-location="app_details"
+          class="group rounded-2xl border border-blue-100 bg-white/70 p-5 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <span class="font-heading text-xl font-semibold text-slate-900">Email Support</span>
+          <span class="ml-1 text-utipBlueDark" aria-hidden="true">↗</span>
+          <span class="mt-2 block break-all text-sm text-slate-500">support@tyleryates.me</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="relative mt-10 flex w-full flex-col items-center">
+      <div class="group relative flex flex-col items-center">
+        <div class="level-up inline-flex rounded-2xl p-[1.5px] animate-orbital shadow-glowSky">
+          <div
+            class="flex w-fit items-center gap-5 rounded-2xl border-2 border-sky-300 bg-white/70 px-5 py-4 backdrop-blur-xl transition-all duration-300 ease-out group-hover:-translate-y-2 group-hover:bg-white">
+            <span class="inline-flex h-16 w-16 overflow-hidden rounded-full border border-white/90 md:h-20 md:w-20">
+              <img src="/assets/images/cole.jpeg" alt="Cole Yates avatar"
+                class="h-full w-full origin-center scale-150 object-cover transition-transform duration-300 ease-out group-hover:scale-[1.75]"
+                loading="lazy" decoding="async" width="4284" height="5712" />
+            </span>
+            <div class="flex flex-col">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-utipBlueDark">Lead Concept Artist</p>
+              <p class="font-mono text-xs font-bold text-slate-700 md:text-sm">
+                Background drawings created by Cole Yates ✏️
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-16 text-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        Site engineered &amp; optimized by
+        <span class="animate-orbital bg-clip-text text-transparent">Tyler Yates</span>
+        | © 2026
+      </p>
+      <button type="button" class="site-info-link site-info-footer-link" data-site-info-trigger
+        aria-haspopup="dialog" aria-controls="site-info-dialog">Site Info &amp; Privacy</button>
+    </footer>
+  </main>
+
+  <div id="back-to-top-shell"
+    class="pointer-events-none fixed bottom-6 right-6 z-50 inline-flex translate-y-20 rounded-full p-[2px] opacity-0 shadow-glowSky transition-all duration-300 ease-out animate-orbital">
+    <button id="back-to-top" type="button" aria-label="Back to top"
+      class="relative inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white text-utipBlueDark backdrop-blur-md transition-transform duration-300 ease-out hover:rotate-12 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-utipBlue focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+      <span aria-hidden="true"
+        class="pointer-events-none absolute inset-0 rounded-full bg-sky-100/60 blur-sm animate-pulse"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
+</body>
+
+</html>
