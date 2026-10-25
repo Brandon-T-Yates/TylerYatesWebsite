@@ -191,8 +191,15 @@
             <li>authorization state</li>
             <li>widget state</li>
             <li>Apple-provided app-selection tokens</li>
+            <li>Android allowed-app selections, stored as application package identifiers</li>
+            <li>Android LOCK IN and Accessibility interruption state</li>
           </ul>
           <p>These data are used to provide app functionality.</p>
+          <p>
+            On Android, Unbound uses the device's installed-app information to display apps available for selection.
+            The app identifiers you select are saved locally for restriction functionality. Unbound does not save a
+            complete installed-app inventory as part of this selection process.
+          </p>
         </section>
 
         <section aria-labelledby="selection-heading">
@@ -216,24 +223,36 @@
           <p>These system frameworks provide the restriction functionality used by Unbound.</p>
         </section>
 
-        <!-- Requires verification against the Android implementation (separate repository) before release. -->
         <section aria-labelledby="android-accessibility-heading">
           <h2 id="android-accessibility-heading">Android Accessibility Access</h2>
           <p>
-            On Android, Unbound uses Android's Accessibility service to identify the name of the app being opened while
-            the service is enabled. When LOCK IN is active, Unbound compares that app with the allowed-app list stored
-            on the device and returns the user to the Home screen if the app is not allowed.
+            On Android, Unbound uses Android's Accessibility service to identify which app is being opened by reading
+            its app identifier (package name) from window-state change events while the service is enabled.
           </p>
           <p>
-            Unbound does not read screen content, typed text, passwords, messages, or other content through
-            Accessibility.
+            When LOCK IN is active, Unbound compares that identifier with the allowed-app list stored on your device.
+            If the app is not allowed and is not an essential system app or service, Unbound returns you to the Home
+            screen.
           </p>
           <p>
-            Unbound does not save which apps you open. Accessibility information is processed on the device and is not
-            shared or sent off the device.
+            Unbound's Accessibility service is configured not to retrieve screen content. It does not read typed text,
+            passwords, messages, or other screen content through Accessibility.
           </p>
-          <p>The user's allowed-app list and Unbound settings are stored locally on the device.</p>
-          <p>Users can disable Unbound's Accessibility access at any time through Android Settings.</p>
+          <p>
+            Unbound does not maintain or save a history of the apps you open. To prevent repeated blocking actions, it
+            temporarily retains the identifier of the most recently blocked app in memory. This information is not
+            written to persistent storage.
+          </p>
+          <p>
+            Accessibility event information is processed on your device. Unbound's Accessibility service does not send
+            these events to Unbound-operated servers or third parties.
+          </p>
+          <p>
+            Your selected allowed apps and Unbound settings are saved in local app storage. Depending on your Android
+            device's backup settings, this stored information may also be included in Android's system backups or
+            device transfers.
+          </p>
+          <p>You can disable Unbound's Accessibility access at any time through Android Settings.</p>
         </section>
 
         <section aria-labelledby="analytics-heading">

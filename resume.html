@@ -115,7 +115,7 @@
     class="skip-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
     Skip to Content
   </a>
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
     <div class="absolute -top-40 left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sky-200/40 blur-3xl"></div>
     <div class="absolute top-[30%] right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-violet-200/40 blur-3xl"></div>
     <div class="absolute bottom-[-10rem] left-[20%] h-[24rem] w-[24rem] rounded-full bg-amber-200/40 blur-3xl"></div>
@@ -144,17 +144,17 @@
 
   <div class="fixed right-4 top-4 z-50 md:right-8 md:top-6">
     <div class="inline-flex items-center gap-2">
-      <a href="assets/docs/Tyler_Yates_Resume.pdf" download aria-label="Download Tyler Yates resume PDF"
-        data-ga-event="resume_pdf_download" data-ga-location="top_nav"
+      <a href="mailto:tyler@tyleryates.me" aria-label="Email Tyler Yates at tyler@tyleryates.me"
+        data-ga-event="email_click" data-ga-location="top_nav"
         class="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-glowSky backdrop-blur-xl transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-makerSky focus-visible:ring-offset-2 focus-visible:ring-offset-white">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-slate-600" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
+          stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 3v12m0 0l4-4m-4 4l-4-4m-5 8h18" />
+            d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
         <span
-          class="bg-clip-text text-[10px] font-bold uppercase tracking-wide text-transparent animate-orbital">Download
-          Resume</span>
+          class="bg-clip-text text-[10px] font-bold uppercase tracking-wide text-transparent animate-orbital">Contact
+          Me</span>
       </a>
       <div class="inline-flex rounded-full p-[1.5px] animate-orbital shadow-glowSky">
         <nav aria-label="Portfolio and resume toggle"
@@ -190,7 +190,6 @@
           <p>Orlando, FL</p>
           <p><a href="mailto:tyler@tyleryates.me" class="transition hover:text-makerSkyText"
               data-ga-event="email_click" data-ga-location="resume_header">tyler@tyleryates.me</a></p>
-          <p><a href="tel:+12562751324" class="transition hover:text-makerSkyText">(256) 275-1324</a></p>
           <p class="mt-1">
             <a href="https://www.linkedin.com/in/tyleryates57/" target="_blank" rel="noopener noreferrer"
               data-ga-event="linkedin_click" data-ga-location="resume_header"
