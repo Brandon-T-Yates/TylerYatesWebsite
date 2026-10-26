@@ -104,6 +104,213 @@
       display: none;
     }
 
+    .unbound-demo-video {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #f7f2e7;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .unbound-demo-stage {
+      container-type: inline-size;
+    }
+
+    .unbound-demo-stage[data-demo-state="video"] .unbound-demo-video,
+    .unbound-demo-stage[data-demo-state="ended"] .unbound-demo-video {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .unbound-demo-play {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      display: inline-flex;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0 0.9rem;
+      border: 0;
+      border-radius: 999px;
+      background: #214e3f;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow:
+        0 10px 22px -12px rgba(33, 78, 63, 0.9),
+        0 4px 10px -6px rgba(15, 23, 42, 0.4);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+    }
+
+    .unbound-demo-play svg {
+      display: block;
+      width: 11px;
+      height: 11px;
+      flex: none;
+      margin-left: 1px;
+    }
+
+    .unbound-demo-play:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.12);
+      box-shadow:
+        0 14px 26px -12px rgba(33, 78, 63, 0.95),
+        0 6px 12px -6px rgba(15, 23, 42, 0.35);
+    }
+
+    .unbound-demo-play:focus {
+      outline: none;
+    }
+
+    .unbound-demo-play:focus-visible {
+      outline: 2px solid #0ea5e9;
+      outline-offset: 3px;
+    }
+
+    @container (max-width: 330px) {
+      .unbound-demo-play {
+        top: 14px;
+        right: 14px;
+        gap: 0.28rem;
+        padding: 0 0.62rem;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+      }
+
+      .unbound-demo-play svg {
+        width: 9px;
+        height: 9px;
+      }
+    }
+
+    @container (max-width: 210px) {
+      .unbound-demo-play {
+        top: 12px;
+        right: 12px;
+        gap: 0.22rem;
+        padding: 0 0.5rem;
+        font-size: 9px;
+        letter-spacing: 0.02em;
+      }
+
+      .unbound-demo-play svg {
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    .unbound-demo-return {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.25rem;
+      z-index: 4;
+      display: inline-flex;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(33, 78, 63, 0.16);
+      border-radius: 999px;
+      background: rgba(247, 242, 231, 0.95);
+      padding: 0;
+      color: #214e3f;
+      box-shadow: 0 10px 24px -16px rgba(33, 78, 63, 0.8);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .unbound-demo-return:hover {
+      background: #fff;
+    }
+
+    .unbound-demo-return::after {
+      content: "Artwork";
+      position: absolute;
+      right: calc(100% + 0.45rem);
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      background: rgba(247, 242, 231, 0.96);
+      padding: 0.28rem 0.55rem;
+      color: #214e3f;
+      font-family: Inter, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 10px 24px -16px rgba(33, 78, 63, 0.75);
+    }
+
+    .unbound-demo-return:hover::after,
+    .unbound-demo-return:focus-visible::after {
+      opacity: 1;
+    }
+
+    @media (max-width: 340px) {
+      .unbound-demo-return {
+        top: 0.25rem;
+        right: 0.15rem;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .unbound-demo-return:focus-visible,
+    .unbound-demo-error a:focus-visible,
+    .unbound-demo-file:focus-visible {
+      outline: 2px solid #0ea5e9;
+      outline-offset: 3px;
+    }
+
+    .unbound-demo-play[hidden],
+    .unbound-demo-return[hidden],
+    .unbound-demo-error[hidden] {
+      display: none !important;
+    }
+
+    .unbound-demo-error {
+      margin: 0.75rem 0 0;
+      color: #475569;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .unbound-demo-error a,
+    .unbound-demo-file {
+      color: #214e3f;
+      font-weight: 700;
+      text-decoration-line: underline;
+      text-decoration-color: #9bbcab;
+      text-underline-offset: 0.2em;
+    }
+
+    .unbound-demo-caption {
+      text-wrap: balance;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .animate-orbital {
         animation: none !important;
@@ -111,6 +318,16 @@
 
       .level-up {
         transition-duration: 0ms !important;
+      }
+
+      .unbound-demo-play,
+      .unbound-demo-video {
+        transition: none !important;
+      }
+
+      .unbound-demo-play:hover,
+      .unbound-demo-play:focus-visible {
+        transform: none;
       }
     }
   </style>
@@ -255,11 +472,13 @@
         </div>
 
         <figure
-          class="relative flex h-full items-center justify-center rounded-3xl bg-gradient-to-br from-emerald-50/70 via-white/50 to-sky-50/70 p-4 md:p-5"
-          data-unbound-screenshot data-image-state="pending">
+          class="relative flex h-full flex-col items-center justify-center rounded-3xl bg-gradient-to-br from-emerald-50/70 via-white/50 to-sky-50/70 p-4 md:p-5"
+          data-unbound-screenshot data-image-state="pending" data-unbound-demo
+          data-demo-src="../assets/videos/unbound-demo.mp4">
           <div class="relative w-full max-w-[360px]">
             <div
-              class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
+              class="unbound-demo-stage relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl"
+              data-demo-stage data-demo-state="artwork">
               <div aria-hidden="true"
                 class="screenshot-fallback absolute inset-0 flex items-center justify-center bg-unboundCream/80 p-6 text-center">
                 <p class="max-w-xs text-sm font-semibold leading-relaxed text-slate-500">
@@ -270,8 +489,43 @@
               <img src="../assets/images/unbound/unbound-take-back-your-time.png"
                 alt="Unbound promotional artwork: Take back your time"
                 class="absolute left-0 top-0 h-auto w-full" loading="eager" decoding="async" fetchpriority="high" />
+              <video id="unbound-demo-video" class="unbound-demo-video" data-demo-video controls playsinline
+                preload="none" aria-label="Unbound product demonstration" inert aria-hidden="true"></video>
+              <button type="button" class="unbound-demo-play" data-demo-play
+                aria-label="Play Unbound product demonstration" aria-controls="unbound-demo-video">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M8.6 6.4v11.2l9.2-5.6-9.2-5.6z" />
+                </svg>
+                <span aria-hidden="true">Watch demo</span>
+              </button>
+              <button type="button" class="unbound-demo-return" data-demo-return hidden
+                aria-label="Return to promotional artwork">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+                  focusable="false">
+                  <rect x="3.5" y="5.5" width="17" height="13" rx="2" fill="none" stroke="currentColor"
+                    stroke-width="1.8" />
+                  <circle cx="9" cy="10" r="1.3" fill="currentColor" />
+                  <path d="M4 16.2 8.2 13l3 2.2 3.2-2.5L20 16.4" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
             </div>
+            <a class="unbound-demo-file sr-only focus:not-sr-only focus:mt-3 focus:inline-flex focus:min-h-[44px] focus:items-center focus:rounded-full focus:bg-unboundCream focus:px-3 focus:text-xs"
+              href="../assets/videos/unbound-demo.mp4">Open the Unbound product demonstration video</a>
           </div>
+          <p class="unbound-demo-error w-full max-w-[360px]" data-demo-error hidden role="alert">
+            The demo couldn’t play in this browser.
+            <a href="../assets/videos/unbound-demo.mp4">Open the video file</a>
+          </p>
+          <noscript>
+            <p class="mt-3 w-full max-w-[360px] text-center text-xs font-semibold">
+              <a class="unbound-demo-file" href="../assets/videos/unbound-demo.mp4">Play the Unbound product demonstration</a>
+            </p>
+          </noscript>
+          <figcaption
+            class="unbound-demo-caption mt-3 w-full max-w-[360px] text-center font-heading text-xs font-medium leading-relaxed text-unboundGreen">
+            Choose what stays · Lock in · Take back your time
+          </figcaption>
         </figure>
       </div>
     </header>
